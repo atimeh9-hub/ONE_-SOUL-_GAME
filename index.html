@@ -1,1 +1,204 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONE SOUL GAME</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080b18;color:white;
+ font-family:Arial;text-align:center;
+}
+h1{color:#9c7bff;text-shadow:0 0 15px #8755ff}
+#info{display:flex;justify-content:space-around;padding:12px;font-size:18px}
+canvas{
+ background:radial-gradient(#20264b,#080b18);
+ border:2px solid #8060ff;border-radius:15px;
+ width:94%;max-width:600px;touch-action:none;
+}
+button{
+ background:#754bdb;color:white;border:0;
+ border-radius:12px;padding:13px 20px;
+ font-size:17px;margin:7px;
+}
+.controls{
+ display:grid;grid-template-columns:repeat(3,65px);
+ justify-content:center;gap:8px;margin:15px;
+}
+.controls button{height:55px;font-size:25px;padding:5px}
+#message{font-size:20px;color:#ffd76b;min-height:28px}
+</style>
+</head>
+<body>
+<h1>❤️ ONE SOUL GAME ❤️</h1>
+
+<div id="info">
+ <span>Score: <b id="score">0</b></span>
+ <span>Time: <b id="time">60</b>s</span>
+</div>
+
+<canvas id="game" width="600" height="420"></canvas>
+
+<div id="message">Collect souls and avoid shadows!</div>
+
+<div class="controls">
+ <span></span>
+ <button data-key="up">⬆️</button>
+ <span></span>
+ <button data-key="left">⬅️</button>
+ <button data-key="down">⬇️</button>
+ <button data-key="right">➡️</button>
+</div>
+
+<button onclick="restart()">🔄 Restart Game</button>
+
+<script>
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+const scoreText=document.getElementById("score");
+const timeText=document.getElementById("time");
+const message=document.getElementById("message");
+
+let player,soul,enemies,score,time,playing;
+let keys={};
+
+function random(max){return Math.random()*max}
+
+function newSoul(){
+ soul={x:25+random(550),y:25+random(370)};
+}
+
+function restart(){
+ player={x:300,y:210,r:13,speed:4};
+ enemies=[
+  {x:80,y:80,r:16,vx:2.2,vy:1.7},
+  {x:500,y:320,r:16,vx:-2,vy:-2},
+  {x:300,y:50,r:14,vx:2,vy:2}
+ ];
+ score=0;
+ time=60;
+ playing=true;
+ newSoul();
+ scoreText.textContent=score;
+ timeText.textContent=time;
+ message.textContent="Collect souls and avoid shadows!";
+}
+
+function draw(){
+ ctx.clearRect(0,0,600,420);
+
+ // Soul
+ ctx.shadowBlur=22;
+ ctx.shadowColor="#ffe45e";
+ ctx.fillStyle="#ffe45e";
+ ctx.beginPath();
+ ctx.arc(soul.x,soul.y,10,0,Math.PI*2);
+ ctx.fill();
+
+ // Enemies
+ ctx.shadowColor="#ff315b";
+ ctx.fillStyle="#ff315b";
+ enemies.forEach(e=>{
+  ctx.beginPath();
+  ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
+  ctx.fill();
+ });
+
+ // Player
+ ctx.shadowColor="#51dfff";
+ ctx.shadowBlur=25;
+ ctx.fillStyle="#51dfff";
+ ctx.beginPath();
+ ctx.arc(player.x,player.y,player.r,0,Math.PI*2);
+ ctx.fill();
+
+ ctx.shadowBlur=0;
+}
+
+function update(){
+ if(!playing)return;
+
+ if(keys.left)player.x-=player.speed;
+ if(keys.right)player.x+=player.speed;
+ if(keys.up)player.y-=player.speed;
+ if(keys.down)player.y+=player.speed;
+
+ player.x=Math.max(15,Math.min(585,player.x));
+ player.y=Math.max(15,Math.min(405,player.y));
+
+ // Collect soul
+ let d=Math.hypot(player.x-soul.x,player.y-soul.y);
+ if(d<player.r+12){
+  score++;
+  scoreText.textContent=score;
+  newSoul();
+ }
+
+ // Move shadows
+ for(let e of enemies){
+  e.x+=e.vx;
+  e.y+=e.vy;
+
+  if(e.x<e.r||e.x>600-e.r)e.vx*=-1;
+  if(e.y<e.r||e.y>420-e.r)e.vy*=-1;
+
+  if(Math.hypot(player.x-e.x,player.y-e.y)<player.r+e.r){
+   playing=false;
+   message.textContent="💀 Game Over! Score: "+score;
+  }
+ }
+}
+
+function loop(){
+ update();
+ draw();
+ requestAnimationFrame(loop);
+}
+
+setInterval(()=>{
+ if(playing){
+  time--;
+  timeText.textContent=time;
+  if(time<=0){
+   playing=false;
+   message.textContent="🏆 Time Up! Final Score: "+score;
+  }
+ }
+},1000);
+
+// Keyboard controls
+document.addEventListener("keydown",e=>{
+ let k=e.key.toLowerCase();
+ if(k==="arrowup"||k==="w")keys.up=true;
+ if(k==="arrowdown"||k==="s")keys.down=true;
+ if(k==="arrowleft"||k==="a")keys.left=true;
+ if(k==="arrowright"||k==="d")keys.right=true;
+});
+document.addEventListener("keyup",e=>{
+ let k=e.key.toLowerCase();
+ if(k==="arrowup"||k==="w")keys.up=false;
+ if(k==="arrowdown"||k==="s")keys.down=false;
+ if(k==="arrowleft"||k==="a")keys.left=false;
+ if(k==="arrowright"||k==="d")keys.right=false;
+});
+
+// Mobile buttons
+document.querySelectorAll("[data-key]").forEach(btn=>{
+ let key=btn.dataset.key;
+ btn.addEventListener("pointerdown",e=>{
+  e.preventDefault();
+  keys[key]=true;
+ });
+ ["pointerup","pointerleave","pointercancel"].forEach(event=>{
+  btn.addEventListener(event,()=>keys[key]=false);
+ });
+});
+
+restart();
+loop();
+</script>
+</body>
+</html>
