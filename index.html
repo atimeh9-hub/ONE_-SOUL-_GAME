@@ -3,124 +3,290 @@
 <html lang="ur">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ONE SOUL LUDO</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#101827;color:white;font-family:Arial;text-align:center;padding:15px}
-h1{color:#ffd54a}
-#board{width:min(94vw,430px);aspect-ratio:1;margin:20px auto;background:#26364c;border:5px solid #fff;border-radius:50%;position:relative}
-.cell{position:absolute;width:6%;height:6%;border-radius:50%;background:#eee;border:1px solid #777;transform:translate(-50%,-50%)}
-.token{position:absolute;width:9%;height:9%;border:3px solid white;border-radius:50%;color:white;font-weight:bold;z-index:3;transform:translate(-50%,-50%);cursor:pointer}
-.red{background:#e53935}.green{background:#20a050}.yellow{background:#e0b000}.blue{background:#2878e8}
-#center{position:absolute;left:35%;top:35%;width:30%;height:30%;border-radius:50%;background:#ffd54a;color:#111;display:grid;place-items:center;font-weight:bold}
-#dice{font-size:55px;margin:10px}
-button{padding:12px 20px;border:0;border-radius:10px;font-size:17px;font-weight:bold;margin:6px;cursor:pointer}
-#roll{background:#ffd54a}
-#status{font-size:18px;margin:15px}
-#players{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+body{margin:0;background:#111827;color:white;font-family:Arial;text-align:center;padding:12px}
+h1{color:#ffd54a;margin:12px 0}
+.sub{color:#bdc9da;font-size:13px}
+.players{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:480px;margin:15px auto}
+.player{background:#253348;border:2px solid #46536a;border-radius:13px;padding:9px;min-width:0}
+.player.active{border-color:#ffd54a;box-shadow:0 0 12px #ffd54a66}
+.profile{display:flex;align-items:center;gap:8px;justify-content:center}
+.dp{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:#ffffff25;font-size:23px;border:2px solid white}
+.pname{font-weight:bold;font-size:14px}
+.die{font-size:36px;margin:5px}
+.roll{padding:8px 12px;border:0;border-radius:8px;font-weight:bold;background:#ffd54a;color:#171717}
+.roll:disabled{opacity:.35}
+#board{width:min(96vw,480px);aspect-ratio:1;margin:12px auto;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);border:4px solid white;background:#fff;border-radius:5px;overflow:hidden}
+.cell{position:relative;border:1px solid #cbd0d7;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0}
+.redbase{background:#f5b4b4}
+.greenbase{background:#a9e7b8}
+.yellowbase{background:#f7e79a}
+.bluebase{background:#a9d4f7}
+.track{background:#fff}
+.redlane{background:#ed4242}
+.greenlane{background:#23a653}
+.yellowlane{background:#e9c62e}
+.bluelane{background:#338ce0}
+.redstart{background:#ed4242!important}
+.greenstart{background:#23a653!important}
+.yellowstart{background:#e9c62e!important}
+.bluestart{background:#338ce0!important}
+.center{background:conic-gradient(#e53935 0 25%,#20a050 25% 50%,#e5bd20 50% 75%,#2878e8 75%)}
+.home-slot{background:#fff;border:3px solid #fff;border-radius:50%;width:75%;height:75%;box-shadow:0 1px 4px #555}
+.piece{width:92%;height:92%;min-width:0;border:2px solid white;border-radius:50%;color:white;font-weight:bold;font-size:clamp(8px,2.4vw,13px);cursor:pointer;box-shadow:0 2px 4px #333;z-index:2;padding:0}
+.piece.red{background:#d92525}
+.piece.green{background:#138b3d}
+.piece.yellow{background:#c49b00}
+.piece.blue{background:#1767c6}
+.piece:disabled{cursor:default}
+#status{background:#253348;border-radius:10px;padding:13px;margin:12px auto;max-width:480px;min-height:48px}
+#next{background:#ddd;border:0;padding:10px 18px;border-radius:8px;font-weight:bold}
+#new{background:#ffd54a;border:0;padding:10px 18px;border-radius:8px;font-weight:bold;margin:8px}
+.note{font-size:12px;color:#aebbd0;line-height:1.6}
 </style>
 </head>
 <body>
+
 <h1>🎲 ONE SOUL LUDO 🎲</h1>
-<p>ایک ساتھ بیٹھ کر لڈو کھیلیں</p>
-<div id="players">
-<span class="red">🔴 RED</span>
-<span class="green">🟢 GREEN</span>
-<span class="yellow">🟡 YELLOW</span>
-<span class="blue">🔵 BLUE</span>
-</div>
-<div id="board">
-<div id="center">ONE<br>SOUL</div>
-</div>
-<div id="dice">🎲</div>
-<button id="roll" onclick="rollDice()">ڈائس چلائیں</button>
-<div id="status">ریڈ کی باری ہے</div>
-<button onclick="location.reload()">نئی گیم</button>
+<div class="sub">FOUR PLAYERS • ONE GAME</div>
+
+<div class="players" id="players"></div>
+
+<div id="board"></div>
+
+<div id="status">ریڈ کی باری ہے۔ ڈائس چلائیں۔</div>
+<button id="next" onclick="nextTurn()" hidden>اگلی باری</button>
+<br>
+<button id="new" onclick="newGame()">نئی گیم شروع کریں</button>
+
+<p class="note">
+چھ آنے پر گوٹی باہر نکلے گی۔<br>
+مخالف کی گوٹی محفوظ خانے کے علاوہ کاٹی جا سکتی ہے۔<br>
+جیتنے کے لیے اپنی چاروں گوٹیاں ہوم پہنچائیں۔
+</p>
 
 <script>
-const colors=["red","green","yellow","blue"];
-const names=["ریڈ","گرین","ییلو","بلیو"];
-const starts=[0,13,26,39];
-let turn=0,dice=0,waiting=false;
-let pieces=colors.map(()=>[-1,-1,-1,-1]);
-const board=document.getElementById("board");
-const cells=[];
-const safe=[0,8,13,21,26,34,39,47];
+const P=[
+ {name:"RED",urdu:"ریڈ",color:"red",emoji:"🔴",start:0,
+  lane:[[7,1],[7,2],[7,3],[7,4],[7,5]]},
+ {name:"GREEN",urdu:"گرین",color:"green",emoji:"🟢",start:13,
+  lane:[[1,7],[2,7],[3,7],[4,7],[5,7]]},
+ {name:"YELLOW",urdu:"ییلو",color:"yellow",emoji:"🟡",start:26,
+  lane:[[7,13],[7,12],[7,11],[7,10],[7,9]]},
+ {name:"BLUE",urdu:"بلیو",color:"blue",emoji:"🔵",start:39,
+  lane:[[13,7],[12,7],[11,7],[10,7],[9,7]]}
+];
 
-for(let i=0;i<52;i++){
- let a=(i*2*Math.PI/52)-Math.PI/2;
- let x=50+43*Math.cos(a),y=50+43*Math.sin(a);
- let c=document.createElement("div");
- c.className="cell";
- c.style.left=x+"%";c.style.top=y+"%";
- board.appendChild(c);cells.push({x,y});
+const path=[
+[6,1],[6,2],[6,3],[6,4],[6,5],
+[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],
+[0,7],[0,8],
+[1,8],[2,8],[3,8],[4,8],[5,8],
+[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],
+[7,14],[8,14],
+[8,13],[8,12],[8,11],[8,10],[8,9],
+[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],
+[14,7],[14,6],
+[13,6],[12,6],[11,6],[10,6],[9,6],
+[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],
+[7,0],[6,0]
+];
+
+const homes=[
+ [[2,2],[2,4],[4,2],[4,4]],
+ [[2,10],[2,12],[4,10],[4,12]],
+ [[10,10],[10,12],[12,10],[12,12]],
+ [[10,2],[10,4],[12,2],[12,4]]
+];
+
+const safe=[0,8,13,21,26,34,39,47];
+let positions=P.map(()=>[-1,-1,-1,-1]);
+let turn=0,dice=null,rolled=false,finished=false;
+const board=document.getElementById("board");
+const cells={};
+
+function key(r,c){return r+","+c}
+function addClass(r,c,cl){
+ if(cells[key(r,c)])cells[key(r,c)].classList.add(cl);
 }
-function position(token,player,index){
- if(index===-1){
-  let centers=[[24,24],[76,24],[76,76],[24,76]];
-  let offsets=[[0,0],[8,0],[0,8],[8,8]];
-  return [centers[player][0]+offsets[token][0]-4,
-          centers[player][1]+offsets[token][1]-4];
+
+function buildBoard(){
+ for(let r=0;r<15;r++){
+  for(let c=0;c<15;c++){
+   let el=document.createElement("div");
+   el.className="cell";
+   el.id="cell-"+r+"-"+c;
+   board.appendChild(el);
+   cells[key(r,c)]=el;
+
+   if(r<=5&&c<=5)el.classList.add("redbase");
+   if(r<=5&&c>=9)el.classList.add("greenbase");
+   if(r>=9&&c>=9)el.classList.add("yellowbase");
+   if(r>=9&&c<=5)el.classList.add("bluebase");
+  }
  }
- if(index>=52)return [50,50];
- let p=cells[(starts[player]+index)%52];
- return [p.x,p.y];
-}
-function draw(){
- document.querySelectorAll(".token").forEach(e=>e.remove());
- pieces.forEach((group,p)=>{
-  group.forEach((step,t)=>{
-   let [x,y]=position(t,p,step);
-   let b=document.createElement("button");
-   b.className="token "+colors[p];
-   b.textContent=t+1;
-   b.style.left=x+"%";b.style.top=y+"%";
-   b.onclick=()=>move(p,t);
-   board.appendChild(b);
+
+ path.forEach(([r,c])=>addClass(r,c,"track"));
+
+ P.forEach((p,i)=>{
+  p.lane.forEach(([r,c])=>addClass(r,c,p.color+"lane"));
+  addClass(...path[p.start],p.color+"start");
+  homes[i].forEach(([r,c])=>{
+   let s=document.createElement("div");
+   s.className="home-slot";
+   cells[key(r,c)].appendChild(s);
   });
  });
+
+ addClass(7,7,"center");
 }
-function rollDice(){
- if(waiting)return;
+function makePlayers(){
+ const area=document.getElementById("players");
+ P.forEach((p,i)=>{
+  let card=document.createElement("div");
+  card.className="player";
+  card.id="player-"+i;
+  card.innerHTML=`
+   <div class="profile">
+    <div class="dp">${p.emoji}</div>
+    <div>
+     <div class="pname">${p.name}</div>
+     <small>${p.urdu} کھلاڑی</small>
+    </div>
+   </div>
+   <div class="die" id="die-${i}">🎲</div>
+   <button class="roll" id="roll-${i}" onclick="rollDice(${i})">ڈائس چلائیں</button>
+   <small id="score-${i}">0 / 4 ہوم</small>`;
+  area.appendChild(card);
+ });
+}
+function getPosition(p,t){
+ let v=positions[p][t];
+ if(v===-1)return homes[p][t];
+ if(v===57)return [7,7];
+ if(v<52)return path[(P[p].start+v)%52];
+ return P[p].lane[v-52];
+}
+function draw(){
+ document.querySelectorAll(".piece").forEach(x=>x.remove());
+
+ positions.forEach((group,p)=>{
+  group.forEach((v,t)=>{
+   let [r,c]=getPosition(p,t);
+   let b=document.createElement("button");
+   b.className="piece "+P[p].color;
+   b.textContent=t+1;
+   b.title=P[p].name+" گوٹی "+(t+1);
+   b.onclick=()=>movePiece(p,t);
+   b.disabled=!(rolled&&p===turn&&!finished);
+   cells[key(r,c)].appendChild(b);
+  });
+ });
+
+ P.forEach((p,i)=>{
+  document.getElementById("player-"+i).classList.toggle("active",turn===i&&!finished);
+  document.getElementById("roll-"+i).disabled=
+   turn!==i||rolled||finished;
+  document.getElementById("score-"+i).textContent=
+   positions[i].filter(v=>v===57).length+" / 4 ہوم";
+ });
+}
+function message(s){
+ document.getElementById("status").textContent=s;
+}
+function legalMoves(p){
+ return positions[p].map((v,t)=>({
+  t,ok:(v===-1?dice===6:v<57&&v+dice<=57)
+ })).filter(x=>x.ok).map(x=>x.t);
+}
+function rollDice(p){
+ if(finished||rolled||p!==turn)return;
  dice=Math.floor(Math.random()*6)+1;
- document.getElementById("dice").textContent=
- ["","⚀","⚁","⚂","⚃","⚄","⚅"][dice];
- waiting=true;
- document.getElementById("status").textContent=
- names[turn]+" کی باری — گوٹی منتخب کریں";
+ rolled=true;
+ document.getElementById("die-"+p).textContent=
+  ["","⚀","⚁","⚂","⚃","⚄","⚅"][dice];
+
+ let moves=legalMoves(p);
+ draw();
+
+ if(moves.length===0){
+  message(P[p].urdu+" کے لیے کوئی گوٹی نہیں چل سکتی۔");
+  document.getElementById("next").hidden=false;
+ }else{
+  message(P[p].urdu+" کا ڈائس "+dice+" آیا۔ اپنی گوٹی منتخب کریں۔");
+  document.getElementById("next").hidden=true;
+ }
 }
-function move(p,t){
- if(!waiting||p!==turn)return;
- let old=pieces[p][t];
- if(old===-1&&dice!==6)return;
+function movePiece(p,t){
+ if(finished||!rolled||p!==turn)return;
+ if(!legalMoves(p).includes(t))return;
+
+ let old=positions[p][t];
  let next=old===-1?0:old+dice;
- if(next>52)return;
- pieces[p][t]=next;
+ positions[p][t]=next;
+
+ let captured=0;
+
  if(next<52){
-  let square=(starts[p]+next)%52;
+  let square=(P[p].start+next)%52;
   if(!safe.includes(square)){
-   pieces.forEach((group,op)=>{
-    if(op!==p)group.forEach((step,k)=>{
-     if(step>=0&&step<52&&
-       (starts[op]+step)%52===square){
-       pieces[op][k]=-1;
+   positions.forEach((group,op)=>{
+    if(op===p)return;
+    group.forEach((v,k)=>{
+     if(v>=0&&v<52&&
+        (P[op].start+v)%52===square){
+      positions[op][k]=-1;
+      captured++;
      }
     });
    });
   }
  }
- draw();
- waiting=false;
- if(pieces[p].every(v=>v===52)){
-  document.getElementById("status").textContent=
-  "🏆 "+names[p]+" جیت گیا!";
-  waiting=true;return;
+
+ rolled=false;
+ document.getElementById("next").hidden=true;
+
+ if(positions[p].every(v=>v===57)){
+  finished=true;
+  message("🏆 مبارک ہو! "+P[p].urdu+" کھلاڑی جیت گیا!");
+  draw();
+  return;
  }
- if(dice!==6)turn=(turn+1)%4;
- document.getElementById("status").textContent=
- names[turn]+" کی باری ہے";
+
+ if(dice===6){
+  message(captured?
+   "گوٹی کاٹ دی! دوبارہ ڈائس چلائیں۔":
+   "چھ آیا! دوبارہ آپ کی باری ہے۔");
+ }else{
+  turn=(turn+1)%4;
+  message(P[turn].urdu+" کی باری ہے۔");
+ }
+ draw();
 }
+function nextTurn(){
+ if(!rolled||finished)return;
+ rolled=false;
+ dice=null;
+ document.getElementById("next").hidden=true;
+ turn=(turn+1)%4;
+ message(P[turn].urdu+" کی باری ہے۔");
+ draw();
+}
+function newGame(){
+ positions=P.map(()=>[-1,-1,-1,-1]);
+ turn=0;dice=null;rolled=false;finished=false;
+ P.forEach((p,i)=>{
+  document.getElementById("die-"+i).textContent="🎲";
+ });
+ document.getElementById("next").hidden=true;
+ message("نئی گیم شروع! ریڈ کی باری ہے۔");
+ draw();
+}
+buildBoard();
+makePlayers();
 draw();
 </script>
 </body>
