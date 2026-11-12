@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ONE SOUL GAME — Admin Chat Monitor</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="topbar"><div><div class="brand">ONE SOUL GAME</div><div class="subbrand">ADMIN CONTROL PANEL</div></div><span class="secure">RESTRICTED ACCESS</span></header>
+  <main class="wrap">
+    <section id="loginView" class="login-card">
+      <div class="eyebrow">ADMIN AUTHENTICATION</div><h1>Admin sign in</h1><p>Use the admin email and password configured by the server owner.</p>
+      <form id="loginForm"><label>Email<input id="email" type="email" autocomplete="username" required placeholder="admin@onesoul.local"></label><label>Password<input id="password" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">Sign in</button><p id="loginError" class="error" role="alert"></p></form>
+    </section>
+    <section id="dashboardView" hidden>
+      <div class="heading-row"><div><div class="eyebrow">MODERATION TOOLS</div><h1>Chat monitoring</h1><p class="muted">Text messages only. Every admin chat-view request is recorded in the audit log.</p></div><button id="logoutBtn" class="secondary">Sign out</button></div>
+      <div class="notice"><strong>Privacy & access:</strong> Only authenticated admin accounts can access these messages. Review messages only for legitimate safety or rule-enforcement needs. Do not share or export private conversations unnecessarily.</div>
+      <div class="toolbar"><div class="tabs" role="group" aria-label="Chat type"><button class="tab active" data-type="all">All chats</button><button class="tab" data-type="room">Room chats</button><button class="tab" data-type="private">Private chats</button></div><button id="refreshBtn" class="primary small">Refresh messages</button></div>
+      <div class="search-row"><input id="searchInput" type="search" placeholder="Search message, sender, room or recipient…"><span id="countLabel" class="muted">0 messages</span></div>
+      <div id="status" class="status" aria-live="polite">Sign in to load messages.</div>
+      <div id="messages" class="messages"></div>
+      <section class="audit-section"><div class="section-head"><div><div class="eyebrow">ACCOUNTABILITY</div><h2>Admin access history</h2></div><button id="auditBtn" class="secondary small">Refresh log</button></div><div id="auditLog" class="audit-list"><p class="muted">Audit history appears here after loading.</p></div></section>
+    </section>
+  </main>
+  <footer>ONE SOUL GAME · Admin tools prototype · Not production security certification</footer>
+  <script src="admin.js"></script>
+</body></html>

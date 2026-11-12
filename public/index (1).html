@@ -1,0 +1,59 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONE SOUL GAME</title><link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="top"><div class="brand"><span class="brand-mark">✦</span> ONE SOUL <span class="brand-sub">GAME</span></div><div class="coins">🪙 <span id="coinCount">0</span></div></header>
+<main>
+<section id="home" class="panel hero">
+  <div class="crown">👑</div><h1>ONE SOUL<br>GAME</h1><p class="tagline">Play · Chat · Enjoy Together</p>
+  <button class="gold wide" id="playBtn">▶ PLAY NOW</button>
+  <button class="blue wide" id="roomBtn">👥 PRIVATE ROOM</button>
+  <div class="two"><button class="blue" id="shopBtn">🛒 COIN SHOP</button><button class="blue" id="profileBtn">👤 PROFILE</button></div>
+  <div id="notice" class="notice">Welcome! Your premium Ludo adventure starts here.</div>
+</section>
+
+<section id="authPanel" class="panel hidden">
+  <h2>Player Account</h2>
+  <div class="tabs"><button id="showLogin" class="blue">Login</button><button id="showRegister" class="blue">Create account</button></div>
+  <form id="authForm">
+    <input id="username" placeholder="Username (register only)" maxlength="24">
+    <input id="email" type="email" placeholder="Email" required>
+    <input id="password" type="password" placeholder="Password (8+ characters)" required>
+    <label class="privacy"><input id="privacyNotice" type="checkbox"> I understand that text messages in game rooms and private chats may be reviewed by authorized ONE SOUL moderators for safety and rule enforcement. Admin access is restricted and reviewed.</label>
+    <button class="gold wide" type="submit">Continue</button>
+  </form>
+  <p id="authMsg" class="muted"></p>
+</section>
+
+<section id="adminPanel" class="panel hidden">
+  <h2>👑 Admin Dashboard</h2>
+  <p class="muted">ONE SOUL GAME / ADMIN</p>
+  <div class="stats"><div class="stat">Registered players<strong id="players">—</strong></div><div class="stat">Waiting rooms<strong id="rooms">—</strong></div><div class="stat">Banned accounts<strong id="banned">—</strong></div></div>
+  <h3>Players</h3><div id="userList" class="userlist"></div>
+</section>
+
+<section id="gamePanel" class="panel hidden">
+  <div class="game-head"><div><h2>🎲 ONE SOUL LUDO</h2><p id="gameStatus" class="muted">Create a room or join with a code.</p></div><div class="room-code">ROOM <strong id="roomCode">------</strong></div></div>
+  <div class="game-actions">
+    <button id="createGameBtn" class="gold">Create Room</button>
+    <input id="joinCode" placeholder="Enter room code" maxlength="6" />
+    <button id="joinGameBtn" class="blue">Join</button>
+    <button id="startGameBtn" class="blue" disabled>Start Game</button>
+  </div>
+  <div id="playersList" class="players-list"></div>
+  <div class="board-caption"><span>✦ THE SOUL ARENA ✦</span><small>ROLL • MOVE • WIN TOGETHER</small></div>
+  <div class="board-wrap"><div id="ludoBoard" class="ludo-board" aria-label="ONE SOUL premium Ludo board"></div></div>
+  <div class="dice-row"><button id="rollDiceBtn" class="gold" disabled>🎲 Roll Dice</button><div id="diceValue" class="dice-value">—</div><p id="moveHint" class="muted">Join a room to play.</p></div>
+  <div class="game-chat"><h3>Room Chat</h3><div id="gameChatMessages" class="chat-messages"></div><form id="gameChatForm"><input id="gameChatInput" maxlength="300" placeholder="Write a message…" /><button class="blue" type="submit">Send</button></form></div>
+  <button id="backHomeBtn" class="blue wide">Back to Home</button>
+</section>
+<section class="panel footer"><strong>ONE SOUL • PLAY TOGETHER</strong><p>Game preview build. Online rooms require the game server to be running.</p></section>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/app.js"></script>
+<script src="/game-ui.js"></script>
+</body></html>
