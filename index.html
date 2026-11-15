@@ -9,8 +9,8 @@ h1{margin:0;color:#b49aff;letter-spacing:3px}.sub{color:#aeb5d6;font-size:12px;m
 nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px;background:#0d1224;position:sticky;top:0;z-index:5}
 nav button,.action{border:1px solid #59658e;background:#252d4c;color:#fff;border-radius:10px;padding:11px 15px;font-weight:bold}
 nav button.active{background:#754bdb;border-color:#a78bfa}
-main{max-width:1000px;margin:auto;padding:12px}.view{display:none}.view.active{display:block}
-.gameframe{width:100%;height:calc(100vh - 145px);min-height:600px;border:1px solid #394064;border-radius:14px;background:#080b18}
+main{max-width:1000px;margin:auto;padding:5px}.view{display:none}.view.active{display:block}
+.gameframe{display:block;width:100%;height:calc(100dvh - 150px);min-height:540px;border:0;border-radius:0;background:#343f83}
 .panel{background:#141a30;border:1px solid #394064;border-radius:15px;padding:16px;margin:12px 0}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
 .metric{background:#202744;border:1px solid #46517e;border-radius:12px;padding:15px}
@@ -62,50 +62,57 @@ body:not(.authenticated)>header,body:not(.authenticated)>nav,body:not(.authentic
 <section id="ludo" class="view active"><iframe class="gameframe" title="ONE SOUL Ludo" srcdoc="&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;&lt;title&gt;ONE SOUL LUDO&lt;/title&gt;
 &lt;style&gt;
 *{box-sizing:border-box}
-body{margin:0;padding:0 8px 18px;background:radial-gradient(ellipse at 50% 0%,#27315b 0%,#11172d 42%,#070a16 100%);color:#f7f7ff;font-family:Arial,sans-serif;text-align:center}
-h1{color:#e0c5ff;text-shadow:0 0 8px #a879ff,0 0 24px #754bdb;margin:16px 0 8px;font-size:clamp(22px,5vw,32px);letter-spacing:2px}
-#info{display:flex;justify-content:space-around;gap:10px;padding:10px 12px;font-size:15px;max-width:650px;margin:8px auto;background:linear-gradient(135deg,#202a49,#11182d);border:1px solid #6574a8;border-radius:14px;box-shadow:0 8px 22px #0007}
-#info b{color:#ffe19a}
-#status{min-height:34px;color:#ffe08a;font-size:14px;padding:8px;margin:8px auto;max-width:650px;background:#151d33;border:1px solid #35456b;border-radius:12px}
-#board{width:min(94vw,620px);height:min(94vw,620px);margin:22px auto 30px;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);border:8px solid #fff4c9;border-radius:27px;overflow:hidden;background:linear-gradient(145deg,#fff 0%,#e9f2ff 45%,#b7c9ed 100%);box-shadow:0 0 0 3px #a47cff,0 0 0 8px #272d55,0 9px 0 #8b91b8,0 16px 0 #4c557f,0 23px 0 #252d50,0 34px 52px #000e,0 0 42px #a879ff99,inset 0 4px 12px #fff;transform:perspective(900px) rotateX(2.8deg);transform-style:preserve-3d}
-.cell{border:1px solid rgba(34,44,70,.15);display:flex;align-items:center;justify-content:center;font-size:clamp(5px,1.2vw,10px);position:relative;overflow:visible;box-shadow:inset 0 2px 3px #fff,inset 0 -2px 3px #64749b55}
-.home{filter:saturate(1.2);box-shadow:inset 0 3px 11px #fff,inset 0 -6px 12px #0005,0 2px 3px #fff9}.home.red{background:linear-gradient(145deg,#ffb0bb 0%,#f34c70 42%,#9d173e 100%);box-shadow:inset 0 2px 8px #fff8,inset 0 -5px 12px #650d2d55}.home.green{background:linear-gradient(145deg,#c0ffd5 0%,#4bd88b 42%,#08613b 100%);box-shadow:inset 0 2px 8px #fff8,inset 0 -5px 12px #03442655}.home.yellow{background:linear-gradient(145deg,#fff9c5 0%,#ffdc57 42%,#a87508 100%);box-shadow:inset 0 2px 8px #fff9,inset 0 -5px 12px #79500055}.home.blue{background:linear-gradient(145deg,#c4e8ff 0%,#63b2ff 42%,#17478e 100%);box-shadow:inset 0 2px 8px #fff8,inset 0 -5px 12px #0a2d6655}
-.track{background:linear-gradient(145deg,#ffffff 0%,#edf3ff 48%,#cbd7ed 100%);color:#17213b;box-shadow:inset 0 1px 3px #fff,inset 0 -1px 2px #9baaca55}
-.center{background:conic-gradient(from 45deg,#ff5277 0 25%,#31d887 0 50%,#ffd84d 0 75%,#4ca7ff 0);box-shadow:inset 0 0 0 3px #fff,inset 0 0 14px #17213b66}
-.start.red{background:linear-gradient(145deg,#ff8b9b,#e52e59)!important}.start.green{background:linear-gradient(145deg,#a1ffc2,#16a765)!important}.start.yellow{background:linear-gradient(145deg,#fff5a9,#e5b51c)!important}.start.blue{background:linear-gradient(145deg,#a4d8ff,#2874dc)!important}
-.home:after{content:&quot;&quot;;position:absolute;inset:8%;border:2px solid #ffffff99;border-radius:9px;pointer-events:none;box-shadow:inset 0 0 12px #ffffff35,0 0 8px #17213b22}
-.token{width:112%;height:148%;min-width:9px;min-height:9px;border:2px solid #fff;cursor:pointer;position:relative;z-index:3;border-radius:48% 48% 38% 38% / 24% 24% 18% 18%;background-image:linear-gradient(105deg,#ffffff88 0%,transparent 24%,transparent 65%,#0005 100%);box-shadow:inset 0 5px 7px #ffffffed,inset 0 -10px 12px #0008,0 4px 0 #ffffff88,0 8px 0 #17213b77,0 13px 13px #000b,0 0 0 1px #17213b;transform:translateY(-16%) perspective(120px) rotateX(7deg);transition:transform .18s,filter .18s;clip-path:polygon(50% 0%,66% 3%,78% 12%,83% 25%,80% 37%,74% 48%,88% 77%,100% 91%,97% 100%,3% 100%,0 91%,12% 77%,26% 48%,20% 37%,17% 25%,22% 12%,34% 3%)}
-.token:before{content:&quot;&quot;;position:absolute;left:14%;top:9%;width:48%;height:27%;border-radius:50%;background:linear-gradient(135deg,#fffffffa,#ffffff20);transform:rotate(-30deg);filter:blur(.2px)}
-.token:after{content:&quot;&quot;;position:absolute;inset:18%;border-radius:50%;border:1px solid #ffffffb8;box-shadow:inset 0 2px 3px #0004,0 1px 2px #fff5}
-.redT{background:radial-gradient(circle at 32% 25%,#ffccd3 0,#ff637d 25%,#c91e49 68%,#77112d 100%)}
-.greenT{background:radial-gradient(circle at 32% 25%,#d3ffe1 0,#66e99b 25%,#149455 68%,#07542f 100%)}
-.yellowT{background:radial-gradient(circle at 32% 25%,#fffbd0 0,#ffe36b 25%,#d39a08 68%,#815600 100%)}
-.blueT{background:radial-gradient(circle at 32% 25%,#e0f4ff 0,#72bdff 25%,#2674d2 68%,#123d82 100%)}
-button{background:linear-gradient(145deg,#9869f4,#5930b2);color:#fff;border:1px solid #c5a8ff;border-radius:13px;padding:13px 20px;font-size:16px;font-weight:700;margin:7px;box-shadow:0 5px 13px #0006,inset 0 1px #ffffff55}
-button:active{transform:translateY(1px);filter:brightness(1.15)}button:disabled{opacity:.45}.token:hover{filter:brightness(1.2) drop-shadow(0 8px 6px #fff9);transform:translateY(-24%) scale(1.08)}.small{font-size:12px;opacity:.8;color:#c5cde8}
-
-#roll{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-width:190px;min-height:78px;padding:10px 20px;background:linear-gradient(145deg,#b78bff,#6335bd 58%,#382078);border:1px solid #e4d3ff;box-shadow:0 7px 0 #2a1858,0 12px 22px #0008,inset 0 2px 5px #ffffff80}
-.dice-stage{width:54px;height:54px;perspective:220px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 54px}
-.dice-cube{width:46px;height:46px;position:relative;transform-style:preserve-3d;transform:rotateX(-12deg) rotateY(22deg);transition:transform .38s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 5px 4px #160c35aa)}
-.dice-cube.show1{transform:rotateX(0deg) rotateY(0deg)}
-.dice-cube.show2{transform:rotateX(90deg) rotateY(0deg)}
-.dice-cube.show3{transform:rotateX(0deg) rotateY(-90deg)}
-.dice-cube.show4{transform:rotateX(0deg) rotateY(90deg)}
-.dice-cube.show5{transform:rotateX(-90deg) rotateY(0deg)}
-.dice-cube.show6{transform:rotateX(0deg) rotateY(180deg)}
-.dice-cube.rolling{animation:diceTumble .55s ease-in-out}
-@keyframes diceTumble{0%{transform:rotateX(0) rotateY(0) scale(1)}35%{transform:rotateX(220deg) rotateY(180deg) scale(1.12)}70%{transform:rotateX(430deg) rotateY(390deg) scale(1.08)}100%{transform:rotateX(708deg) rotateY(742deg) scale(1)}}
-.dice-face{position:absolute;inset:0;border-radius:9px;background:linear-gradient(145deg,#fff 0%,#e9edff 58%,#b9c3e5 100%);border:2px solid #fff;box-shadow:inset 0 2px 5px #fff, inset 0 -3px 6px #66719a66;backface-visibility:hidden}
-.dice-face.front{transform:translateZ(23px)}.dice-face.back{transform:rotateY(180deg) translateZ(23px)}.dice-face.right{transform:rotateY(90deg) translateZ(23px)}.dice-face.left{transform:rotateY(-90deg) translateZ(23px)}.dice-face.top{transform:rotateX(90deg) translateZ(23px)}.dice-face.bottom{transform:rotateX(-90deg) translateZ(23px)}
-.dice-face .pip{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#596080,#171d38 72%);box-shadow:inset 0 1px 1px #ffffff55,0 1px 2px #0006;transform:translate(-50%,-50%)}
-.roll-label{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}.roll-label strong{font-size:16px;letter-spacing:.5px}.roll-label small{font-size:10px;opacity:.8;font-weight:500;letter-spacing:1px;margin-top:5px}
-@media(max-width:420px){#board{width:96vw;height:96vw;border-width:5px;border-radius:17px}.token{width:118%;height:150%;min-width:8px;min-height:8px}#info{font-size:13px}.cell{border-width:.5px}}
+html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;color:#fff;text-align:center}
+body{padding:7px 5px 10px;background:linear-gradient(180deg,#454f9d 0%,#333f83 52%,#29366f 100%);overflow-x:hidden}
+h1{display:none}
+.small{display:none}
+#info{display:flex;justify-content:space-between;align-items:center;gap:8px;width:min(94vw,520px);margin:3px auto 5px;padding:5px 10px;background:#202d61aa;border:1px solid #7183c7;border-radius:12px;font-size:12px;color:#fff;box-shadow:0 2px 5px #17204a55}
+#info b{color:#ffe08a}
+#status{width:min(94vw,520px);min-height:24px;margin:3px auto 7px;padding:5px 8px;background:#29386dcc;border:1px solid #7484bd;border-radius:9px;color:#fff1ad;font-size:12px;line-height:1.2}
+.player-strip{width:min(94vw,520px);display:flex;justify-content:space-between;align-items:center;margin:5px auto;gap:10px}
+.player{display:flex;align-items:center;gap:5px;min-width:0;padding:3px 7px 3px 3px;border-radius:22px;background:#202c60cc;border:1px solid #8290c5;box-shadow:0 2px 5px #111a3b55}
+.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;border:2px solid #fff;box-shadow:0 1px 3px #0006;background:#fff}
+.player-name{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
+.player.red .avatar{background:#ffb8b8;border-color:#ff6262}.player.green .avatar{background:#b9ffd0;border-color:#31d887}.player.yellow .avatar{background:#fff0a8;border-color:#ffd34c}.player.blue .avatar{background:#b8e4ff;border-color:#4ca7ff}
+#board{width:min(92vw,520px);height:min(92vw,520px);margin:5px auto 7px;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);border:4px solid #f8f8ff;border-radius:5px;overflow:hidden;background:#fff;box-shadow:0 3px 10px #101a4777;transform:none}
+.cell{border:1px solid #d8dce6;display:flex;align-items:center;justify-content:center;font-size:clamp(5px,1.2vw,10px);position:relative;overflow:visible;box-shadow:none}
+.home{filter:none;box-shadow:none}.home.red{background:#ed5262;box-shadow:none}.home.green{background:#31b975;box-shadow:none}.home.yellow{background:#f1cc36;box-shadow:none}.home.blue{background:#46a8e9;box-shadow:none}
+.track{background:#fff;color:#17213b;box-shadow:none}
+.center{background:conic-gradient(from 45deg,#ed5262 0 25%,#31b975 0 50%,#f1cc36 0 75%,#46a8e9 0);box-shadow:none}
+.start.red{background:#ed5262!important}.start.green{background:#31b975!important}.start.yellow{background:#f1cc36!important}.start.blue{background:#46a8e9!important}
+.home:after{content:&quot;&quot;;position:absolute;inset:8%;border:1px solid #ffffff88;border-radius:3px;pointer-events:none;box-shadow:none}
+.token{width:78%;height:78%;min-width:7px;min-height:7px;border:1.5px solid #fff;cursor:pointer;position:relative;z-index:3;border-radius:50%;background-image:none;box-shadow:inset 0 1px 2px #ffffffaa,0 1px 2px #0004;transform:none;transition:transform .15s,filter .15s;clip-path:none}
+.token:before{content:&quot;&quot;;position:absolute;left:17%;top:12%;width:35%;height:24%;border-radius:50%;background:#ffffffbb;transform:rotate(-30deg);filter:none}
+.token:after{content:none}
+.redT{background:radial-gradient(circle at 32% 25%,#ffccd3 0,#ff637d 48%,#c91e49 100%)}
+.greenT{background:radial-gradient(circle at 32% 25%,#d3ffe1 0,#66e99b 48%,#149455 100%)}
+.yellowT{background:radial-gradient(circle at 32% 25%,#fffbd0 0,#ffe36b 48%,#d39a08 100%)}
+.blueT{background:radial-gradient(circle at 32% 25%,#e0f4ff 0,#72bdff 48%,#2674d2 100%)}
+button{background:#347ed0;color:#fff;border:1px solid #a8c8ff;border-radius:10px;padding:9px 14px;font-size:14px;font-weight:700;margin:3px;box-shadow:0 2px 4px #1115}
+button:active{transform:translateY(1px);filter:brightness(1.08)}button:disabled{opacity:.45}.token:hover{filter:brightness(1.1);transform:scale(1.06)}
+#roll{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:145px;min-height:44px;padding:7px 12px;background:#267bd0;border:1px solid #b9d8ff;box-shadow:0 2px 4px #101a4777}
+.dice-stage{width:28px;height:28px;perspective:none;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px}
+.dice-cube{width:27px;height:27px;position:relative;transform:none;transform-style:flat;transition:none;filter:none}
+.dice-cube.show1,.dice-cube.show2,.dice-cube.show3,.dice-cube.show4,.dice-cube.show5,.dice-cube.show6{transform:none}
+.dice-cube.rolling{animation:none}
+.dice-face{position:absolute;inset:0;border-radius:5px;background:#fff;border:1px solid #d7dcef;box-shadow:none;backface-visibility:visible}
+.dice-face.front{transform:none}.dice-face.back,.dice-face.right,.dice-face.left,.dice-face.top,.dice-face.bottom{display:none}
+.dice-face .pip{width:5px;height:5px;background:#202b4f;box-shadow:none}
+.roll-label{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1}.roll-label strong{font-size:13px;letter-spacing:.2px}.roll-label small{font-size:9px;opacity:.9;font-weight:500;letter-spacing:.4px;margin-top:3px}
+.controls{display:flex;justify-content:center;align-items:center;gap:5px}
+@media(max-width:420px){body{padding:5px 2px 8px}#board{width:94vw;height:94vw;border-width:3px;margin:4px auto 6px}.token{width:82%;height:82%;min-width:6px;min-height:6px}#info{font-size:11px}.cell{border-width:.5px}.avatar{width:30px;height:30px;flex-basis:30px;font-size:19px}.player-name{font-size:9px;max-width:62px}}
 &lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;h1&gt;❤️ ONE SOUL LUDO ❤️&lt;/h1&gt;&lt;div class=&quot;small&quot; style=&quot;letter-spacing:2px;color:#f5d98b;margin-top:-3px&quot;&gt;ROYAL EDITION • 3D TOKENS&lt;/div&gt;
+&lt;div class=&quot;player-strip&quot;&gt;
+ &lt;div class=&quot;player blue&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;👧&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Blue&lt;/span&gt;&lt;/div&gt;
+ &lt;div class=&quot;player red&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;👦&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Red&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
 &lt;div id=&quot;info&quot;&gt;&lt;span&gt;Turn: &lt;b id=&quot;turn&quot;&gt;Red&lt;/b&gt;&lt;/span&gt;&lt;span&gt;Last roll: &lt;b id=&quot;dice&quot;&gt;-&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div id=&quot;status&quot;&gt;Red: Roll the dice&lt;/div&gt;&lt;div id=&quot;board&quot;&gt;&lt;/div&gt;
-&lt;button id=&quot;roll&quot; onclick=&quot;rollDice()&quot;&gt;&lt;span class=&quot;dice-stage&quot;&gt;&lt;span id=&quot;diceCube&quot; class=&quot;dice-cube show1&quot;&gt;&lt;span class=&quot;dice-face front&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face back&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face right&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face left&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face top&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face bottom&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;roll-label&quot;&gt;&lt;strong&gt;ROLL DICE&lt;/strong&gt;&lt;small&gt;TAP TO ROLL&lt;/small&gt;&lt;/span&gt;&lt;/button&gt;&lt;button onclick=&quot;restart()&quot;&gt;🔄 Restart&lt;/button&gt;
-&lt;div class=&quot;small&quot;&gt;Mobile friendly • 4 players • Local pass-and-play&lt;/div&gt;
+&lt;div class=&quot;player-strip&quot;&gt;
+ &lt;div class=&quot;player yellow&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;👩&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Yellow&lt;/span&gt;&lt;/div&gt;
+ &lt;div class=&quot;player green&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;🧑&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Green&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;controls&quot;&gt;&lt;button id=&quot;roll&quot; onclick=&quot;rollDice()&quot;&gt;&lt;span class=&quot;dice-stage&quot;&gt;&lt;span id=&quot;diceCube&quot; class=&quot;dice-cube show1&quot;&gt;&lt;span class=&quot;dice-face front&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face back&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face right&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face left&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face top&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face bottom&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;roll-label&quot;&gt;&lt;strong&gt;ROLL DICE&lt;/strong&gt;&lt;small&gt;TAP TO ROLL&lt;/small&gt;&lt;/span&gt;&lt;/button&gt;&lt;button onclick=&quot;restart()&quot;&gt;↻&lt;/button&gt;&lt;/div&gt;
 &lt;script&gt;
 const colors=[&#x27;red&#x27;,&#x27;green&#x27;,&#x27;yellow&#x27;,&#x27;blue&#x27;];
 const names={0:&#x27;Red&#x27;,1:&#x27;Green&#x27;,2:&#x27;Yellow&#x27;,3:&#x27;Blue&#x27;};
