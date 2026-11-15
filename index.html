@@ -2,218 +2,1154 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#102b55">
-<title>ONE SOUL LUDO</title>
-<style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
- --blue:#159fe8;--blue2:#0877c9;
- --red:#ef4148;--red2:#c92732;
- --yellow:#f4c51b;--yellow2:#d89e00;
- --green:#20b968;--green2:#09884b;
- --dark:#18264b;--track:#f8f8f5;--line:#b9bec7;
-}
-html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:linear-gradient(180deg,#3d3b83,#242b68);color:#fff}
-body{display:flex;justify-content:center}
-.app{width:min(100%,863px);min-height:100vh;padding:14px 8px 24px}
-.top{height:58px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.top-left{display:flex;gap:10px}.icon-btn,.coin{
-border:0;border-radius:10px;background:linear-gradient(#628be0,#3158a9);color:white;
-height:48px;min-width:58px;font-size:27px;box-shadow:inset 0 1px 0 #9db8f4
-}
-.coin{min-width:150px;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
-.coin b{font-size:25px;color:#ffd83e}.plus{background:#12b957;border-radius:10px;padding:5px 10px}
-.status{display:flex;align-items:center;justify-content:space-between;gap:8px;height:52px;margin-bottom:5px}
-.player-badge{display:flex;align-items:center;gap:8px}
-.avatar{width:48px;height:48px;border-radius:50%;border:3px solid #fff8;background:#e9a;display:grid;place-items:center;font-size:24px}
-.turn{background:#1497d9;border-radius:18px;padding:10px 22px;font-weight:800;box-shadow:inset 0 0 0 2px #4dc4ff}
-#message{font-size:12px;opacity:.9;text-align:center;flex:1}
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b2f68">
+<title>ONE SOUL — LUDO</title>
 
-.board-wrap{width:100%;max-width:855px;margin:auto;position:relative}
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#071b3b;
+  color:#fff;
+}
+
+button{
+  font:inherit;
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  display:none;
+}
+
+.screen.active{
+  display:flex;
+}
+
+/* =========================
+   ONE SOUL START SCREEN
+========================= */
+
+#splash{
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+
+  background:
+  radial-gradient(circle at 15% 25%,rgba(47,214,255,.28),transparent 28%),
+  radial-gradient(circle at 85% 30%,rgba(126,77,255,.30),transparent 30%),
+  linear-gradient(145deg,#061a3c,#0c3f7b 52%,#1e1b58);
+}
+
+.splash-glow{
+  position:absolute;
+  width:70vw;
+  height:70vw;
+  border-radius:50%;
+  background:rgba(60,215,255,.10);
+  filter:blur(35px);
+}
+
+.splash-logo{
+  position:relative;
+  font-size:clamp(65px,20vw,150px);
+  font-weight:1000;
+  letter-spacing:-7px;
+  line-height:.78;
+  text-shadow:
+    0 7px 0 #075ca7,
+    0 13px 25px rgba(0,0,0,.55);
+}
+
+.splash-logo .one{
+  display:block;
+  color:#fff;
+  font-size:.68em;
+}
+
+.splash-logo .soul{
+  display:block;
+  color:#5de7ff;
+}
+
+.splash-logo:after{
+  content:"";
+  display:block;
+  width:75%;
+  height:8px;
+  margin:22px auto 0;
+  border-radius:20px;
+  background:linear-gradient(90deg,#29d9ff,#fff,#855cff);
+  box-shadow:0 0 22px #52dfff;
+}
+
+.splash-sub{
+  position:relative;
+  margin-top:26px;
+  font-weight:900;
+  letter-spacing:4px;
+  color:#d9f7ff;
+}
+
+.loading{
+  position:absolute;
+  bottom:9%;
+  width:190px;
+  height:7px;
+  background:#16315a;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.loading i{
+  display:block;
+  width:40%;
+  height:100%;
+  background:#4ee4ff;
+  border-radius:20px;
+  animation:loading 1.5s infinite;
+}
+
+@keyframes loading{
+  from{transform:translateX(-120%)}
+  to{transform:translateX(500%)}
+}
+
+/* =========================
+   MAIN MENU
+========================= */
+
+#home{
+  flex-direction:column;
+  overflow:auto;
+
+  background:
+  radial-gradient(circle at 10% 15%,rgba(0,211,255,.16),transparent 25%),
+  radial-gradient(circle at 90% 15%,rgba(111,83,255,.18),transparent 27%),
+  linear-gradient(160deg,#08275a 0%,#0b56a7 52%,#081e49 100%);
+}
+
+.topbar{
+  height:70px;
+  min-height:70px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:8px 13px;
+
+  background:rgba(3,17,44,.80);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.brand{
+  font-size:25px;
+  font-weight:1000;
+  letter-spacing:-1px;
+}
+
+.brand b{
+  color:#51e2ff;
+}
+
+.wallet{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:13px;
+  font-weight:900;
+}
+
+.wallet span{
+  background:#112e5b;
+  border:1px solid #33598b;
+  padding:8px 10px;
+  border-radius:16px;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#ffdb53,#ff5b72);
+  border:2px solid #fff;
+}
+
+.home{
+  width:min(94vw,610px);
+  margin:auto;
+  padding:14px 0 28px;
+}
+
+.hero{
+  text-align:center;
+  padding:12px 0 20px;
+}
+
+.hero h1{
+  margin:0;
+  font-size:clamp(39px,11vw,68px);
+  letter-spacing:-4px;
+  text-shadow:
+    0 5px 0 #075ca7,
+    0 10px 18px rgba(0,0,0,.35);
+}
+
+.hero h1 span{
+  color:#5ae4ff;
+}
+
+.hero p{
+  margin:5px 0 0;
+  color:#c4edff;
+  font-weight:800;
+}
+
+.games{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.game{
+  height:215px;
+  border:0;
+  border-radius:22px;
+  overflow:hidden;
+  color:#fff;
+  position:relative;
+  border:2px solid rgba(255,255,255,.35);
+  box-shadow:0 9px 20px rgba(0,0,0,.38);
+  cursor:pointer;
+}
+
+.game:active{
+  transform:scale(.985);
+}
+
+.g-ludo{
+  background:linear-gradient(145deg,#16a9ff,#0754c9 65%,#183d9b);
+}
+
+.g-card{
+  background:linear-gradient(145deg,#2bc5ff,#1854c8);
+}
+
+.g-snake{
+  background:linear-gradient(145deg,#32d08b,#0762ad);
+}
+
+.g-more{
+  background:linear-gradient(145deg,#7b61ff,#282b9c);
+}
+
+.art{
+  height:150px;
+  display:grid;
+  place-items:center;
+}
+
+.card-title{
+  position:absolute;
+  bottom:10px;
+  left:12px;
+  right:12px;
+  text-align:left;
+  font-size:25px;
+  font-weight:1000;
+  text-shadow:0 3px 0 rgba(0,0,0,.45);
+}
+
+.mini-board{
+  width:115px;
+  height:115px;
+  background:#fff;
+  border:5px solid #193353;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  transform:rotate(-4deg);
+  box-shadow:0 6px 10px rgba(0,0,0,.3);
+}
+
+.mini-board i:nth-child(1){
+  background:#ef454e;
+}
+
+.mini-board i:nth-child(2){
+  background:#fff;
+}
+
+.mini-board i:nth-child(3){
+  background:#24b86a;
+}
+
+.mini-board i:nth-child(4){
+  background:#f3c633;
+}
+
+.mini-board i:nth-child(5){
+  background:#fff;
+}
+
+.mini-board i:nth-child(6){
+  background:#fff;
+}
+
+.mini-board i:nth-child(7){
+  background:#fff;
+}
+
+.mini-board i:nth-child(8){
+  background:#fff;
+}
+
+.mini-board i:nth-child(9){
+  background:#2b63db;
+}
+
+.cards{
+  display:flex;
+  transform:rotate(-8deg);
+}
+
+.cards i{
+  width:48px;
+  height:76px;
+  background:#fff;
+  border:3px solid #16335c;
+  border-radius:8px;
+  margin-left:-8px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  font-weight:1000;
+  color:#ef454e;
+}
+
+.cards i:nth-child(2){
+  color:#23aa5c;
+  transform:translateY(-8px);
+}
+
+.cards i:nth-child(3){
+  color:#2d62db;
+  transform:translateY(4px);
+}
+
+.snake{
+  font-size:82px;
+  filter:drop-shadow(0 6px 5px rgba(0,0,0,.35));
+}
+
+.more{
+  font-size:72px;
+}
+
+.online{
+  text-align:center;
+  margin-top:18px;
+  padding:13px;
+  border-radius:17px;
+  background:rgba(0,0,0,.18);
+  font-weight:900;
+}
+
+.start{
+  display:block;
+  margin:16px auto 0;
+  border:0;
+  border-radius:17px;
+  padding:14px 34px;
+  color:#fff;
+  font-size:19px;
+  font-weight:1000;
+  background:linear-gradient(#52efa0,#10a760);
+  box-shadow:0 5px 0 #08733f;
+}
+
+.note{
+  text-align:center;
+  color:#b9d8f5;
+  font-size:11px;
+  margin-top:12px;
+}
+
+/* =========================
+   LUDO
+========================= */
+
+#ludo{
+  flex-direction:column;
+  background:#071a3b;
+}
+
+.lhead{
+  height:62px;
+  min-height:62px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:8px 12px;
+
+  background:#0c2d5e;
+  border-bottom:1px solid #345987;
+}
+
+.back{
+  border:0;
+  border-radius:12px;
+  padding:9px 12px;
+  background:#173f75;
+  color:#fff;
+  font-weight:1000;
+}
+
+.turn{
+  font-weight:1000;
+  font-size:14px;
+}
+
+.dice-small{
+  font-size:28px;
+  background:#fff;
+  color:#111;
+  border-radius:10px;
+  padding:3px 9px;
+}
+
+/* =========================
+   PLAYER DP STRIP
+========================= */
+
+.player-strip{
+  height:64px;
+  min-height:64px;
+
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+
+  background:#081f46;
+  border-bottom:1px solid #315a8d;
+
+  padding:4px 8px;
+  gap:5px;
+}
+
+.player-card{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  min-width:0;
+  position:relative;
+}
+
+.dp{
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  border:3px solid #fff;
+
+  background:#173b68;
+
+  display:grid;
+  place-items:center;
+
+  overflow:hidden;
+
+  position:relative;
+
+  cursor:pointer;
+
+  box-shadow:0 3px 8px rgba(0,0,0,.4);
+}
+
+.dp img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+}
+
+.dp.empty:after{
+  content:"+";
+  font-size:25px;
+  color:#ccecff;
+  font-weight:900;
+}
+
+.player-name{
+  font-size:10px;
+  font-weight:1000;
+  max-width:48px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.edit-dp{
+  position:absolute;
+  right:-1px;
+  bottom:-1px;
+
+  width:18px;
+  height:18px;
+
+  border:0;
+  border-radius:50%;
+
+  background:#fff;
+  color:#0c3b72;
+
+  font-size:10px;
+  padding:0;
+
+  font-weight:1000;
+}
+
+/* =========================
+   BOARD
+========================= */
+
+.board-area{
+  flex:1;
+
+  display:grid;
+  place-items:center;
+
+  padding:7px;
+
+  min-height:0;
+}
+
 .board{
-width:100%;aspect-ratio:1/1;background:#fff;position:relative;border:4px solid #0e1e45;
-border-radius:10px;overflow:hidden;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);
-box-shadow:0 12px 35px #1117;
+  width:min(94vw,855px);
+  height:min(94vw,855px);
+
+  max-height:calc(100vh - 150px);
+  max-width:calc(100vh - 150px);
+
+  aspect-ratio:1/1;
+
+  background:#fff;
+
+  border:7px solid #132e50;
+
+  border-radius:12px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:repeat(15,1fr);
+  grid-template-rows:repeat(15,1fr);
+
+  box-shadow:0 16px 38px rgba(0,0,0,.48);
 }
-.cell{position:relative;border:1px solid #c5c9ce;background:var(--track)}
-.home{position:relative;grid-column:span 6;grid-row:span 6;display:flex;align-items:center;justify-content:center}
-.blue{background:linear-gradient(145deg,var(--blue),#27b9fa)}
-.red{background:linear-gradient(145deg,var(--red),#ff656b)}
-.yellow{background:linear-gradient(145deg,var(--yellow),#ffd84a)}
-.green{background:linear-gradient(145deg,var(--green),#39d87d)}
-.home-box{width:56%;height:56%;border-radius:12px;background:#0002;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;padding:12%;gap:8%}
-.slot{border-radius:50%;background:#0002;display:grid;place-items:center}
-.token{
-width:72%;height:72%;border-radius:50%;border:2px solid #fff8;box-shadow:0 5px 6px #0006,inset 0 3px 4px #fff8;
-cursor:pointer;transition:.15s;position:relative
+
+.cell{
+  position:relative;
+  border:1px solid rgba(25,42,64,.25);
+  display:grid;
+  place-items:center;
 }
-.token:active{transform:scale(.88)}
-.token.blue{background:radial-gradient(circle at 32% 25%,#7de5ff,#168fdb 60%,#075a9f)}
-.token.red{background:radial-gradient(circle at 32% 25%,#ffaaa8,#f14b45 60%,#ae1e29)}
-.token.yellow{background:radial-gradient(circle at 32% 25%,#fff28a,#f4c51b 60%,#bd8700)}
-.token.green{background:radial-gradient(circle at 32% 25%,#9dffc1,#20b968 60%,#067a43)}
-.center{grid-column:7/10;grid-row:7/10;position:relative;background:conic-gradient(from 0deg,var(--red) 0 25%,var(--green) 25% 50%,var(--yellow) 50% 75%,var(--blue) 75% 100%);clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:3}
-.center:after{content:"";position:absolute;inset:0;background:conic-gradient(from -45deg,#0000 0 25%,#fff 25% 50%,#0000 50% 75%,#fff 75%);opacity:.08}
-.path{position:absolute;inset:0;pointer-events:none}
-.cell.path-blue{background:#f8f8f5}
-.cell.star:after{content:"★";position:absolute;inset:0;display:grid;place-items:center;font-size:70%;color:var(--star);text-shadow:0 1px 1px #fff}
-.cell.safe{background:#f8f8f5}
-.dice-panel{display:flex;justify-content:center;align-items:center;gap:10px;margin:12px 0}
-.dice{width:62px;height:62px;background:#fff;color:#15234b;border-radius:14px;display:grid;place-items:center;font-size:34px;font-weight:900;box-shadow:0 5px 15px #0005}
-.roll{border:0;border-radius:13px;background:linear-gradient(#18c96a,#079c4d);color:white;font-weight:900;padding:15px 24px;font-size:17px}
-.roll:disabled{opacity:.5}
-.players{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:5px}
-.p{background:#ffffff18;border:1px solid #ffffff25;border-radius:10px;padding:7px;text-align:center;font-size:11px}
-.p.active{outline:2px solid #fff}
-.rules{margin-top:14px;background:#101c3eaa;border-radius:12px;padding:13px;font-size:12px;line-height:1.45}
-.rules h3{margin:0 0 8px;font-size:16px}
-.rules ul{margin:0;padding-left:18px}
-.room{display:flex;gap:7px;margin:10px 0}
-.room input{flex:1;border:0;border-radius:10px;padding:12px;font-weight:700}
-.room button{border:0;border-radius:10px;padding:0 14px;font-weight:800}
-.footer{text-align:center;font-size:10px;opacity:.65;margin-top:12px}
-@media(max-width:520px){
- .app{padding:8px 4px 18px}.coin{min-width:125px}.top{height:50px}.icon-btn{height:44px;min-width:52px}
- .home-box{padding:10%;gap:7%}.dice{width:55px;height:55px}.roll{padding:13px 18px}
+
+.path{
+  background:#fff;
+}
+
+.red{
+  background:#ef454e;
+}
+
+.green{
+  background:#24b96a;
+}
+
+.yellow{
+  background:#f3c633;
+}
+
+.blue{
+  background:#2c63dc;
+}
+
+.home-red{
+  background:#ef454e;
+}
+
+.home-green{
+  background:#24b96a;
+}
+
+.home-yellow{
+  background:#f3c633;
+}
+
+.home-blue{
+  background:#2c63dc;
+}
+
+.center{
+  background:
+    conic-gradient(
+      #24b96a 0 25%,
+      #2c63dc 0 50%,
+      #f3c633 0 75%,
+      #ef454e 0
+    );
+
+  border:2px solid #173251;
+}
+
+.yard{
+  position:absolute;
+
+  width:78%;
+  height:78%;
+
+  left:11%;
+  top:11%;
+
+  background:rgba(255,255,255,.90);
+
+  border-radius:14%;
+
+  box-shadow:
+    inset 0 0 0 4px rgba(255,255,255,.45);
+}
+
+.yard:after{
+  content:"";
+
+  position:absolute;
+
+  inset:8%;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.72);
+}
+
+/* =========================
+   GOTI
+========================= */
+
+.piece{
+  position:absolute;
+
+  width:72%;
+  height:72%;
+
+  border-radius:50%;
+
+  border:3px solid #fff;
+
+  z-index:5;
+
+  box-shadow:
+    0 3px 6px rgba(0,0,0,.5),
+    inset 0 3px 4px rgba(255,255,255,.35);
+
+  cursor:pointer;
+}
+
+.piece:after{
+  content:"";
+
+  position:absolute;
+
+  width:32%;
+  height:32%;
+
+  left:20%;
+  top:15%;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.42);
+}
+
+.piece.r{
+  background:radial-gradient(
+    circle at 32% 25%,
+    #ff8585,
+    #d91e2d
+  );
+}
+
+.piece.g{
+  background:radial-gradient(
+    circle at 32% 25%,
+    #8af3b5,
+    #159450
+  );
+}
+
+.piece.y{
+  background:radial-gradient(
+    circle at 32% 25%,
+    #fff09b,
+    #d9a800
+  );
+}
+
+.piece.b{
+  background:radial-gradient(
+    circle at 32% 25%,
+    #87b6ff,
+    #194ab9
+  );
+}
+
+/* =========================
+   LUDO FOOTER
+========================= */
+
+.lfoot{
+  height:78px;
+  min-height:78px;
+
+  padding:8px 13px;
+
+  background:#0a2550;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+.info{
+  font-size:12px;
+  color:#c8e8ff;
+  font-weight:800;
+  max-width:65%;
+}
+
+.roll{
+  border:0;
+
+  border-radius:15px;
+
+  padding:13px 23px;
+
+  background:linear-gradient(#58eaff,#1575dc);
+
+  color:#fff;
+
+  font-weight:1000;
+
+  font-size:18px;
+
+  box-shadow:0 5px 0 #07529e;
+}
+
+.roll:disabled{
+  opacity:.45;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-modal{
+  position:absolute;
+  inset:0;
+
+  background:rgba(0,0,0,.68);
+
+  z-index:100;
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+}
+
+.profile-modal.show{
+  display:flex;
+}
+
+.profile-box{
+  width:min(88vw,360px);
+
+  background:#0d2e5c;
+
+  border:2px solid #4d80b9;
+
+  border-radius:22px;
+
+  padding:20px;
+
+  text-align:center;
+
+  box-shadow:0 20px 50px rgba(0,0,0,.55);
+}
+
+.profile-preview{
+  width:100px;
+  height:100px;
+
+  margin:5px auto 14px;
+
+  border-radius:50%;
+
+  background:#173b68;
+
+  border:4px solid #fff;
+
+  display:grid;
+  place-items:center;
+
+  overflow:hidden;
+
+  font-size:38px;
+}
+
+.profile-preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.profile-actions{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.profile-actions button,
+.close-profile{
+  border:0;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:900;
+  color:#fff;
+  background:#1777d8;
+}
+
+.profile-actions .remove{
+  background:#d93b49;
+}
+
+.close-profile{
+  background:#244a77;
+  margin-top:12px;
+}
+
+.profile-input{
+  display:none;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-area{
+  height:52px;
+  min-height:52px;
+
+  background:#071d40;
+
+  border-top:1px solid #315a8d;
+
+  display:flex;
+  align-items:center;
+
+  gap:7px;
+
+  padding:6px 9px;
+}
+
+.chat-input{
+  flex:1;
+  min-width:0;
+
+  border:1px solid #426b9a;
+
+  background:#102f5a;
+
+  color:#fff;
+
+  border-radius:15px;
+
+  padding:9px 11px;
+
+  outline:none;
+}
+
+.chat-input::placeholder{
+  color:#a8c8e7;
+}
+
+.chat-btn{
+  width:38px;
+  height:38px;
+
+  border:0;
+
+  border-radius:50%;
+
+  background:#173f73;
+
+  color:#fff;
+
+  font-size:18px;
+}
+
+.voice-btn{
+  background:#18a86a;
+}
+
+.emoji-btn{
+  background:#6b50c8;
+}
+
+.chat-bubble{
+  position:absolute;
+
+  bottom:132px;
+
+  left:12px;
+  right:12px;
+
+  background:rgba(4,16,37,.92);
+
+  border:1px solid #3f6796;
+
+  border-radius:15px;
+
+  padding:8px 11px;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  display:none;
+
+  z-index:40;
+}
+
+.chat-bubble.show{
+  display:block;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:absolute;
+
+  left:50%;
+  top:72px;
+
+  transform:translateX(-50%);
+
+  background:rgba(0,0,0,.78);
+
+  padding:9px 15px;
+
+  border-radius:20px;
+
+  font-size:12px;
+
+  font-weight:900;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.2s;
+
+  z-index:150;
+}
+
+.toast.show{
+  opacity:1;
+}
+
+/* =========================
+   SMALL SCREEN
+========================= */
+
+@media(max-width:420px){
+
+  .topbar{
+    height:62px;
+    min-height:62px;
+  }
+
+  .wallet span{
+    padding:6px 7px;
+  }
+
+  .brand{
+    font-size:21px;
+  }
+
+  .game{
+    height:190px;
+  }
+
+  .art{
+    height:130px;
+  }
+
+  .card-title{
+    font-size:22px;
+  }
+
+  .lfoot{
+    height:72px;
+    min-height:72px;
+  }
+
+  .info{
+    font-size:11px;
+  }
 }
 </style>
 </head>
+
 <body>
-<div class="app">
-  <div class="top">
-    <div class="top-left"><button class="icon-btn" onclick="alert('Back')">‹</button><button class="icon-btn">🏆</button></div>
-    <div class="coin"><b>🪙</b><span id="coins">2,000</span><span class="plus">+</span></div>
+
+<!-- ==========================================
+     ONE SOUL START SCREEN
+========================================== -->
+
+<section id="splash" class="screen active">
+
+  <div class="splash-glow"></div>
+
+  <div>
+
+    <div class="splash-logo">
+
+      <span class="one">ONE</span>
+
+      <span class="soul">SOUL</span>
+
+    </div>
+
+    <div class="splash-sub">
+      PLAY • CONNECT • ENJOY
+    </div>
+
   </div>
 
-  <div class="status">
-    <div class="player-badge"><div class="avatar">🙂</div></div>
-    <div id="message">Your turn — roll the dice</div>
-    <div class="turn" id="turnLabel">BLUE</div>
+  <div class="loading">
+    <i></i>
   </div>
 
-  <div class="board-wrap">
-    <div class="board" id="board"></div>
+</section>
+
+
+<!-- ==========================================
+     MAIN MENU
+========================================== -->
+
+<section id="home" class="screen">
+
+  <div class="topbar">
+
+    <div class="brand">
+      ONE <b>SOUL</b>
+    </div>
+
+    <div class="wallet">
+
+      <span>🪙 19.89K</span>
+
+      <span>💎 0</span>
+
+      <span class="avatar">
+        OS
+      </span>
+
+    </div>
+
   </div>
 
-  <div class="dice-panel">
-    <div class="dice" id="dice">⚀</div>
-    <button class="roll" id="rollBtn" onclick="rollDice()">ROLL DICE</button>
-  </div>
 
-  <div class="room">
-    <input id="roomCode" value="ONESOUL-001" aria-label="Room code">
-    <button onclick="copyRoom()">📋 Copy</button>
-  </div>
+  <div class="home">
 
-  <div class="players" id="players"></div>
+    <div class="hero">
 
-  <div class="rules">
-    <h3>📖 ONE SOUL LUDO — Rules</h3>
-    <ul>
-      <li>🎲 6 par token ghar se bahar.</li>
-      <li>🔄 6 par extra turn.</li>
-      <li>🔄 Capture karne par extra turn.</li>
-      <li>🏠 Token finish/home pahunchne par extra turn.</li>
-      <li>🎯 Finish ke liye exact number zaroori.</li>
-      <li>🧱 2 ya zyada same-colour tokens blockade bana sakte hain.</li>
-      <li>🚫 Opponent blockade enter/pass nahi kiya ja sakta.</li>
-      <li>⭐ Star/safe square par capture nahi hoga.</li>
-      <li>❌ 3 consecutive 6 par current turn lose.</li>
-      <li>🏆 4 tokens finish = winner.</li>
-      <li>🔁 No legal move + 6 = same player dobara roll; non-6 = next player.</li>
-      <li>🟢 Move ke baad extra-turn rule ke mutabiq correct next turn.</li>
-      <li>🔄 Online Firebase sync ke liye Firebase config add ki ja sakti hai.</li>
-      <li>👥 Room join/leave aur 🚪 leave par seat null.</li>
-      <li>🆕 New game aur 📋 room-code copy supported.</li>
-    </ul>
-  </div>
-  <div class="footer">ONE SOUL LUDO • Board reference: 855 × 855 design • Responsive mobile layout</div>
-</div>
+      <h1>
+        ONE <span>SOUL</span>
+      </h1>
 
-<script>
-const colors=['blue','red','yellow','green'];
-const names=['BLUE','RED','YELLOW','GREEN'];
-let current=0, consecutiveSix=0, lastRoll=1;
+      <p>
+        Choose your game
+      </p>
 
-function makeBoard(){
-  const b=document.getElementById('board');
-  // 15x15 Ludo-style layout: four 6x6 homes, 3x3 center, and track lanes.
-  for(let r=0;r<15;r++){
-    for(let c=0;c<15;c++){
-      const el=document.createElement('div');
-      el.className='cell';
-      // Home quadrants
-      if(r<6&&c<6){el.remove(); if(c===0&&r===0){}}
-      if(r<6&&c>=9){el.remove()}
-      if(r>=9&&c<6){el.remove()}
-      if(r>=9&&c>=9){el.remove()}
-      if((r<6&&c<6)||(r<6&&c>=9)||(r>=9&&c<6)||(r>=9&&c>=9)) continue;
-      // center
-      if(r>=6&&r<9&&c>=6&&c<9) continue;
-      // path cell
-      el.className='cell path-blue';
-      if((r===7&&c===1)||(r===1&&c===7)||(r===7&&c===13)||(r===13&&c===7)){
-        el.classList.add('star'); el.style.setProperty('--star', colors[(c===1?0:r===1?1:c===13?2:3)]);
-      }
-      b.appendChild(el);
-    }
-  }
-  // Overlay homes using absolute positioning for exact 6x6 quadrants.
-  addHome('blue',0,0); addHome('red',0,9); addHome('yellow',9,0); addHome('green',9,9);
-  const center=document.createElement('div'); center.className='center'; b.appendChild(center);
-}
-function addHome(color,row,col){
- const b=document.getElementById('board');
- const h=document.createElement('div'); h.className='home '+color;
- h.style.position='absolute'; h.style.left=(col/15*100)+'%'; h.style.top=(row/15*100)+'%';
- h.style.width=(6/15*100)+'%'; h.style.height=(6/15*100)+'%';
- h.innerHTML='<div class="home-box">'+[0,1,2,3].map(i=>`<div class="slot"><div class="token ${color}" data-color="${color}" data-id="${i}" onclick="selectToken(this)"></div></div>`).join('')+'</div>';
- b.appendChild(h);
-}
-function renderPlayers(){
- const p=document.getElementById('players');
- p.innerHTML=names.map((n,i)=>`<div class="p ${i===current?'active':''}"><b>${n}</b><br>4 tokens</div>`).join('');
-}
-function rollDice(){
- const btn=document.getElementById('rollBtn');
- btn.disabled=true;
- let n=Math.floor(Math.random()*6)+1;
- lastRoll=n;
- consecutiveSix = n===6 ? consecutiveSix+1 : 0;
- document.getElementById('dice').textContent=['⚀','⚁','⚂','⚃','⚄','⚅'][n-1];
- if(consecutiveSix>=3){
-   document.getElementById('message').textContent='❌ 3 consecutive 6 — turn lost';
-   consecutiveSix=0; nextPlayer(); setTimeout(()=>btn.disabled=false,600); return;
- }
- if(n===6){
-   document.getElementById('message').textContent='🎲 6! Move a token — extra turn after a valid move';
- }else{
-   document.getElementById('message').textContent=`🎲 ${n} — select a legal token`;
- }
- setTimeout(()=>btn.disabled=false,300);
-}
-function selectToken(el){
- const color=el.dataset.color;
- if(colors[current]!==color){document.getElementById('message').textContent='🚫 It is not this colour’s turn.';return}
- if(lastRoll===6){
-   document.getElementById('message').textContent='🟢 Token moved. 🔄 Extra turn.';
-   return;
- }
- document.getElementById('message').textContent='🟢 Token moved. Next player.';
- nextPlayer();
-}
-function nextPlayer(){
- current=(current+1)%4;
- consecutiveSix=0;
- document.getElementById('turnLabel').textContent=names[current];
- renderPlayers();
-}
-function copyRoom(){
- navigator.clipboard?.writeText(document.getElementById('roomCode').value);
- document.getElementById('message').textContent='📋 Room code copied';
-}
-makeBoard(); renderPlayers();
-</script>
-</body>
-</html>
+    </div>
+
+
+    <div class="games">
+
+      <!-- LUDO -->
+
+      <button
+        class="game g-ludo"
+        onclick="openLudo()"
+      >
+
+        <div class="art">
+
+          <div class="mini-board">
+
+            <i></i>
+            <i></i>
+            <i></i>
+
+            <i></i>
+            <i></i>
+            <i></i>
+
+            <i></i>
+            <i></i>
+            <i></i>
+
+          </div>
+
+        </div>
+
+        <div class="card-title">
+          LUDO
+        </div>
+
+      </button>
+
+
+      <!-- COLOR CARD -->
+
+      <button
+        class="game g-card"
+       
