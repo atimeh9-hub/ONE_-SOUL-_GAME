@@ -1,62 +1,441 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#07152b"><title>ONE SOUL — Premium Ludo Arena</title>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b18"><title>ONE SOUL — Game & Admin</title>
 <style>
-:root{--r:#ed4655;--g:#20a960;--y:#edc12b;--b:#3284e5;--gold:#f4d47d}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#28578e,#102849 48%,#061329);color:#fff;font-family:system-ui,Arial}header{position:sticky;top:0;background:#061329eF;padding:15px 17px;border-bottom:1px solid #d8b96966;font-weight:1000;letter-spacing:2px;color:var(--gold);z-index:4}.wrap{max-width:650px;margin:auto;padding:12px}.panel{background:linear-gradient(145deg,#17365f,#0a1b36);border:1px solid #b99a5a77;border-radius:20px;padding:14px;margin-bottom:13px;box-shadow:0 14px 32px #0006}.center{text-align:center}.orb{font-size:48px}h1{color:var(--gold);letter-spacing:4px;margin:4px}h2{color:var(--gold);font-size:18px;margin:0}.muted{color:#c5d5eb;font-size:13px;line-height:1.5}button,select{font:700 15px system-ui;border-radius:13px;padding:12px;border:1px solid #7799c2}button{cursor:pointer}.gold{background:linear-gradient(#ffedaa,#e7b83e);color:#30210a;border-color:#fff0b8;box-shadow:0 4px 0 #8c611e;font-weight:950}.blue{background:linear-gradient(#326ba8,#17416f);color:white}.dark{background:#091b35;color:white}.wide{width:100%;margin-top:14px}select{width:100%;background:#071a35;color:white;margin-top:6px}.label{display:block;text-align:left;font-size:12px;color:#d8e5f5;margin-top:14px;font-weight:900}.hide{display:none!important}.chips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}.chip{font-size:11px;font-weight:900;padding:7px 10px;border-radius:30px;background:#07162e;border:1px solid #647d9f}.chip.on{outline:2px solid var(--gold)}.caption{text-align:center;color:var(--gold);font-size:11px;letter-spacing:3px;font-weight:1000;margin:12px 0}.frame{padding:6px;border-radius:18px;background:linear-gradient(135deg,#fff0b8,#926328 25%,#f6d98b 50%,#6b471f 78%,#fff0b8);box-shadow:0 12px 25px #0008}.board{width:100%;aspect-ratio:1;display:grid;grid-template:repeat(15,1fr)/repeat(15,1fr);gap:1px;padding:3px;background:#9ba8b6;border:2px solid #49331e;border-radius:11px;overflow:hidden;position:relative}.cell{min-width:0;min-height:0;position:relative;background:linear-gradient(145deg,#fff,#e6ebf2);border:1px solid #c3cbd5}.base.red{background:linear-gradient(145deg,#ff8991,#d82e40)}.base.green{background:linear-gradient(145deg,#7be3a7,#108a4e)}.base.yellow{background:linear-gradient(145deg,#ffea88,#d5a515)}.base.blue{background:linear-gradient(145deg,#8bc4ff,#1d68c2)}.homePlate{z-index:2;background:linear-gradient(145deg,#fff,#e3e8f0);border:2px solid white;border-radius:19%;box-shadow:inset 0 2px 7px #0002,0 3px 6px #0005;display:grid;grid-template:1fr 1fr/1fr 1fr;gap:9%;padding:9%}.baseSpot{border-radius:50%;background:radial-gradient(circle at 30% 25%,white,#d5deea 65%,#96a5ba);box-shadow:inset 0 2px 4px #0002}.path{background:linear-gradient(145deg,#fff,#e9edf3)}.safe:after{content:"✦";position:absolute;inset:0;display:grid;place-items:center;color:#8b96a6;font-size:clamp(7px,2vw,13px)}.lane.red{background:linear-gradient(145deg,#ff9da5,#e6384b)}.lane.green{background:linear-gradient(145deg,#a3f0c0,#159c58)}.lane.yellow{background:linear-gradient(145deg,#fff0a0,#e3b71e)}.lane.blue{background:linear-gradient(145deg,#a4d0ff,#2778d5)}.start.red:after{color:var(--r)}.start.green:after{color:var(--g)}.start.yellow:after{color:#c99500}.start.blue:after{color:var(--b)}.centerStar{grid-area:7/7/10/10;z-index:4;border:2px solid white;border-radius:5px;background:conic-gradient(from -45deg,var(--y) 0 25%,var(--b) 0 50%,var(--g) 0 75%,var(--r) 0);display:grid;place-items:center;font-size:clamp(7px,1.8vw,12px);font-weight:1000;text-shadow:0 2px 4px #0009}.token{position:absolute;inset:5%;width:90%;height:90%;padding:0;border:2px solid white;border-radius:50%;color:white;font-size:clamp(7px,2vw,13px);font-weight:1000;text-shadow:0 1px 3px #0009;z-index:5;box-shadow:0 3px 5px #0008,inset 0 2px 5px #fff9}.token.red{background:radial-gradient(circle at 30% 22%,#ffd0d3,#ed4655 55%,#8d1020)}.token.green{background:radial-gradient(circle at 30% 22%,#d2ffe2,#1cab62 55%,#075b34)}.token.yellow{background:radial-gradient(circle at 30% 22%,#fff8cf,#e5b522 55%,#805300)}.token.blue{background:radial-gradient(circle at 30% 22%,#d8edff,#3285e8 55%,#103f78)}.token.ready{outline:3px solid #fff2a4;box-shadow:0 0 0 4px #c28a2b,0 0 16px #ffe47b;animation:pulse .8s infinite}@keyframes pulse{50%{filter:brightness(1.25);transform:scale(1.06)}}.diceRow{display:flex;align-items:center;gap:9px;margin-top:13px}.die{width:54px;height:54px;flex:0 0 54px;border-radius:13px;background:linear-gradient(145deg,#fff,#dce4ee);color:#14233a;display:grid;place-items:center;font-size:30px;box-shadow:0 4px 0 #936322}.msg{font-size:12px;color:#cbd9ec;line-height:1.4;flex:1}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1}.rules{font-size:11px;color:#adbfda;line-height:1.5;margin-top:12px}
-@media(max-width:420px){.wrap{padding:8px}.panel{padding:11px}.frame{padding:5px}}
+*{box-sizing:border-box}body{margin:0;background:#090b18;color:#f4f5ff;font-family:Arial,sans-serif}
+header{padding:18px 12px;text-align:center;background:#11162a;border-bottom:1px solid #394064}
+h1{margin:0;color:#b49aff;letter-spacing:3px}.sub{color:#aeb5d6;font-size:12px;margin-top:5px}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px;background:#0d1224;position:sticky;top:0;z-index:5}
+nav button,.action{border:1px solid #59658e;background:#252d4c;color:#fff;border-radius:10px;padding:11px 15px;font-weight:bold}
+nav button.active{background:#754bdb;border-color:#a78bfa}
+main{max-width:1000px;margin:auto;padding:12px}.view{display:none}.view.active{display:block}
+.gameframe{width:100%;height:calc(100vh - 145px);min-height:600px;border:1px solid #394064;border-radius:14px;background:#080b18}
+.panel{background:#141a30;border:1px solid #394064;border-radius:15px;padding:16px;margin:12px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.metric{background:#202744;border:1px solid #46517e;border-radius:12px;padding:15px}
+.metric b{display:block;color:#aeb5d6;font-size:12px}.metric strong{font-size:25px;color:#fff}
+input,select{width:100%;padding:11px;margin:6px 0 12px;border-radius:8px;border:1px solid #59658e;background:#0c1225;color:#fff}
+label{font-size:13px;color:#c7cdec}.note{font-size:13px;line-height:1.6;color:#c4cbe5}
+.warning{border-left:4px solid #f0b84b;padding:10px 12px;background:#332914;border-radius:8px;color:#ffe4a6}
+#saveMsg{color:#8ee6ae;font-size:13px;min-height:20px}footer{text-align:center;color:#707da5;font-size:11px;padding:18px}
 
-/* ONE SOUL PREMIUM VISUAL UPGRADE — original game logic preserved */
-:root{--gold:#f5d88b;--deep:#071329}
-body{background:radial-gradient(ellipse at 50% -15%,#426c9d 0,#18385e 34%,#071329 78%);background-attachment:fixed}
-header{background:linear-gradient(90deg,#061329f2,#142b4af2,#061329f2);backdrop-filter:blur(12px);box-shadow:0 8px 28px #0005;border-bottom:1px solid #f5d88b88;text-shadow:0 2px 12px #f5d88b55}
-.panel{background:linear-gradient(145deg,#1d426d,#10294a 52%,#091a34);border:1px solid #f5d88b88;box-shadow:0 18px 42px #0008,inset 0 1px 0 #ffffff20;border-radius:24px}
-h1{font-size:clamp(28px,8vw,42px);text-shadow:0 3px 20px #f5d88b55}
-h2{letter-spacing:1.5px;text-shadow:0 2px 12px #f5d88b33}
-.gold{background:linear-gradient(135deg,#fff2c4 0%,#f2d17c 35%,#bd852c 100%);border:1px solid #fff4cb;box-shadow:0 5px 0 #76501c,0 9px 20px #0005,inset 0 1px 0 #fff9;font-weight:1000}
-.blue{background:linear-gradient(135deg,#4b91d5,#17416f);border:1px solid #a8d5ff;box-shadow:0 4px 0 #0a2c50}
-.dark{background:linear-gradient(135deg,#263e60,#0b1c35);border:1px solid #8da8ca88}
-button{transition:transform .12s ease,filter .12s ease}
-button:active{transform:translateY(2px) scale(.985);filter:brightness(1.12)}
-.frame{padding:8px;border-radius:22px;background:linear-gradient(135deg,#fff3c7,#a16d28 22%,#f9dfa0 48%,#67431d 76%,#fff0b5);box-shadow:0 16px 34px #0009,inset 0 1px 2px #fff}
-.board{border:3px solid #60451f;border-radius:14px;box-shadow:inset 0 0 0 2px #fff8,0 4px 12px #0004}
-.cell{border-color:#b9c4d0;box-shadow:inset 0 1px 2px #fff}
-.base.red{background:linear-gradient(145deg,#ff9da4,#c91f39)}
-.base.green{background:linear-gradient(145deg,#9af0b9,#087b43)}
-.base.yellow{background:linear-gradient(145deg,#fff0a0,#c58e08)}
-.base.blue{background:linear-gradient(145deg,#a6d4ff,#1459b1)}
-.homePlate{border:3px solid #fff;border-radius:22%;box-shadow:inset 0 3px 10px #0002,0 5px 12px #0006}
-.baseSpot{border:2px solid #fff;box-shadow:inset 0 3px 6px #0003,0 2px 5px #0004}
-.path{background:linear-gradient(145deg,#fff,#dce5ef)}
-.safe:after{content:"✦";color:#b18a3f;text-shadow:0 1px 1px #fff;font-size:clamp(8px,2.2vw,14px)}
-.centerStar{border:3px solid #fff;box-shadow:0 0 0 2px #9a702c,0 4px 12px #0007;text-shadow:0 2px 5px #000}
-.token{border:2px solid #fff;box-shadow:0 4px 8px #0008,inset 0 2px 6px #fff9;filter:saturate(1.1)}
-.token.ready{outline:3px solid #fff2a4;box-shadow:0 0 0 5px #bd8a32,0 0 22px #ffe47b;animation:pulse .75s infinite}
-.chip{background:linear-gradient(145deg,#102747,#07172e);border:1px solid #9bb2d055;box-shadow:inset 0 1px 0 #fff1}
-.chip.on{background:linear-gradient(145deg,#5a4825,#2c271c);border-color:#ffe6a0;box-shadow:0 0 15px #f5d88b55}
-.die{background:linear-gradient(145deg,#fff,#e4d2a8);border:2px solid #fff5d5;box-shadow:0 5px 0 #8c6127,0 9px 18px #0006}
-.msg{font-weight:650}
-.rules{border-top:1px solid #f5d88b44;padding-top:10px}
+/* ONE SOUL AUTHENTICATION GATE */
+#authGate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(circle at 50% 0,#29365f,#090b18 68%)}
+#authCard{width:min(100%,430px);background:linear-gradient(145deg,#1b2442,#10162b);border:1px solid #b49aff88;border-radius:22px;padding:24px;box-shadow:0 20px 60px #0009;text-align:center}
+#authCard h2{color:#e0c5ff;letter-spacing:2px;margin:4px 0 8px}
+#authCard p{color:#c4cbe5;font-size:13px;line-height:1.55}
+#authCard input{width:100%;padding:13px;margin:10px 0;border-radius:10px;border:1px solid #59658e;background:#0c1225;color:white;font-size:16px}
+.authBtn{width:100%;padding:13px;margin:7px 0;border-radius:11px;border:1px solid #c5a8ff;background:linear-gradient(145deg,#9869f4,#5930b2);color:white;font-weight:800;font-size:15px}
+.authBtn.guest{background:linear-gradient(145deg,#ffedb5,#c28c35);color:#241a08;border-color:#fff0bd}
+#authStatus{min-height:36px;color:#ffe08a;font-size:12px;line-height:1.5;margin-top:8px;overflow-wrap:anywhere}
+#accountBar{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;padding:8px;background:#10182d;border-bottom:1px solid #394064;color:#dfe4ff;font-size:12px}
+#accountBar button{padding:7px 11px;border-radius:8px;border:1px solid #59658e;background:#252d4c;color:#fff}
+body:not(.authenticated)>header,body:not(.authenticated)>nav,body:not(.authenticated)>main,body:not(.authenticated)>footer{display:none!important}
+#authGate[hidden]{display:none!important}
 
 </style></head><body>
-<header>✦ ONE SOUL <span style="font-size:10px;color:white">LUDO ARENA</span></header><main class="wrap">
-<section class="panel center" id="setup"><div class="orb">🎲</div><h1>ONE SOUL</h1><div style="color:var(--gold);font-size:11px;letter-spacing:4px;font-weight:900">LUDO ARENA</div><p class="muted">Four colors. One destiny. Bring your pieces home and win the arena.</p><label class="label" for="count">NUMBER OF PLAYERS</label><select id="count"><option value="2">2 Players — Red & Yellow</option><option value="3">3 Players — Red, Green & Yellow</option><option value="4" selected>4 Players — All colors</option></select><button class="gold wide" id="start">▶ START GAME</button><p class="muted">Pass-and-play on one device • No account required</p></section>
-<section class="panel hide" id="game"><div style="display:flex;justify-content:space-between;align-items:center"><div><h2>✦ THE SOUL ARENA</h2><div class="muted" id="turn">RED's turn</div></div><b style="font-size:10px;color:var(--gold)">LOCAL MATCH</b></div><div class="chips" id="chips"></div><div class="caption">ROLL THE DICE • MOVE YOUR SOUL</div><div class="frame"><div class="board" id="board"></div></div><div class="diceRow"><button class="gold" id="roll">🎲 ROLL DICE</button><div class="die" id="die">⚄</div><div class="msg" id="msg">Roll a 6 to bring a piece out of home.</div></div><div class="msg" id="notice" style="margin-top:8px;color:#ffe6a0"></div><div class="actions"><button class="blue" id="again">↻ NEW GAME</button><button class="dark" id="back">⌂ MENU</button></div><div class="rules">RULES · Roll a 6 to leave base. Move clockwise. Capture an opponent by landing on their piece, except on safe stars. A 6, capture, or reaching home earns another turn. Exact roll required to finish. First player to bring all four pieces home wins.</div></section></main>
-<script>
-(()=>{
-const $=id=>document.getElementById(id),C=['red','green','yellow','blue'],N={red:'RED',green:'GREEN',yellow:'YELLOW',blue:'BLUE'},H={red:'#ed4655',green:'#20a960',yellow:'#edc12b',blue:'#3284e5'};
-const T=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
-const S={red:0,green:13,yellow:26,blue:39},BASE={red:[[1,1],[1,4],[4,1],[4,4]],green:[[1,10],[1,13],[4,10],[4,13]],yellow:[[10,10],[10,13],[13,10],[13,13]],blue:[[10,1],[10,4],[13,1],[13,4]]},L={red:[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],green:[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],yellow:[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],blue:[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]},SAFE=new Set([0,8,13,21,26,34,39,47]);
-let g=null,cells=new Map();
-function fresh(n){return{players:n===2?['red','yellow']:n===3?['red','green','yellow']:C.slice(),turn:0,d:0,rolled:false,legal:[],p:Object.fromEntries(C.map(c=>[c,[-1,-1,-1,-1]])),win:null}}
-function pos(c,p,i){return p<0?BASE[c][i]:p>=52?L[c][p-52]:T[(S[c]+p)%52]}
-function legal(c,d){return g.p[c].map((p,i)=>p===57?-1:p<0?(d===6?i:-1):(p+d<=57?i:-1)).filter(i=>i>=0)}
-function board(){let b=$('board');b.innerHTML='';cells.clear();for(let r=0;r<15;r++)for(let c=0;c<15;c++){let e=document.createElement('div');e.className='cell';e.style.gridRow=r+1;e.style.gridColumn=c+1;let color=r<6&&c<6?'red':r<6&&c>8?'green':r>8&&c>8?'yellow':r>8&&c<6?'blue':null;if(color)e.classList.add('base',color);cells.set(r+','+c,e);b.append(e)}
-[['red',1,1],['green',1,10],['blue',10,1],['yellow',10,10]].forEach(([c,r,x])=>{let p=document.createElement('div');p.className='homePlate';p.style.gridRow=`${r+1}/${r+6}`;p.style.gridColumn=`${x+1}/${x+6}`;for(let i=0;i<4;i++){let s=document.createElement('div');s.className='baseSpot';p.append(s)}b.append(p)});
-T.forEach(([r,c],i)=>{let e=cells.get(r+','+c);e.classList.add('path');if(SAFE.has(i))e.classList.add('safe');C.forEach(k=>{if(S[k]===i)e.classList.add('start',k)})});Object.entries(L).forEach(([k,a])=>a.forEach(([r,c])=>cells.get(r+','+c).classList.add('lane',k)));let center=document.createElement('div');center.className='centerStar';center.textContent='ONE SOUL';b.append(center)}
-function render(){ $('chips').innerHTML='';g.players.forEach((c,i)=>{let e=document.createElement('span');e.className='chip'+(i===g.turn?' on':'');e.innerHTML=`<i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${H[c]};margin-right:5px"></i>${N[c]} · ${g.p[c].filter(x=>x===57).length}/4`;$('chips').append(e)});$('turn').textContent=g.win?N[g.win]+' WINS THE ARENA!':N[g.players[g.turn]]+"'s turn";$('die').textContent=g.d||'⚄';$('roll').disabled=!!g.win||g.rolled;$('msg').textContent=g.win?'Victory! All four pieces reached home.':g.rolled?'Tap a glowing piece to move.':'Roll the dice to begin.';board();g.players.forEach(c=>g.p[c].forEach((p,i)=>{let [r,x]=pos(c,p,i),e=cells.get(r+','+x),t=document.createElement('button');t.className='token '+c;t.textContent=i+1;let ok=g.rolled&&g.players[g.turn]===c&&g.legal.includes(i);t.disabled=!ok;if(ok)t.classList.add('ready');t.onclick=()=>move(c,i);e.append(t)}))}
-function next(){g.turn=(g.turn+1)%g.players.length;g.rolled=false;g.legal=[];g.d=0}
-function roll(){if(g.win||g.rolled)return;let c=g.players[g.turn];g.d=1+Math.floor(Math.random()*6);g.rolled=true;g.legal=legal(c,g.d);if(!g.legal.length){let six=g.d===6;g.rolled=false;g.legal=[];render();$('msg').textContent=six?'No legal move. Roll again.':'No legal move — turn passed.';if(!six){next();render();$('msg').textContent='No legal move — next player.'}return}render()}
-function move(c,i){if(!g.rolled||g.players[g.turn]!==c||!g.legal.includes(i))return;let d=g.d,old=g.p[c][i],p=old<0?0:old+d;g.p[c][i]=p;let cap=false;if(p<51){let sq=(S[c]+p)%52;if(!SAFE.has(sq))g.players.filter(x=>x!==c).forEach(o=>g.p[o].forEach((v,j)=>{if(v>=0&&v<51&&(S[o]+v)%52===sq){g.p[o][j]=-1;cap=true}}))}if(g.p[c].every(v=>v===57)){g.win=c;g.rolled=false;g.legal=[];render();$('notice').textContent='🏆 ONE SOUL CHAMPION!';return}let bonus=d===6||cap||p===57;g.rolled=false;g.legal=[];if(!bonus)next();render();$('msg').textContent=cap?'Piece captured — play again!':p===57?'Piece reached home — play again!':bonus?'You rolled a 6 — play again!':'Piece moved. Next player.';$('notice').textContent=cap?'✦ CAPTURE!':p===57?'✦ HOME!':bonus?'✦ EXTRA TURN':''}
-function start(){g=fresh(+$('count').value);$('setup').classList.add('hide');$('game').classList.remove('hide');$('notice').textContent='';render()}
-$('start').onclick=start;$('roll').onclick=roll;$('again').onclick=start;$('back').onclick=()=>{$('game').classList.add('hide');$('setup').classList.remove('hide')};
+
+<section id="authGate">
+ <div id="authCard">
+  <div style="font-size:42px">❤️</div>
+  <h2>ONE SOUL</h2>
+  <div style="color:#f5d98b;font-size:11px;letter-spacing:3px;font-weight:bold">PLAYER ACCOUNT</div>
+  <p>Sign in to enter the arena. Guest accounts are created automatically; Google sign-in can be linked later in a future update.</p>
+  <input id="playerName" maxlength="24" autocomplete="nickname" placeholder="Enter your player name (for Guest)">
+  <button class="authBtn guest" id="guestLogin">Continue as Guest</button>
+  <button class="authBtn" id="googleLogin">Continue with Google</button>
+  <div id="authStatus">Connecting to ONE SOUL…</div>
+ </div>
+</section>
+<div id="accountBar" hidden>
+ <span id="accountLabel">Signed in</span>
+ <button id="signOutBtn" type="button">Sign out</button>
+</div>
+
+<header><h1>❤️ ONE SOUL ❤️</h1><div class="sub">GAME CENTER • ADMIN DASHBOARD</div></header>
+<nav>
+<button class="active" data-tab="ludo">🎲 Ludo Game</button>
+<button data-tab="soul">✨ Soul Hunt</button>
+<button data-tab="admin">🛡️ Admin Panel</button>
+</nav><main>
+<section id="ludo" class="view active"><iframe class="gameframe" title="ONE SOUL Ludo" srcdoc="&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;&lt;title&gt;ONE SOUL LUDO&lt;/title&gt;
+&lt;style&gt;
+*{box-sizing:border-box}
+body{margin:0;padding:0 8px 18px;background:radial-gradient(ellipse at 50% 0%,#27315b 0%,#11172d 42%,#070a16 100%);color:#f7f7ff;font-family:Arial,sans-serif;text-align:center}
+h1{color:#e0c5ff;text-shadow:0 0 8px #a879ff,0 0 24px #754bdb;margin:16px 0 8px;font-size:clamp(22px,5vw,32px);letter-spacing:2px}
+#info{display:flex;justify-content:space-around;gap:10px;padding:10px 12px;font-size:15px;max-width:650px;margin:8px auto;background:linear-gradient(135deg,#202a49,#11182d);border:1px solid #6574a8;border-radius:14px;box-shadow:0 8px 22px #0007}
+#info b{color:#ffe19a}
+#status{min-height:34px;color:#ffe08a;font-size:14px;padding:8px;margin:8px auto;max-width:650px;background:#151d33;border:1px solid #35456b;border-radius:12px}
+#board{width:min(94vw,620px);height:min(94vw,620px);margin:22px auto 30px;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);border:8px solid #fff4c9;border-radius:27px;overflow:hidden;background:linear-gradient(145deg,#fff 0%,#e9f2ff 45%,#b7c9ed 100%);box-shadow:0 0 0 3px #a47cff,0 0 0 8px #272d55,0 9px 0 #8b91b8,0 16px 0 #4c557f,0 23px 0 #252d50,0 34px 52px #000e,0 0 42px #a879ff99,inset 0 4px 12px #fff;transform:perspective(900px) rotateX(2.8deg);transform-style:preserve-3d}
+.cell{border:1px solid rgba(34,44,70,.15);display:flex;align-items:center;justify-content:center;font-size:clamp(5px,1.2vw,10px);position:relative;overflow:visible;box-shadow:inset 0 2px 3px #fff,inset 0 -2px 3px #64749b55}
+.home{filter:saturate(1.2);box-shadow:inset 0 3px 11px #fff,inset 0 -6px 12px #0005,0 2px 3px #fff9}.home.red{background:linear-gradient(145deg,#ffb0bb 0%,#f34c70 42%,#9d173e 100%);box-shadow:inset 0 2px 8px #fff8,inset 0 -5px 12px #650d2d55}.home.green{background:linear-gradient(145deg,#c0ffd5 0%,#4bd88b 42%,#08613b 100%);box-shadow:inset 0 2px 8px #fff8,inset 0 -5px 12px #03442655}.home.yellow{background:linear-gradient(145deg,#fff9c5 0%,#ffdc57 42%,#a87508 100%);box-shadow:inset 0 2px 8px #fff9,inset 0 -5px 12px #79500055}.home.blue{background:linear-gradient(145deg,#c4e8ff 0%,#63b2ff 42%,#17478e 100%);box-shadow:inset 0 2px 8px #fff8,inset 0 -5px 12px #0a2d6655}
+.track{background:linear-gradient(145deg,#ffffff 0%,#edf3ff 48%,#cbd7ed 100%);color:#17213b;box-shadow:inset 0 1px 3px #fff,inset 0 -1px 2px #9baaca55}
+.center{background:conic-gradient(from 45deg,#ff5277 0 25%,#31d887 0 50%,#ffd84d 0 75%,#4ca7ff 0);box-shadow:inset 0 0 0 3px #fff,inset 0 0 14px #17213b66}
+.start.red{background:linear-gradient(145deg,#ff8b9b,#e52e59)!important}.start.green{background:linear-gradient(145deg,#a1ffc2,#16a765)!important}.start.yellow{background:linear-gradient(145deg,#fff5a9,#e5b51c)!important}.start.blue{background:linear-gradient(145deg,#a4d8ff,#2874dc)!important}
+.home:after{content:&quot;&quot;;position:absolute;inset:8%;border:2px solid #ffffff99;border-radius:9px;pointer-events:none;box-shadow:inset 0 0 12px #ffffff35,0 0 8px #17213b22}
+.token{width:112%;height:148%;min-width:9px;min-height:9px;border:2px solid #fff;cursor:pointer;position:relative;z-index:3;border-radius:48% 48% 38% 38% / 24% 24% 18% 18%;background-image:linear-gradient(105deg,#ffffff88 0%,transparent 24%,transparent 65%,#0005 100%);box-shadow:inset 0 5px 7px #ffffffed,inset 0 -10px 12px #0008,0 4px 0 #ffffff88,0 8px 0 #17213b77,0 13px 13px #000b,0 0 0 1px #17213b;transform:translateY(-16%) perspective(120px) rotateX(7deg);transition:transform .18s,filter .18s;clip-path:polygon(50% 0%,66% 3%,78% 12%,83% 25%,80% 37%,74% 48%,88% 77%,100% 91%,97% 100%,3% 100%,0 91%,12% 77%,26% 48%,20% 37%,17% 25%,22% 12%,34% 3%)}
+.token:before{content:&quot;&quot;;position:absolute;left:14%;top:9%;width:48%;height:27%;border-radius:50%;background:linear-gradient(135deg,#fffffffa,#ffffff20);transform:rotate(-30deg);filter:blur(.2px)}
+.token:after{content:&quot;&quot;;position:absolute;inset:18%;border-radius:50%;border:1px solid #ffffffb8;box-shadow:inset 0 2px 3px #0004,0 1px 2px #fff5}
+.redT{background:radial-gradient(circle at 32% 25%,#ffccd3 0,#ff637d 25%,#c91e49 68%,#77112d 100%)}
+.greenT{background:radial-gradient(circle at 32% 25%,#d3ffe1 0,#66e99b 25%,#149455 68%,#07542f 100%)}
+.yellowT{background:radial-gradient(circle at 32% 25%,#fffbd0 0,#ffe36b 25%,#d39a08 68%,#815600 100%)}
+.blueT{background:radial-gradient(circle at 32% 25%,#e0f4ff 0,#72bdff 25%,#2674d2 68%,#123d82 100%)}
+button{background:linear-gradient(145deg,#9869f4,#5930b2);color:#fff;border:1px solid #c5a8ff;border-radius:13px;padding:13px 20px;font-size:16px;font-weight:700;margin:7px;box-shadow:0 5px 13px #0006,inset 0 1px #ffffff55}
+button:active{transform:translateY(1px);filter:brightness(1.15)}button:disabled{opacity:.45}.token:hover{filter:brightness(1.2) drop-shadow(0 8px 6px #fff9);transform:translateY(-24%) scale(1.08)}.small{font-size:12px;opacity:.8;color:#c5cde8}
+
+#roll{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-width:190px;min-height:78px;padding:10px 20px;background:linear-gradient(145deg,#b78bff,#6335bd 58%,#382078);border:1px solid #e4d3ff;box-shadow:0 7px 0 #2a1858,0 12px 22px #0008,inset 0 2px 5px #ffffff80}
+.dice-stage{width:54px;height:54px;perspective:220px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 54px}
+.dice-cube{width:46px;height:46px;position:relative;transform-style:preserve-3d;transform:rotateX(-12deg) rotateY(22deg);transition:transform .38s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 5px 4px #160c35aa)}
+.dice-cube.show1{transform:rotateX(0deg) rotateY(0deg)}
+.dice-cube.show2{transform:rotateX(90deg) rotateY(0deg)}
+.dice-cube.show3{transform:rotateX(0deg) rotateY(-90deg)}
+.dice-cube.show4{transform:rotateX(0deg) rotateY(90deg)}
+.dice-cube.show5{transform:rotateX(-90deg) rotateY(0deg)}
+.dice-cube.show6{transform:rotateX(0deg) rotateY(180deg)}
+.dice-cube.rolling{animation:diceTumble .55s ease-in-out}
+@keyframes diceTumble{0%{transform:rotateX(0) rotateY(0) scale(1)}35%{transform:rotateX(220deg) rotateY(180deg) scale(1.12)}70%{transform:rotateX(430deg) rotateY(390deg) scale(1.08)}100%{transform:rotateX(708deg) rotateY(742deg) scale(1)}}
+.dice-face{position:absolute;inset:0;border-radius:9px;background:linear-gradient(145deg,#fff 0%,#e9edff 58%,#b9c3e5 100%);border:2px solid #fff;box-shadow:inset 0 2px 5px #fff, inset 0 -3px 6px #66719a66;backface-visibility:hidden}
+.dice-face.front{transform:translateZ(23px)}.dice-face.back{transform:rotateY(180deg) translateZ(23px)}.dice-face.right{transform:rotateY(90deg) translateZ(23px)}.dice-face.left{transform:rotateY(-90deg) translateZ(23px)}.dice-face.top{transform:rotateX(90deg) translateZ(23px)}.dice-face.bottom{transform:rotateX(-90deg) translateZ(23px)}
+.dice-face .pip{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#596080,#171d38 72%);box-shadow:inset 0 1px 1px #ffffff55,0 1px 2px #0006;transform:translate(-50%,-50%)}
+.roll-label{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}.roll-label strong{font-size:16px;letter-spacing:.5px}.roll-label small{font-size:10px;opacity:.8;font-weight:500;letter-spacing:1px;margin-top:5px}
+@media(max-width:420px){#board{width:96vw;height:96vw;border-width:5px;border-radius:17px}.token{width:118%;height:150%;min-width:8px;min-height:8px}#info{font-size:13px}.cell{border-width:.5px}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;❤️ ONE SOUL LUDO ❤️&lt;/h1&gt;&lt;div class=&quot;small&quot; style=&quot;letter-spacing:2px;color:#f5d98b;margin-top:-3px&quot;&gt;ROYAL EDITION • 3D TOKENS&lt;/div&gt;
+&lt;div id=&quot;info&quot;&gt;&lt;span&gt;Turn: &lt;b id=&quot;turn&quot;&gt;Red&lt;/b&gt;&lt;/span&gt;&lt;span&gt;Last roll: &lt;b id=&quot;dice&quot;&gt;-&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div id=&quot;status&quot;&gt;Red: Roll the dice&lt;/div&gt;&lt;div id=&quot;board&quot;&gt;&lt;/div&gt;
+&lt;button id=&quot;roll&quot; onclick=&quot;rollDice()&quot;&gt;&lt;span class=&quot;dice-stage&quot;&gt;&lt;span id=&quot;diceCube&quot; class=&quot;dice-cube show1&quot;&gt;&lt;span class=&quot;dice-face front&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face back&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face right&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face left&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face top&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:50%;top:50%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:75%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;dice-face bottom&quot;&gt;&lt;i class=&quot;pip&quot; style=&quot;left:25%;top:25%&quot;&gt;&lt;/i&gt;&lt;i class=&quot;pip&quot; style=&quot;left:75%;top:75%&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;roll-label&quot;&gt;&lt;strong&gt;ROLL DICE&lt;/strong&gt;&lt;small&gt;TAP TO ROLL&lt;/small&gt;&lt;/span&gt;&lt;/button&gt;&lt;button onclick=&quot;restart()&quot;&gt;🔄 Restart&lt;/button&gt;
+&lt;div class=&quot;small&quot;&gt;Mobile friendly • 4 players • Local pass-and-play&lt;/div&gt;
+&lt;script&gt;
+const colors=[&#x27;red&#x27;,&#x27;green&#x27;,&#x27;yellow&#x27;,&#x27;blue&#x27;];
+const names={0:&#x27;Red&#x27;,1:&#x27;Green&#x27;,2:&#x27;Yellow&#x27;,3:&#x27;Blue&#x27;};
+function playerName(p){return names[p]||&#x27;Unknown&#x27;;}
+function syncTurnLabel(){const el=document.getElementById(&#x27;turn&#x27;);el.textContent=playerName(turn);el.style.color=colors[turn];el.style.fontWeight=&#x27;900&#x27;;}
+const board=document.getElementById(&#x27;board&#x27;);
+let turn=0,pendingRoll=0,lastRoll=&#x27;-&#x27;,playing=true;
+let pieces=colors.map(()=&gt;[0,0,0,0]);
+// 52 squares around the outer track. Index 0 is the square just before Red&#x27;s entry.
+const path=[[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0]];
+// Correct entry squares: Red [6,1], Green [1,8], Yellow [8,13], Blue [13,6].
+const startOffset=[1,14,27,40];
+const safeSquares=new Set([1,9,14,22,27,35,40,48]);
+const homePaths=[[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]];
+const homeSpots=[[[2,2],[2,3],[3,2],[3,3]],[[2,11],[2,12],[3,11],[3,12]],[[11,11],[11,12],[12,11],[12,12]],[[11,2],[11,3],[12,2],[12,3]]];
+function globalSquare(player,progress){return (startOffset[player]+progress-1)%52;}
+function cellAt(r,c){return board.children[r*15+c];}
+function makeBoard(){
+ board.innerHTML=&#x27;&#x27;;
+ for(let r=0;r&lt;15;r++)for(let c=0;c&lt;15;c++){
+  const d=document.createElement(&#x27;div&#x27;);d.className=&#x27;cell&#x27;;
+  if(r&lt;6&amp;&amp;c&lt;6)d.classList.add(&#x27;home&#x27;,&#x27;red&#x27;);
+  else if(r&lt;6&amp;&amp;c&gt;8)d.classList.add(&#x27;home&#x27;,&#x27;green&#x27;);
+  else if(r&gt;8&amp;&amp;c&gt;8)d.classList.add(&#x27;home&#x27;,&#x27;yellow&#x27;);
+  else if(r&gt;8&amp;&amp;c&lt;6)d.classList.add(&#x27;home&#x27;,&#x27;blue&#x27;);
+  else if(r&gt;=6&amp;&amp;r&lt;=8&amp;&amp;c&gt;=6&amp;&amp;c&lt;=8)d.classList.add(&#x27;center&#x27;);
+  else d.classList.add(&#x27;track&#x27;);
+  board.appendChild(d);
+ }
+ homePaths.forEach((lane,p)=&gt;lane.forEach(([r,c])=&gt;cellAt(r,c).classList.add(&#x27;home&#x27;,colors[p])));
+ // Clearly mark each player&#x27;s real entry square and the protected squares.
+ startOffset.forEach((offset,p)=&gt;{const [r,c]=path[offset];cellAt(r,c).classList.add(&#x27;start&#x27;,colors[p]);cellAt(r,c).textContent=&#x27;START&#x27;;cellAt(r,c).style.fontSize=&#x27;7px&#x27;;cellAt(r,c).style.fontWeight=&#x27;bold&#x27;;});
+ for(const idx of safeSquares){const [r,c]=path[idx];if(!startOffset.includes(idx)){cellAt(r,c).textContent=&#x27;★&#x27;;cellAt(r,c).style.color=&#x27;#9b6b00&#x27;;cellAt(r,c).style.fontWeight=&#x27;bold&#x27;;}}
+ renderPieces();
+}
+function coordsFor(p,pos){
+ if(pos&gt;=1&amp;&amp;pos&lt;=52)return path[globalSquare(p,pos)];
+ if(pos&gt;=53&amp;&amp;pos&lt;=58)return homePaths[p][pos-53];
+ return [7,7];
+}
+function renderPieces(){
+ document.querySelectorAll(&#x27;.token&#x27;).forEach(x=&gt;x.remove());
+ pieces.forEach((arr,p)=&gt;arr.forEach((pos,i)=&gt;{
+  const d=document.createElement(&#x27;div&#x27;);d.className=&#x27;token &#x27;+colors[p]+&#x27;T&#x27;;
+  const [r,c]=pos===0?homeSpots[p][i]:coordsFor(p,pos);
+  cellAt(r,c).appendChild(d);
+  if(playing&amp;&amp;p===turn&amp;&amp;pendingRoll&gt;0&amp;&amp;pos!==59){d.onclick=()=&gt;movePiece(p,i);}
+  else d.style.cursor=&#x27;default&#x27;;
+ }));
+}
+function canMove(pos,roll){
+ if(pos===59)return false;
+ if(pos===0)return roll===6;
+ return pos+roll&lt;=59;
+}
+function hasLegalMove(p,roll){return pieces[p].some(pos=&gt;canMove(pos,roll));}
+function updateDice(){
+ document.getElementById(&#x27;dice&#x27;).textContent=lastRoll;
+ const cube=document.getElementById(&#x27;diceCube&#x27;);
+ if(cube &amp;&amp; lastRoll&gt;=1 &amp;&amp; lastRoll&lt;=6){
+  for(let n=1;n&lt;=6;n++)cube.classList.remove(&#x27;show&#x27;+n);
+  cube.classList.add(&#x27;show&#x27;+lastRoll);
+ }
+}
+function rollDice(){
+ if(!playing||pendingRoll!==0)return;
+ pendingRoll=Math.floor(Math.random()*6)+1;lastRoll=pendingRoll;
+ const cube=document.getElementById(&#x27;diceCube&#x27;);
+ if(cube){cube.classList.remove(&#x27;rolling&#x27;);void cube.offsetWidth;cube.classList.add(&#x27;rolling&#x27;);setTimeout(()=&gt;cube.classList.remove(&#x27;rolling&#x27;),600);}
+ updateDice();
+ if(!hasLegalMove(turn,pendingRoll)){
+  const n=pendingRoll;pendingRoll=0;
+  if(n===6){document.getElementById(&#x27;status&#x27;).textContent=playerName(turn)+&#x27; rolled 6 — no legal move, roll again.&#x27;;}
+  else{document.getElementById(&#x27;status&#x27;).textContent=playerName(turn)+&#x27; rolled &#x27;+n+&#x27; — no legal move. &#x27;+playerName((turn+1)%4)+&#x27; plays next.&#x27;;nextTurn();}
+  renderPieces();return;
+ }
+ document.getElementById(&#x27;status&#x27;).textContent=playerName(turn)+&#x27; rolled &#x27;+pendingRoll+&#x27;. Tap one of your highlighted tokens.&#x27;;
+ renderPieces();
+}
+function movePiece(p,i){
+ if(!playing||p!==turn||pendingRoll===0)return;
+ const rolled=pendingRoll,old=pieces[p][i];
+ if(!canMove(old,rolled))return;
+ if(old===0)pieces[p][i]=1; // A six places the token directly on its own entry square.
+ else pieces[p][i]=old+rolled;
+ let captured=0;const landed=pieces[p][i];
+ if(landed&gt;=1&amp;&amp;landed&lt;=52){
+  const sq=globalSquare(p,landed);
+  if(!safeSquares.has(sq)){
+   for(let op=0;op&lt;4;op++){
+    if(op===p)continue;
+    const enemy=pieces[op].map((v,j)=&gt;({v,j})).filter(x=&gt;x.v&gt;=1&amp;&amp;x.v&lt;=52&amp;&amp;globalSquare(op,x.v)===sq);
+    if(enemy.length===1){pieces[op][enemy[0].j]=0;captured++;}
+   }
+  }
+ }
+ pendingRoll=0;
+ if(pieces[p].every(x=&gt;x===59)){
+  playing=false;document.getElementById(&#x27;status&#x27;).textContent=&#x27;🏆 &#x27;+playerName(p)+&#x27; wins!&#x27;;document.getElementById(&#x27;roll&#x27;).disabled=true;renderPieces();return;
+ }
+ renderPieces();
+ if(rolled===6||captured&gt;0){
+  let msg=playerName(p)+&#x27; moved. &#x27;;
+  if(captured)msg+=&#x27;Captured &#x27;+captured+&#x27; opponent token(s). &#x27;;
+  msg+=rolled===6?&#x27;Rolled 6 — extra turn. Roll again.&#x27;:&#x27;Capture bonus — roll again.&#x27;;
+  document.getElementById(&#x27;status&#x27;).textContent=msg;return;
+ }
+ nextTurn();
+}
+function nextTurn(){if(!playing)return;turn=(turn+1)%4;syncTurnLabel();document.getElementById(&#x27;status&#x27;).textContent=playerName(turn)+&#x27;: Roll the dice&#x27;;renderPieces();}
+function restart(){turn=0;pendingRoll=0;lastRoll=&#x27;-&#x27;;playing=true;pieces=colors.map(()=&gt;[0,0,0,0]);syncTurnLabel();updateDice();document.getElementById(&#x27;status&#x27;).textContent=&#x27;Red: Roll the dice&#x27;;document.getElementById(&#x27;roll&#x27;).disabled=false;makeBoard();}
+syncTurnLabel();makeBoard();
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></section>
+<section id="soul" class="view"><iframe class="gameframe" title="ONE SOUL Soul Hunt" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;&gt;
+&lt;meta name=&quot;theme-color&quot; content=&quot;#090b18&quot;&gt;
+&lt;title&gt;ONE SOUL — Soul Hunt&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#090b18;--panel:#14182b;--gold:#ffd76a;--cyan:#6ce7ff;--pink:#ff79c6;--text:#f4f5ff}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% 0,#20264a 0,#090b18 55%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;touch-action:pan-y}
+body{padding:14px;display:flex;justify-content:center}.app{width:min(100%,900px)}header{text-align:center;margin:4px 0 12px}h1{margin:0;font-size:clamp(30px,7vw,52px);letter-spacing:5px;text-shadow:0 0 22px #8b6cff}header p{margin:2px 0;color:#aeb5d6;font-size:13px;letter-spacing:2px}
+.panel{background:#11162acc;border:1px solid #394064;border-radius:18px;padding:12px;box-shadow:0 12px 40px #0007}
+.top{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}.scores{display:flex;gap:8px;flex:1}.score{flex:1;min-width:110px;border-radius:12px;padding:8px 10px;background:#202744;border:1px solid #46517e}.score b{display:block;font-size:12px;letter-spacing:1px}.score span{font-size:23px;font-weight:800}.p1 b{color:var(--cyan)}.p2 b{color:var(--pink)}
+button{border:1px solid #59658e;background:#252d4c;color:white;border-radius:11px;padding:10px 14px;font-weight:700;font-size:14px;cursor:pointer}button:active{transform:scale(.97);background:#39456e}.gold{background:#6b4e16;border-color:#b78c38;color:#fff2c4}
+canvas{display:block;width:100%;height:auto;aspect-ratio:16/10;background:#0b1022;border:1px solid #384267;border-radius:14px;touch-action:none}
+.info{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#b8c0e3;font-size:12px;margin:9px 2px 0}.controls{display:flex;justify-content:space-between;gap:12px;margin-top:12px}.pad{width:48%;max-width:220px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;user-select:none}.pad button{padding:12px 0;font-size:18px;min-height:46px;touch-action:none}.pad .blank{visibility:hidden}.pad small{grid-column:1/-1;text-align:center;color:#9ca8d3;font-size:11px;letter-spacing:1px}.help{text-align:center;color:#aeb5d6;font-size:12px;line-height:1.5;margin:12px 4px 2px}.overlay{position:fixed;inset:0;background:#050713d9;display:flex;align-items:center;justify-content:center;padding:20px;z-index:5}.dialog{width:min(100%,420px);background:#171d36;border:1px solid #6571a5;border-radius:20px;padding:24px;text-align:center;box-shadow:0 20px 70px #000b}.dialog h2{margin:0 0 8px;font-size:28px}.dialog p{color:#c2c9e8;line-height:1.5}.choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.hidden{display:none!important}.foot{text-align:center;color:#69749e;font-size:10px;margin:12px 0}
+@media(min-width:700px){.controls{max-width:560px;margin:12px auto 0}.pad button{min-height:40px}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;app&quot;&gt;
+&lt;header&gt;&lt;h1&gt;ONE SOUL&lt;/h1&gt;&lt;p&gt;SOUL HUNT • COLLECT TOGETHER, SURVIVE THE SHADOW&lt;/p&gt;&lt;/header&gt;
+&lt;section class=&quot;panel&quot;&gt;
+ &lt;div class=&quot;top&quot;&gt;
+  &lt;div class=&quot;scores&quot;&gt;
+   &lt;div class=&quot;score p1&quot;&gt;&lt;b&gt;PLAYER 1&lt;/b&gt;&lt;span id=&quot;s1&quot;&gt;0&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;score p2&quot; id=&quot;score2&quot;&gt;&lt;b&gt;PLAYER 2&lt;/b&gt;&lt;span id=&quot;s2&quot;&gt;0&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button id=&quot;pause&quot;&gt;Ⅱ Pause&lt;/button&gt;&lt;button class=&quot;gold&quot; id=&quot;restart&quot;&gt;↻ Restart&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;canvas id=&quot;game&quot; width=&quot;800&quot; height=&quot;500&quot; aria-label=&quot;One Soul game arena&quot;&gt;&lt;/canvas&gt;
+ &lt;div class=&quot;info&quot;&gt;&lt;span id=&quot;status&quot;&gt;Collect 10 souls to win!&lt;/span&gt;&lt;span id=&quot;clock&quot;&gt;01:30&lt;/span&gt;&lt;/div&gt;
+ &lt;div class=&quot;controls&quot;&gt;
+  &lt;div class=&quot;pad&quot; id=&quot;pad1&quot;&gt;&lt;small&gt;PLAYER 1 · WASD&lt;/small&gt;&lt;span class=&quot;blank&quot;&gt;.&lt;/span&gt;&lt;button data-player=&quot;1&quot; data-dir=&quot;up&quot;&gt;▲&lt;/button&gt;&lt;span class=&quot;blank&quot;&gt;.&lt;/span&gt;&lt;button data-player=&quot;1&quot; data-dir=&quot;left&quot;&gt;◀&lt;/button&gt;&lt;button data-player=&quot;1&quot; data-dir=&quot;down&quot;&gt;▼&lt;/button&gt;&lt;button data-player=&quot;1&quot; data-dir=&quot;right&quot;&gt;▶&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;pad hidden&quot; id=&quot;pad2&quot;&gt;&lt;small&gt;PLAYER 2 · ARROWS&lt;/small&gt;&lt;span class=&quot;blank&quot;&gt;.&lt;/span&gt;&lt;button data-player=&quot;2&quot; data-dir=&quot;up&quot;&gt;▲&lt;/button&gt;&lt;span class=&quot;blank&quot;&gt;.&lt;/span&gt;&lt;button data-player=&quot;2&quot; data-dir=&quot;left&quot;&gt;◀&lt;/button&gt;&lt;button data-player=&quot;2&quot; data-dir=&quot;down&quot;&gt;▼&lt;/button&gt;&lt;button data-player=&quot;2&quot; data-dir=&quot;right&quot;&gt;▶&lt;/button&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;p class=&quot;help&quot;&gt;Desktop: Player 1 = W A S D · Player 2 = Arrow keys&lt;br&gt;Mobile: use the direction buttons. Collect glowing souls and avoid the shadow!&lt;/p&gt;
+&lt;/section&gt;
+&lt;p class=&quot;foot&quot;&gt;ONE SOUL GAME · Made to play in your browser&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;overlay&quot; id=&quot;start&quot;&gt;
+ &lt;div class=&quot;dialog&quot;&gt;
+  &lt;h2&gt;ONE SOUL&lt;/h2&gt;&lt;p&gt;Enter the arena. Gather glowing souls before time runs out — but watch out for the Shadow!&lt;/p&gt;
+  &lt;div class=&quot;choices&quot;&gt;&lt;button class=&quot;gold&quot; id=&quot;solo&quot;&gt;1 Player&lt;/button&gt;&lt;button id=&quot;duo&quot;&gt;2 Players&lt;/button&gt;&lt;/div&gt;
+  &lt;p style=&quot;font-size:12px;margin-bottom:0&quot;&gt;First to 10 souls wins. In 1 Player mode, survive and collect as many as you can.&lt;/p&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;overlay hidden&quot; id=&quot;end&quot;&gt;
+ &lt;div class=&quot;dialog&quot;&gt;&lt;h2 id=&quot;endTitle&quot;&gt;Soul secured!&lt;/h2&gt;&lt;p id=&quot;endText&quot;&gt;&lt;/p&gt;&lt;div class=&quot;choices&quot;&gt;&lt;button class=&quot;gold&quot; id=&quot;again&quot;&gt;Play again&lt;/button&gt;&lt;button id=&quot;menu&quot;&gt;Main menu&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(()=&gt;{
+const canvas=document.getElementById(&#x27;game&#x27;),ctx=canvas.getContext(&#x27;2d&#x27;);
+const W=800,H=500,goal=10;
+const $=id=&gt;document.getElementById(id);
+let mode=1,players=[],orbs=[],shadow={},score=[0,0],time=90,running=false,paused=false,last=0,raf=0;
+const keys={},held={1:{},2:{}};
+const rand=(a,b)=&gt;Math.random()*(b-a)+a;
+function makePlayer(x,y,color,glow){return{x,y,r:17,color,glow,speed:220,inv:0}}
+function spawnOrb(){let x,y,tries=0;do{x=rand(45,W-45);y=rand(45,H-45);tries++}while(tries&lt;30&amp;&amp;players.some(p=&gt;Math.hypot(p.x-x,p.y-y)&lt;65));return{x,y,r:10,pulse:rand(0,6)}}
+function reset(){score=[0,0];time=90;players=[makePlayer(180,250,&#x27;#6ce7ff&#x27;,&#x27;#2ccfff&#x27;),makePlayer(620,250,&#x27;#ff79c6&#x27;,&#x27;#ff43b2&#x27;)];orbs=Array.from({length:7},spawnOrb);shadow={x:400,y:90,r:21,speed:90};paused=false;running=true;last=0;$(&#x27;s1&#x27;).textContent=&#x27;0&#x27;;$(&#x27;s2&#x27;).textContent=&#x27;0&#x27;;$(&#x27;clock&#x27;).textContent=&#x27;01:30&#x27;;$(&#x27;status&#x27;).textContent=mode===1?&#x27;Collect souls and avoid the Shadow!&#x27;:&#x27;First player to 10 souls wins!&#x27;;$(&#x27;score2&#x27;).classList.toggle(&#x27;hidden&#x27;,mode===1);$(&#x27;pad2&#x27;).classList.toggle(&#x27;hidden&#x27;,mode===1);$(&#x27;pause&#x27;).textContent=&#x27;Ⅱ Pause&#x27;;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+function start(m){mode=m;$(&#x27;start&#x27;).classList.add(&#x27;hidden&#x27;);$(&#x27;end&#x27;).classList.add(&#x27;hidden&#x27;);reset()}
+function inputDir(p){let d=held[p],x=0,y=0;if(p===1){if(keys.KeyA||d.left)x--;if(keys.KeyD||d.right)x++;if(keys.KeyW||d.up)y--;if(keys.KeyS||d.down)y++}else{if(keys.ArrowLeft||d.left)x--;if(keys.ArrowRight||d.right)x++;if(keys.ArrowUp||d.up)y--;if(keys.ArrowDown||d.down)y++}let l=Math.hypot(x,y)||1;return{x:x/l,y:y/l}}
+function move(dt){players.forEach((p,i)=&gt;{let d=inputDir(i+1);p.x=Math.max(p.r+5,Math.min(W-p.r-5,p.x+d.x*p.speed*dt));p.y=Math.max(p.r+5,Math.min(H-p.r-5,p.y+d.y*p.speed*dt));p.inv=Math.max(0,p.inv-dt)});
+let target=players[0];if(mode===2&amp;&amp;Math.hypot(players[1].x-shadow.x,players[1].y-shadow.y)&lt;Math.hypot(target.x-shadow.x,target.y-shadow.y))target=players[1];
+let dx=target.x-shadow.x,dy=target.y-shadow.y,l=Math.hypot(dx,dy)||1;shadow.x+=dx/l*shadow.speed*dt;shadow.y+=dy/l*shadow.speed*dt;
+players.forEach((p,i)=&gt;{orbs.forEach((o,j)=&gt;{if(Math.hypot(p.x-o.x,p.y-o.y)&lt;p.r+o.r){score[i]++;$(&#x27;s&#x27;+(i+1)).textContent=score[i];orbs[j]=spawnOrb();if(mode===2&amp;&amp;score[i]&gt;=goal)finish(i===0?&#x27;PLAYER 1 WINS!&#x27;:&#x27;PLAYER 2 WINS!&#x27;,`Player ${i+1} collected ${goal} souls!`);else if(mode===1&amp;&amp;score[i]&gt;=goal)finish(&#x27;SOUL MASTER!&#x27;,`You collected ${score[i]} souls. Amazing run!`)}});if(Math.hypot(p.x-shadow.x,p.y-shadow.y)&lt;p.r+shadow.r&amp;&amp;p.inv&lt;=0){score[i]=Math.max(0,score[i]-1);$(&#x27;s&#x27;+(i+1)).textContent=score[i];p.inv=1.3;p.x+=(p.x-shadow.x)*.7;p.y+=(p.y-shadow.y)*.7;$(&#x27;status&#x27;).textContent=&#x27;The Shadow stole a soul! Keep moving!&#x27;}});
+}
+function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle=&#x27;#0b1022&#x27;;ctx.fillRect(0,0,W,H);
+ctx.strokeStyle=&#x27;#202b4b&#x27;;ctx.lineWidth=1;for(let x=0;x&lt;W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y&lt;H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+orbs.forEach(o=&gt;{o.pulse+=.06;let r=o.r+Math.sin(o.pulse)*2;ctx.shadowBlur=24;ctx.shadowColor=&#x27;#ffd76a&#x27;;ctx.fillStyle=&#x27;#ffe18b&#x27;;ctx.beginPath();ctx.arc(o.x,o.y,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=&#x27;#fff8d8&#x27;;ctx.beginPath();ctx.arc(o.x-3,o.y-3,3,0,Math.PI*2);ctx.fill()});
+ctx.shadowBlur=24;ctx.shadowColor=&#x27;#a855f7&#x27;;ctx.fillStyle=&#x27;#7c3aed&#x27;;ctx.beginPath();ctx.arc(shadow.x,shadow.y,shadow.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=&#x27;#f5d0fe&#x27;;ctx.beginPath();ctx.arc(shadow.x-7,shadow.y-3,3,0,Math.PI*2);ctx.arc(shadow.x+7,shadow.y-3,3,0,Math.PI*2);ctx.fill();
+players.forEach((p,i)=&gt;{ctx.globalAlpha=p.inv&gt;0&amp;&amp;Math.floor(p.inv*12)%2===0?.35:1;ctx.shadowBlur=22;ctx.shadowColor=p.glow;ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=&#x27;#10152a&#x27;;ctx.beginPath();ctx.arc(p.x-5,p.y-3,2.5,0,Math.PI*2);ctx.arc(p.x+5,p.y-3,2.5,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;ctx.fillStyle=&#x27;#e9edff&#x27;;ctx.font=&#x27;bold 12px system-ui&#x27;;ctx.textAlign=&#x27;center&#x27;;ctx.fillText(&#x27;P&#x27;+(i+1),p.x,p.y-25)});
+if(paused){ctx.fillStyle=&#x27;#070a16aa&#x27;;ctx.fillRect(0,0,W,H);ctx.fillStyle=&#x27;white&#x27;;ctx.textAlign=&#x27;center&#x27;;ctx.font=&#x27;bold 38px system-ui&#x27;;ctx.fillText(&#x27;PAUSED&#x27;,W/2,H/2)}
+}
+function finish(title,msg){running=false;cancelAnimationFrame(raf);$(&#x27;endTitle&#x27;).textContent=title;$(&#x27;endText&#x27;).textContent=msg+` Final score: ${score[0]}${mode===2?&#x27; - &#x27;+score[1]:&#x27;&#x27;}.`;$(&#x27;end&#x27;).classList.remove(&#x27;hidden&#x27;)}
+function loop(t){if(!running)return;raf=requestAnimationFrame(loop);if(!last)last=t;let dt=Math.min((t-last)/1000,.04);last=t;if(!paused){time=Math.max(0,time-dt);let secs=Math.ceil(time);$(&#x27;clock&#x27;).textContent=&#x27;00:&#x27;+String(secs).padStart(2,&#x27;0&#x27;);move(dt);if(time&lt;=0)finish(mode===1?&#x27;TIME UP!&#x27;:&#x27;DRAW!&#x27;,mode===1?`You collected ${score[0]} souls.`:`Final score: ${score[0]} - ${score[1]}.`)}draw()}
+function setPause(){if(!running)return;paused=!paused;$(&#x27;pause&#x27;).textContent=paused?&#x27;▶ Resume&#x27;:&#x27;Ⅱ Pause&#x27;;draw()}
+document.addEventListener(&#x27;keydown&#x27;,e=&gt;{if([&#x27;ArrowUp&#x27;,&#x27;ArrowDown&#x27;,&#x27;ArrowLeft&#x27;,&#x27;ArrowRight&#x27;,&#x27;Space&#x27;].includes(e.code))e.preventDefault();keys[e.code]=true;if(e.code===&#x27;Escape&#x27;||e.code===&#x27;Space&#x27;)setPause()});
+document.addEventListener(&#x27;keyup&#x27;,e=&gt;keys[e.code]=false);
+document.querySelectorAll(&#x27;.pad button&#x27;).forEach(btn=&gt;{let p=btn.dataset.player,d=btn.dataset.dir;const on=e=&gt;{e.preventDefault();held[p][d]=true;try{btn.setPointerCapture(e.pointerId)}catch(_){}};const off=e=&gt;{e.preventDefault();held[p][d]=false};btn.addEventListener(&#x27;pointerdown&#x27;,on);[&#x27;pointerup&#x27;,&#x27;pointercancel&#x27;,&#x27;lostpointercapture&#x27;].forEach(ev=&gt;btn.addEventListener(ev,off));});
+$(&#x27;solo&#x27;).onclick=()=&gt;start(1);$(&#x27;duo&#x27;).onclick=()=&gt;start(2);$(&#x27;pause&#x27;).onclick=setPause;$(&#x27;restart&#x27;).onclick=()=&gt;reset();$(&#x27;again&#x27;).onclick=()=&gt;{$(&#x27;end&#x27;).classList.add(&#x27;hidden&#x27;);reset()};$(&#x27;menu&#x27;).onclick=()=&gt;{$(&#x27;end&#x27;).classList.add(&#x27;hidden&#x27;);$(&#x27;start&#x27;).classList.remove(&#x27;hidden&#x27;);running=false;cancelAnimationFrame(raf)};
+draw();
 })();
-</script></body></html>
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></section>
+<section id="admin" class="view">
+<div class="panel"><h2>🛡️ Admin Dashboard</h2>
+<p class="note">یہ اس فائل کا مقامی Admin Panel ہے۔ یہ صرف اسی براؤزر میں محفوظ ہونے والی سیٹنگز دکھاتا اور بدلتا ہے؛ حقیقی آن لائن اکاؤنٹس یا سرور ڈیٹا نہیں۔</p>
+<div class="cards"><div class="metric"><b>Game modules</b><strong>2</strong></div><div class="metric"><b>Panel status</b><strong>Local</strong></div><div class="metric"><b>Server connection</b><strong>Not set</strong></div></div></div>
+<div class="panel"><h3>Game Settings</h3>
+<label for="siteName">Game name</label><input id="siteName" maxlength="40" value="ONE SOUL">
+<label for="announcement">Player announcement</label><input id="announcement" maxlength="180" placeholder="یہاں اعلان لکھیں">
+<label for="maintenance">Maintenance mode</label><select id="maintenance"><option value="off">Off</option><option value="on">On (display setting only)</option></select>
+<button class="action" id="saveSettings">Save settings</button><div id="saveMsg"></div></div>
+<div class="panel"><h3>Admin Access & Privacy</h3>
+<p class="note">اس ڈیمو میں کوئی حقیقی لاگ اِن، یوزر مینجمنٹ، چیٹ ریکارڈنگ یا وائس مانیٹرنگ نہیں ہے۔ ایسی خصوصیات کے لیے محفوظ سرور، Admin authentication، database، واضح صارف اطلاع اور اجازت درکار ہے۔</p>
+<div class="warning">اہم: HTML فائل اکیلی کسی دوسرے کھلاڑی کی نجی چیٹ یا مائیک تک رسائی نہیں دے سکتی۔ غیر مجاز نگرانی شامل نہیں کی گئی۔</div></div>
+</section></main><footer>ONE SOUL • Single-file browser build</footer>
+<script>
+const tabs=[...document.querySelectorAll('nav button')];
+tabs.forEach(btn=>btn.addEventListener('click',()=>{
+ tabs.forEach(b=>b.classList.toggle('active',b===btn));
+ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===btn.dataset.tab));
+}));
+const fields=['siteName','announcement','maintenance'];
+fields.forEach(id=>{const v=localStorage.getItem('onesoul_'+id);if(v!==null)document.getElementById(id).value=v;});
+document.getElementById('saveSettings').addEventListener('click',()=>{
+ fields.forEach(id=>localStorage.setItem('onesoul_'+id,document.getElementById(id).value));
+ document.getElementById('saveMsg').textContent='Settings saved on this device.';
+});
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import {
+  getAuth, onAuthStateChanged, signInAnonymously,
+  GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+import {
+  getDatabase, ref, set, update, onValue, onDisconnect, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBrv6aXx6LI9RQUynOnOsP8gMCUkiNbtrU",
+  authDomain: "one-soul-6b1a3.firebaseapp.com",
+  databaseURL: "https://one-soul-6b1a3-default-rtdb.firebaseio.com",
+  projectId: "one-soul-6b1a3",
+  storageBucket: "one-soul-6b1a3.firebasestorage.app",
+  messagingSenderId: "529378878510",
+  appId: "1:529378878510:web:666f2e2d46b9785926abbf",
+  measurementId: "G-T7BC2W2CF6"
+};
+
+const statusEl = document.getElementById("authStatus");
+const gate = document.getElementById("authGate");
+const accountBar = document.getElementById("accountBar");
+const say = (message) => { statusEl.textContent = message; };
+let app, auth, db;
+try {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getDatabase(app);
+  await getRedirectResult(auth);
+  say("Firebase connected. Choose Guest or Google login.");
+} catch (error) {
+  say("Firebase setup error: " + (error?.message || error));
+}
+
+document.getElementById("guestLogin").addEventListener("click", async () => {
+  const name = document.getElementById("playerName").value.trim();
+  if (!name) { say("Guest کے لیے پہلے اپنا Player Name لکھیں۔"); return; }
+  if (!auth) { say("Firebase initialize نہیں ہوا۔ دوبارہ فائل کھولیں۔"); return; }
+  say("Guest account بنایا جا رہا ہے…");
+  try {
+    const result = await signInAnonymously(auth);
+    await update(ref(db, "users/" + result.user.uid), {
+      displayName: name, provider: "guest", updatedAt: serverTimestamp()
+    });
+  } catch (error) {
+    say("Guest login failed: " + (error?.message || error));
+  }
+});
+
+document.getElementById("googleLogin").addEventListener("click", async () => {
+  if (!auth) { say("Firebase initialize نہیں ہوا۔ دوبارہ فائل کھولیں۔"); return; }
+  say("Google sign-in کھولا جا رہا ہے…");
+  try {
+    await signInWithRedirect(auth, new GoogleAuthProvider());
+  } catch (error) {
+    say("Google login failed: " + (error?.message || error));
+  }
+});
+
+document.getElementById("signOutBtn").addEventListener("click", async () => {
+  try { await signOut(auth); } catch (error) { alert(error?.message || error); }
+});
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    document.body.classList.remove("authenticated");
+    gate.hidden = false;
+    accountBar.hidden = true;
+    say("Choose Guest or Google login to continue.");
+    return;
+  }
+  const fallbackName = user.isAnonymous ? "Guest-" + user.uid.slice(0, 6) : (user.displayName || "Player");
+  try {
+    const userRef = ref(db, "users/" + user.uid);
+    const { get } = await import("https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js");
+    const snap = await get(userRef);
+    const savedName = snap.exists() && snap.val().displayName ? snap.val().displayName : fallbackName;
+    await update(userRef, {
+      displayName: savedName,
+      provider: user.isAnonymous ? "guest" : "google",
+      email: user.email || null,
+      updatedAt: serverTimestamp()
+    });
+    const connectedRef = ref(db, ".info/connected");
+    onValue(connectedRef, async (connectedSnap) => {
+      if (connectedSnap.val() === true) {
+        const statusRef = ref(db, "status/" + user.uid);
+        await onDisconnect(statusRef).set({ state: "offline", lastChanged: serverTimestamp() });
+        await set(statusRef, { state: "online", lastChanged: serverTimestamp() });
+      }
+    });
+    document.getElementById("accountLabel").textContent = savedName + (user.isAnonymous ? " • Guest" : " • Google");
+    accountBar.hidden = false;
+    gate.hidden = true;
+    document.body.classList.add("authenticated");
+  } catch (error) {
+    document.body.classList.remove("authenticated");
+    gate.hidden = false;
+    say("Login ہو گیا، مگر Database access نہیں ملا: " + (error?.message || error) + " — Realtime Database Rules چیک کریں۔");
+  }
+});
+</script>
+
+</body></html>
