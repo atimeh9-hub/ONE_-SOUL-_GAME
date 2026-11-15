@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090b18"><title>ONE SOUL — Game & Admin</title>
+<meta name="theme-color" content="#090b18"><title>ONE SOUL Ludo</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090b18;color:#f4f5ff;font-family:Arial,sans-serif}
 header{padding:18px 12px;text-align:center;background:#11162a;border-bottom:1px solid #394064}
@@ -39,9 +39,7 @@ body.authenticated .gameframe{width:100%;height:100dvh;min-height:100dvh}
 </style></head><body>
 <section id="authGate">
  <div id="authCard">
-  <div style="font-size:42px">❤️</div><h2>ONE SOUL</h2>
-  <div style="color:#f5d98b;font-size:11px;letter-spacing:3px;font-weight:bold">PLAYER ACCOUNT</div>
-  <p>Sign in to enter the arena. Guest accounts are created automatically; Google sign-in can be linked later in a future update.</p>
+    <p>Sign in to enter the game. Guest or Google account.</p>
   <input id="playerName" maxlength="24" autocomplete="nickname" placeholder="Enter your player name (for Guest)">
   <button class="authBtn guest" id="guestLogin">Continue as Guest</button>
   <button class="authBtn" id="googleLogin">Continue with Google</button><div id="authStatus">Connecting to ONE SOUL…</div>
@@ -52,12 +50,12 @@ body.authenticated .gameframe{width:100%;height:100dvh;min-height:100dvh}
 <section id="ludo" class="view active"><iframe class="gameframe" title="ONE SOUL Ludo" srcdoc="&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;&lt;title&gt;ONE SOUL LUDO&lt;/title&gt;
 &lt;style&gt;
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif;color:#fff;text-align:center}
-body{padding:0;background:#111a38;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.arena{width:min(100vw,620px);height:100dvh;max-height:900px;display:grid;grid-template-rows:minmax(48px,1fr) minmax(0, min(100vw,620px)) minmax(48px,1fr);align-content:center;justify-items:center;padding:5px 7px;gap:2px}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif;color:#25304a;text-align:center}
+body{padding:0;background:radial-gradient(circle at 50% 45%,#fff8df 0,#d9f1ff 55%,#b8d8ff 100%);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.arena{width:min(100vw,680px);height:100dvh;max-height:980px;display:grid;grid-template-rows:minmax(42px,1fr) minmax(0,min(100vw,650px)) minmax(42px,1fr);align-content:center;justify-items:center;padding:7px 9px;gap:4px}
 .player-row{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 2px;min-height:0}
-.player{display:flex;align-items:center;gap:5px;max-width:48%;padding:3px 8px 3px 3px;border-radius:24px;background:#202c60;border:1px solid #8290c5;box-shadow:0 2px 6px #0005}
-.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;border:2px solid #fff;background:#fff}
+.player{display:flex;align-items:center;gap:5px;max-width:48%;padding:3px 8px 3px 3px;border-radius:24px;background:linear-gradient(145deg,#263b75,#17264e);border:1px solid #829bd8;box-shadow:0 3px 9px #0006}.player[hidden]{display:none!important}
+.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:none;align-items:center;justify-content:center;overflow:hidden;border:2px solid #fff;background:#fff}.avatar.has-photo{display:flex}.avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .player-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:78px}
 .mini-token{width:12px;height:12px;flex:0 0 12px;border:1px solid #fff;border-radius:50%;box-shadow:inset 0 1px 2px #fff9,0 1px 2px #0007}
 .player.red .avatar{background:#ffb8b8;border-color:#ff6262}.player.green .avatar{background:#b9ffd0;border-color:#31d887}.player.yellow .avatar{background:#fff0a8;border-color:#ffd34c}.player.blue .avatar{background:#b8e4ff;border-color:#4ca7ff}
@@ -65,41 +63,45 @@ body{padding:0;background:#111a38;overflow:hidden;display:flex;align-items:cente
 .green .mini-token{background:radial-gradient(circle at 30% 25%,#e0ffe9,#39d47b 65%,#087b43)}
 .yellow .mini-token{background:radial-gradient(circle at 30% 25%,#fffbd5,#ffdb48 65%,#bd8300)}
 .blue .mini-token{background:radial-gradient(circle at 30% 25%,#e5f6ff,#63b8ff 65%,#145eae)}
-#board{width:min(94vw,calc(100dvh - 112px),600px);height:min(94vw,calc(100dvh - 112px),600px);aspect-ratio:1;margin:auto;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);border:3px solid #f8f8ff;border-radius:5px;overflow:hidden;background:#fff;box-shadow:0 4px 16px #050a20aa;position:relative}
-.cell{border:1px solid #d8dce6;display:flex;align-items:center;justify-content:center;font-size:clamp(5px,1.2vw,10px);position:relative;overflow:visible}
-.home.red{background:#ed5262}.home.green{background:#31b975}.home.yellow{background:#f1cc36}.home.blue{background:#46a8e9}
-.track{background:#fff;color:#17213b}.center{background:conic-gradient(from 45deg,#ed5262 0 25%,#31b975 0 50%,#f1cc36 0 75%,#46a8e9 0)}
-.start.red{background:#ed5262!important}.start.green{background:#31b975!important}.start.yellow{background:#f1cc36!important}.start.blue{background:#46a8e9!important}
-.home:after{content:&quot;&quot;;position:absolute;inset:8%;border:1px solid #ffffff88;border-radius:3px;pointer-events:none}
-.token{width:78%;height:78%;min-width:7px;min-height:7px;border:1.5px solid #fff;cursor:pointer;position:relative;z-index:3;border-radius:50%;background-image:none;box-shadow:inset 0 1px 2px #ffffffaa,0 1px 2px #0004}
-.token:before{content:&quot;&quot;;position:absolute;left:17%;top:12%;width:35%;height:24%;border-radius:50%;background:#ffffffbb;transform:rotate(-30deg)}
-.redT{background:radial-gradient(circle at 32% 25%,#ffccd3 0,#ff637d 48%,#c91e49 100%)}
-.greenT{background:radial-gradient(circle at 32% 25%,#d3ffe1 0,#66e99b 48%,#149455 100%)}
-.yellowT{background:radial-gradient(circle at 32% 25%,#fffbd0 0,#ffe36b 48%,#d39a08 100%)}
-.blueT{background:radial-gradient(circle at 32% 25%,#e0f4ff 0,#72bdff 48%,#2674d2 100%)}
+#board{width:min(94vw,calc(100dvh - 112px),620px);height:min(94vw,calc(100dvh - 112px),620px);aspect-ratio:1;margin:auto;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:2px;padding:5px;border:4px solid #fff;border-radius:20px;overflow:hidden;background:linear-gradient(145deg,#f8fbff,#dce8fb);box-shadow:0 10px 0 #7d9ac7,0 15px 25px #334c7a55,inset 0 2px 5px #fff;position:relative}
+.cell{border:0;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(5px,1.2vw,10px);position:relative;overflow:visible;background:#fff;box-shadow:inset 0 1px 2px #dce4f1}
+.base.red{background:#ffb7c0}.base.green{background:#9be8bf}.base.yellow{background:#ffe68b}.base.blue{background:#9bd8ff}
+.base{border-radius:2px;box-shadow:none}
+.yard-slot{background:#fff!important;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px #0002,inset 0 0 0 2px #dce5f2}
+.home.red{background:#ff6a7d}.home.green{background:#35c77b}.home.yellow{background:#ffd447}.home.blue{background:#48b5f5}
+.track{background:linear-gradient(145deg,#fff,#f5f8ff);color:#34405c}
+.center{background:conic-gradient(from -45deg,#ff6477 0 25%,#35c77b 0 50%,#ffd447 0 75%,#48b5f5 0);border-radius:3px}
+.start.red{background:#f4435c!important}.start.green{background:#20b96b!important}.start.yellow{background:#ffc928!important}.start.blue{background:#279eea!important}
+.start{box-shadow:inset 0 0 0 2px #fff}
+.token{width:76%;height:76%;min-width:7px;min-height:7px;border:2px solid #fff;cursor:pointer;position:relative;z-index:3;border-radius:50%;box-shadow:inset 0 2px 3px #ffffffdd,0 3px 0 #0003,0 4px 5px #0003}
+.token:before{content:&quot;&quot;;position:absolute;left:17%;top:10%;width:38%;height:27%;border-radius:50%;background:#ffffffd9;transform:rotate(-30deg)}
+.redT{background:radial-gradient(circle at 32% 25%,#fff0f2 0,#ff687e 42%,#d91e43 100%)}
+.greenT{background:radial-gradient(circle at 32% 25%,#effff5 0,#65e89b 42%,#0d9951 100%)}
+.yellowT{background:radial-gradient(circle at 32% 25%,#fffde9 0,#ffe36b 42%,#d69a00 100%)}
+.blueT{background:radial-gradient(circle at 32% 25%,#f0faff 0,#72c6ff 42%,#1769c4 100%)}
 #roll{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;width:48px;height:48px;padding:0;margin:0;border-radius:14px;border:2px solid #fff;background:linear-gradient(145deg,#fff,#dbe5ff);color:#17234c;font-size:25px;font-weight:900;box-shadow:0 2px 8px #0008}
 #roll:disabled{opacity:.5}
 #dice{position:absolute;left:50%;top:calc(50% + 31px);transform:translateX(-50%);z-index:10;color:#fff;font-size:10px;text-shadow:0 1px 3px #000;pointer-events:none}
 #status{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);z-index:10;width:max-content;max-width:90%;font-size:10px;color:#fff;text-shadow:0 1px 3px #000;pointer-events:none}
-@media(max-height:620px){.arena{grid-template-rows:42px minmax(0,calc(100dvh - 94px)) 42px}.player .avatar{width:28px;height:28px;flex-basis:28px;font-size:18px}#board{width:min(94vw,calc(100dvh - 94px),600px);height:min(94vw,calc(100dvh - 94px),600px)}}
+@media(max-height:620px){.arena{grid-template-rows:36px minmax(0,calc(100dvh - 82px)) 36px}.player .avatar{width:28px;height:28px;flex-basis:28px}#board{width:min(94vw,calc(100dvh - 82px),600px);height:min(94vw,calc(100dvh - 82px),600px);padding:4px;gap:1px;border-radius:15px}}
 &lt;/style&gt;&lt;/head&gt;&lt;body&gt;
 &lt;div class=&quot;arena&quot;&gt;
  &lt;div class=&quot;player-row&quot;&gt;
-  &lt;div class=&quot;player blue&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;👧&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Blue&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-  &lt;div class=&quot;player red&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;👦&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Red&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;player blue&quot; id=&quot;seat-blue&quot; hidden&gt;&lt;span class=&quot;avatar&quot; id=&quot;avatar-blue&quot;&gt;&lt;img alt=&quot;Player profile photo&quot;&gt;&lt;/span&gt;&lt;span class=&quot;player-name&quot; id=&quot;name-blue&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;player red&quot; id=&quot;seat-red&quot; hidden&gt;&lt;span class=&quot;avatar&quot; id=&quot;avatar-red&quot;&gt;&lt;img alt=&quot;Player profile photo&quot;&gt;&lt;/span&gt;&lt;span class=&quot;player-name&quot; id=&quot;name-red&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
  &lt;/div&gt;
  &lt;div id=&quot;board&quot;&gt;&lt;button id=&quot;roll&quot; onclick=&quot;rollDice()&quot; aria-label=&quot;Roll dice&quot;&gt;🎲&lt;/button&gt;&lt;div id=&quot;dice&quot;&gt;&lt;/div&gt;&lt;div id=&quot;status&quot;&gt;&lt;/div&gt;&lt;/div&gt;
  &lt;div class=&quot;player-row&quot;&gt;
-  &lt;div class=&quot;player yellow&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;👩&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Yellow&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-  &lt;div class=&quot;player green&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;🧑&lt;/span&gt;&lt;span class=&quot;player-name&quot;&gt;Green&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;player yellow&quot; id=&quot;seat-yellow&quot; hidden&gt;&lt;span class=&quot;avatar&quot; id=&quot;avatar-yellow&quot;&gt;&lt;img alt=&quot;Player profile photo&quot;&gt;&lt;/span&gt;&lt;span class=&quot;player-name&quot; id=&quot;name-yellow&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;player green&quot; id=&quot;seat-green&quot; hidden&gt;&lt;span class=&quot;avatar&quot; id=&quot;avatar-green&quot;&gt;&lt;img alt=&quot;Player profile photo&quot;&gt;&lt;/span&gt;&lt;span class=&quot;player-name&quot; id=&quot;name-green&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mini-token&quot;&gt;&lt;/span&gt;&lt;/div&gt;
  &lt;/div&gt;
 &lt;/div&gt;
 &lt;script&gt;
-const colors=[&#x27;red&#x27;,&#x27;green&#x27;,&#x27;yellow&#x27;,&#x27;blue&#x27;];
-const names={0:&#x27;Red&#x27;,1:&#x27;Green&#x27;,2:&#x27;Yellow&#x27;,3:&#x27;Blue&#x27;};
-function playerName(p){return names[p]||&#x27;Unknown&#x27;;}
-const board=document.getElementById(&#x27;board&#x27;);
-let turn=0,pendingRoll=0,lastRoll=&#x27;-&#x27;,playing=true;
+const colors=['red','green','yellow','blue'];
+const names={0:'Red',1:'Green',2:'Yellow',3:'Blue'};
+function playerName(p){return names[p]||'Unknown';}
+const board=document.getElementById('board');
+let turn=0,pendingRoll=0,lastRoll='-',playing=true;
 let pieces=colors.map(()=&gt;[0,0,0,0]);
 const path=[[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0]];
 const startOffset=[1,14,27,40];
@@ -109,36 +111,39 @@ const homeSpots=[[[2,2],[2,3],[3,2],[3,3]],[[2,11],[2,12],[3,11],[3,12]],[[11,11
 function globalSquare(player,progress){return (startOffset[player]+progress-1)%52;}
 function cellAt(r,c){return board.querySelectorAll('.cell')[r*15+c];}
 function makeBoard(){
- board.querySelectorAll(&#x27;.cell&#x27;).forEach(x=&gt;x.remove());
+ board.querySelectorAll('.cell').forEach(x=&gt;x.remove());
  for(let r=0;r&lt;15;r++)for(let c=0;c&lt;15;c++){
-  const d=document.createElement(&#x27;div&#x27;);d.className=&#x27;cell&#x27;;
-  if(r&lt;6&amp;&amp;c&lt;6)d.classList.add(&#x27;home&#x27;,&#x27;red&#x27;);
-  else if(r&lt;6&amp;&amp;c&gt;8)d.classList.add(&#x27;home&#x27;,&#x27;green&#x27;);
-  else if(r&gt;8&amp;&amp;c&gt;8)d.classList.add(&#x27;home&#x27;,&#x27;yellow&#x27;);
-  else if(r&gt;8&amp;&amp;c&lt;6)d.classList.add(&#x27;home&#x27;,&#x27;blue&#x27;);
-  else if(r&gt;=6&amp;&amp;r&lt;=8&amp;&amp;c&gt;=6&amp;&amp;c&lt;=8)d.classList.add(&#x27;center&#x27;);
-  else d.classList.add(&#x27;track&#x27;);
+  const d=document.createElement('div');d.className='cell';
+  if(r&lt;6&amp;&amp;c&lt;6)d.classList.add('home','red');
+  else if(r&lt;6&amp;&amp;c&gt;8)d.classList.add('home','green');
+  else if(r&gt;8&amp;&amp;c&gt;8)d.classList.add('home','yellow');
+  else if(r&gt;8&amp;&amp;c&lt;6)d.classList.add('home','blue');
+  else if(r&gt;=6&amp;&amp;r&lt;=8&amp;&amp;c&gt;=6&amp;&amp;c&lt;=8)d.classList.add('center');
+  else d.classList.add('track');
   board.appendChild(d);
  }
- homePaths.forEach((lane,p)=&gt;lane.forEach(([r,c])=&gt;cellAt(r,c).classList.add(&#x27;home&#x27;,colors[p])));
- startOffset.forEach((offset,p)=&gt;{const [r,c]=path[offset];cellAt(r,c).classList.add(&#x27;start&#x27;,colors[p]);});
- for(const idx of safeSquares){const [r,c]=path[idx];if(!startOffset.includes(idx)){cellAt(r,c).textContent=&#x27;★&#x27;;cellAt(r,c).style.color=&#x27;#9b6b00&#x27;;cellAt(r,c).style.fontWeight=&#x27;bold&#x27;;}}
+ homePaths.forEach((lane,p)=&gt;lane.forEach(([r,c])=&gt;cellAt(r,c).classList.add('home',colors[p])));
+ // Four soft-color home zones and circular parking pads for the pawns.
+ for(let r=0;r&lt;6;r++)for(let c=0;c&lt;6;c++){cellAt(r,c).classList.add('base','red');cellAt(r,c+9).classList.add('base','green');cellAt(r+9,c+9).classList.add('base','yellow');cellAt(r+9,c).classList.add('base','blue');}
+ homeSpots.forEach((spots,p)=&gt;spots.forEach(([r,c])=&gt;cellAt(r,c).classList.add('yard-slot')));
+ startOffset.forEach((offset,p)=&gt;{const [r,c]=path[offset];cellAt(r,c).classList.add('start',colors[p]);});
+ for(const idx of safeSquares){const [r,c]=path[idx];if(!startOffset.includes(idx)){cellAt(r,c).textContent='★';cellAt(r,c).style.color='#9b6b00';cellAt(r,c).style.fontWeight='bold';}}
  renderPieces();
 }
 function coordsFor(p,pos){if(pos&gt;=1&amp;&amp;pos&lt;=52)return path[globalSquare(p,pos)];if(pos&gt;=53&amp;&amp;pos&lt;=58)return homePaths[p][pos-53];return [7,7];}
 function renderPieces(){
- board.querySelectorAll(&#x27;.token&#x27;).forEach(x=&gt;x.remove());
+ board.querySelectorAll('.token').forEach(x=&gt;x.remove());
  pieces.forEach((arr,p)=&gt;arr.forEach((pos,i)=&gt;{
-  const d=document.createElement(&#x27;div&#x27;);d.className=&#x27;token &#x27;+colors[p]+&#x27;T&#x27;;
+  const d=document.createElement('div');d.className='token '+colors[p]+'T';
   const [r,c]=pos===0?homeSpots[p][i]:coordsFor(p,pos);
   cellAt(r,c).appendChild(d);
   if(playing&amp;&amp;p===turn&amp;&amp;pendingRoll&gt;0&amp;&amp;pos!==59){d.onclick=()=&gt;movePiece(p,i);}
-  else d.style.cursor=&#x27;default&#x27;;
+  else d.style.cursor='default';
  }));
 }
 function canMove(pos,roll){if(pos===59)return false;if(pos===0)return roll===6;return pos+roll&lt;=59;}
 function hasLegalMove(p,roll){return pieces[p].some(pos=&gt;canMove(pos,roll));}
-function updateDice(){document.getElementById(&#x27;dice&#x27;).textContent=lastRoll===&#x27;-&#x27;?&#x27;&#x27;:lastRoll;}
+function updateDice(){document.getElementById('dice').textContent=lastRoll==='-'?'':lastRoll;}
 function rollDice(){
  if(!playing||pendingRoll!==0)return;
  pendingRoll=Math.floor(Math.random()*6)+1;lastRoll=pendingRoll;updateDice();
@@ -159,12 +164,24 @@ function movePiece(p,i){
   if(!safeSquares.has(sq))for(let op=0;op&lt;4;op++){if(op===p)continue;const enemy=pieces[op].map((v,j)=&gt;({v,j})).filter(x=&gt;x.v&gt;=1&amp;&amp;x.v&lt;=52&amp;&amp;globalSquare(op,x.v)===sq);if(enemy.length===1){pieces[op][enemy[0].j]=0;captured++;}}
  }
  pendingRoll=0;
- if(pieces[p].every(x=&gt;x===59)){playing=false;document.getElementById(&#x27;status&#x27;).textContent=&#x27;🏆 &#x27;+playerName(p)+&#x27; wins!&#x27;;document.getElementById(&#x27;roll&#x27;).disabled=true;renderPieces();return;}
+ if(pieces[p].every(x=&gt;x===59)){playing=false;document.getElementById('status').textContent='🏆 '+playerName(p)+' wins!';document.getElementById('roll').disabled=true;renderPieces();return;}
  renderPieces();if(rolled===6||captured&gt;0)return;nextTurn();
 }
 function nextTurn(){if(!playing)return;turn=(turn+1)%4;renderPieces();}
-function restart(){turn=0;pendingRoll=0;lastRoll=&#x27;-&#x27;;playing=true;pieces=colors.map(()=&gt;[0,0,0,0]);document.getElementById(&#x27;roll&#x27;).disabled=false;updateDice();makeBoard();}
+function restart(){turn=0;pendingRoll=0;lastRoll='-';playing=true;pieces=colors.map(()=&gt;[0,0,0,0]);document.getElementById('roll').disabled=false;updateDice();makeBoard();}
 makeBoard();
+window.addEventListener(&quot;message&quot;, event =&gt; {
+ const data=event.data;
+ if(!data || data.type!==&quot;ONE_SOUL_PLAYER_PROFILE&quot;) return;
+ const seat=document.getElementById(&quot;seat-blue&quot;);
+ const name=document.getElementById(&quot;name-blue&quot;);
+ const avatar=document.getElementById(&quot;avatar-blue&quot;);
+ const img=avatar.querySelector(&quot;img&quot;);
+ name.textContent=(data.displayName||&quot;Player&quot;).slice(0,24);
+ seat.hidden=false;
+ if(data.photoURL){img.src=data.photoURL;avatar.classList.add(&quot;has-photo&quot;);}
+ else{img.removeAttribute(&quot;src&quot;);avatar.classList.remove(&quot;has-photo&quot;);}
+});
 &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></section>
 <section id="soul" class="view"></section><section id="admin" class="view"></section></main><footer></footer>
 <script>
@@ -180,5 +197,7 @@ try{app=initializeApp(firebaseConfig);auth=getAuth(app);db=getDatabase(app);awai
 document.getElementById("guestLogin").addEventListener("click",async()=>{const name=document.getElementById("playerName").value.trim();if(!name){say("Guest کے لیے پہلے اپنا Player Name لکھیں۔");return;}if(!auth){say("Firebase initialize نہیں ہوا۔ دوبارہ فائل کھولیں۔");return;}say("Guest account بنایا جا رہا ہے…");try{const result=await signInAnonymously(auth);await update(ref(db,"users/"+result.user.uid),{displayName:name,provider:"guest",updatedAt:serverTimestamp()});}catch(error){say("Guest login failed: "+(error?.message||error));}});
 document.getElementById("googleLogin").addEventListener("click",async()=>{if(!auth){say("Firebase initialize نہیں ہوا۔ دوبارہ فائل کھولیں۔");return;}say("Google sign-in کھولا جا رہا ہے…");try{await signInWithRedirect(auth,new GoogleAuthProvider());}catch(error){say("Google login failed: "+(error?.message||error));}});
 document.getElementById("signOutBtn").addEventListener("click",async()=>{try{await signOut(auth);}catch(error){alert(error?.message||error);}});
-onAuthStateChanged(auth,async user=>{if(!user){document.body.classList.remove("authenticated");gate.hidden=false;accountBar.hidden=true;say("Choose Guest or Google login to continue.");return;}const fallbackName=user.isAnonymous?"Guest-"+user.uid.slice(0,6):(user.displayName||"Player");try{const userRef=ref(db,"users/"+user.uid);const {get}=await import("https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js");const snap=await get(userRef);const savedName=snap.exists()&&snap.val().displayName?snap.val().displayName:fallbackName;await update(userRef,{displayName:savedName,provider:user.isAnonymous?"guest":"google",email:user.email||null,updatedAt:serverTimestamp()});const connectedRef=ref(db,".info/connected");onValue(connectedRef,async connectedSnap=>{if(connectedSnap.val()===true){const statusRef=ref(db,"status/"+user.uid);await onDisconnect(statusRef).set({state:"offline",lastChanged:serverTimestamp()});await set(statusRef,{state:"online",lastChanged:serverTimestamp()});}});gate.hidden=true;document.body.classList.add("authenticated");}catch(error){document.body.classList.remove("authenticated");gate.hidden=false;say("Login ہو گیا، مگر Database access نہیں ملا: "+(error?.message||error));}});
+onAuthStateChanged(auth,async user=>{if(!user){document.body.classList.remove("authenticated");gate.hidden=false;accountBar.hidden=true;say("Choose Guest or Google login to continue.");return;}const fallbackName=user.isAnonymous?"Guest-"+user.uid.slice(0,6):(user.displayName||"Player");try{const userRef=ref(db,"users/"+user.uid);const {get}=await import("https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js");const snap=await get(userRef);const savedName=snap.exists()&&snap.val().displayName?snap.val().displayName:fallbackName;await update(userRef,{displayName:savedName,provider:user.isAnonymous?"guest":"google",email:user.email||null,updatedAt:serverTimestamp()});const connectedRef=ref(db,".info/connected");onValue(connectedRef,async connectedSnap=>{if(connectedSnap.val()===true){const statusRef=ref(db,"status/"+user.uid);await onDisconnect(statusRef).set({state:"offline",lastChanged:serverTimestamp()});await set(statusRef,{state:"online",lastChanged:serverTimestamp()});}});gate.hidden=true;document.body.classList.add("authenticated");
+const gameFrame=document.querySelector(".gameframe");
+if(gameFrame){const sendProfile=()=>gameFrame.contentWindow?.postMessage({type:"ONE_SOUL_PLAYER_PROFILE",displayName:savedName,photoURL:user.photoURL||""},"*");if(gameFrame.contentDocument?.readyState==="complete")sendProfile();else gameFrame.addEventListener("load",sendProfile,{once:true});}}catch(error){document.body.classList.remove("authenticated");gate.hidden=false;say("Login ہو گیا، مگر Database access نہیں ملا: "+(error?.message||error));}});
 </script></body></html>
