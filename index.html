@@ -1,201 +1,59 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ONE SOUL - Classic Ludo Board</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#164da5"><title>ONE SOUL LUDO</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:#34377f;font-family:Arial,sans-serif;color:#fff;display:flex;align-items:center;justify-content:center;padding:12px}
-.game{width:min(96vw,560px)}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.top .left{display:flex;gap:8px}.pill{background:#536bc0;border:2px solid #788bd8;border-radius:9px;padding:9px 15px;font-weight:bold}
-.coins{background:#536bc0;border:2px solid #788bd8;border-radius:20px;padding:8px 14px;font-weight:bold}
-.board-wrap{position:relative;width:100%;aspect-ratio:1;background:#fff;border:4px solid #222a58;border-radius:10px;overflow:hidden;box-shadow:0 5px 18px #15183f88}
-svg{display:block;width:100%;height:100%}
-.player{position:absolute;font-size:clamp(10px,2.8vw,14px);font-weight:bold;text-shadow:0 1px 2px #fff;color:#333}
-.p1{top:1.3%;left:14%}.p2{top:1.3%;right:14%}.p3{bottom:1.3%;left:12%}.p4{bottom:1.3%;right:13%}
-.note{margin-top:12px;text-align:center;color:#e5e8ff;font-size:13px}
-.dicebar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-.dicecard{display:flex;align-items:center;gap:9px;background:#252b68;border:2px solid #6978bd;border-radius:12px;padding:8px;min-width:0}
-.dicecard.active{border:3px solid #ffe16b;background:#46539a;box-shadow:0 0 12px #ffe16b88}
-.diceface{width:42px;height:42px;flex:0 0 42px;background:#fff;color:#20264b;border-radius:9px;display:grid;place-items:center;font-size:27px;font-weight:900;box-shadow:inset 0 -3px 0 #c7c9d2}
-.diceinfo{min-width:0;font-size:12px;line-height:1.35}.diceinfo b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rollbtn,.rulesbtn{border:0;border-radius:10px;background:#f4ce24;color:#29254b;font-weight:800;padding:10px 15px;font-size:14px}
-.actions{display:flex;gap:8px;justify-content:center;margin:9px 0}
-.rules{display:none;background:#fff;color:#20264b;border-radius:12px;padding:14px;margin-top:10px;font-size:13px;line-height:1.5}
-.rules.open{display:block}.rules h3{margin:0 0 7px}.rules ol{padding-left:20px;margin:5px 0}
-.status{background:#22285f;border:1px solid #6878bd;border-radius:9px;padding:9px;text-align:center;font-size:13px;margin-top:8px}
-
-</style>
-</head>
-<body>
-<div class="game">
- <div class="top"><div class="left"><span class="pill">‹</span><span class="pill">🏆</span></div><div class="coins">🟡 2,000　＋</div></div>
- <div class="board-wrap">
-  <div class="player p1">Kanika</div><div class="player p2">आदित्य</div>
-  <div class="player p3">Guest146124160</div><div class="player p4">Lakshmi</div>
-  <svg id="boardSvg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-label="Playable four player Ludo board">
-   <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#fff" stroke="#aeb6c8" stroke-width="2"/></pattern>
-   </defs>
-   <!-- board grid -->
-   <rect x="0" y="0" width="600" height="600" fill="url(#grid)"/>
-   <!-- home bases -->
-   <rect x="0" y="0" width="240" height="240" fill="#20a8e8" stroke="#26345c" stroke-width="4"/>
-   <rect x="360" y="0" width="240" height="240" fill="#e53b2d" stroke="#26345c" stroke-width="4"/>
-   <rect x="0" y="360" width="240" height="240" fill="#f5d000" stroke="#26345c" stroke-width="4"/>
-   <rect x="360" y="360" width="240" height="240" fill="#12ad54" stroke="#26345c" stroke-width="4"/>
-   <!-- inner yards -->
-   <rect x="38" y="38" width="164" height="164" rx="9" fill="#0875bb"/>
-   <rect x="398" y="38" width="164" height="164" rx="9" fill="#a9251f"/>
-   <rect x="38" y="398" width="164" height="164" rx="9" fill="#c69f00"/>
-   <rect x="398" y="398" width="164" height="164" rx="9" fill="#087d38"/>
-   <!-- colored home lanes -->
-   <rect x="240" y="0" width="120" height="240" fill="#fff" stroke="#aeb6c8" stroke-width="2"/>
-   <rect x="240" y="0" width="40" height="240" fill="url(#grid)"/>
-   <rect x="280" y="40" width="40" height="200" fill="#e53b2d"/>
-   <rect x="360" y="240" width="240" height="120" fill="#fff" stroke="#aeb6c8" stroke-width="2"/>
-   <rect x="360" y="280" width="240" height="40" fill="#12ad54"/>
-   <rect x="240" y="360" width="120" height="240" fill="#fff" stroke="#aeb6c8" stroke-width="2"/>
-   <rect x="280" y="360" width="40" height="240" fill="#f5d000"/>
-   <rect x="0" y="240" width="240" height="120" fill="#fff" stroke="#aeb6c8" stroke-width="2"/>
-   <rect x="0" y="280" width="240" height="40" fill="#20a8e8"/>
-   <!-- grid lines on lanes -->
-   <g stroke="#aeb6c8" stroke-width="2" fill="none">
-    <path d="M240 40H360 M240 80H360 M240 120H360 M240 160H360 M240 200H360 M400 240V360 M440 240V360 M480 240V360 M520 240V360 M560 240V360 M240 400H360 M240 440H360 M240 480H360 M240 520H360 M240 560H360 M40 240V360 M80 240V360 M120 240V360 M160 240V360 M200 240V360"/>
-   </g>
-   <!-- center triangles -->
-   <path d="M240 240 L360 240 L300 300 Z" fill="#e53b2d"/>
-   <path d="M360 240 L360 360 L300 300 Z" fill="#12ad54"/>
-   <path d="M360 360 L240 360 L300 300 Z" fill="#f5d000"/>
-   <path d="M240 360 L240 240 L300 300 Z" fill="#20a8e8"/>
-   <!-- safe stars and start arrows -->
-   <g font-size="28" text-anchor="middle" dominant-baseline="middle">
-    <text x="260" y="100" fill="#6d7fb7">★</text><text x="500" y="260" fill="#6d7fb7">★</text>
-    <text x="340" y="500" fill="#6d7fb7">★</text><text x="100" y="340" fill="#6d7fb7">★</text>
-    <text x="300" y="20" fill="#bd554d">⬇</text><text x="580" y="300" fill="#438a61">⬅</text>
-    <text x="300" y="580" fill="#b99b00">⬆</text><text x="20" y="300" fill="#3688bd">➡</text>
-   </g>
-   <g id="tokenLayer"></g>
-  </svg>
- </div>
- <div class="dicebar" id="dicebar">
-  <div class="dicecard active" data-player="0"><div class="diceface" id="die0">⚄</div><div class="diceinfo"><b>Kanika · Blue</b><span id="turn0">Your turn</span></div></div>
-  <div class="dicecard" data-player="1"><div class="diceface" id="die1">⚄</div><div class="diceinfo"><b>आदित्य · Red</b><span id="turn1">Waiting</span></div></div>
-  <div class="dicecard" data-player="2"><div class="diceface" id="die2">⚄</div><div class="diceinfo"><b>Guest · Yellow</b><span id="turn2">Waiting</span></div></div>
-  <div class="dicecard" data-player="3"><div class="diceface" id="die3">⚄</div><div class="diceinfo"><b>Lakshmi · Green</b><span id="turn3">Waiting</span></div></div>
- </div>
- <div class="actions"><button class="rollbtn" id="roll">ROLL DICE</button><button class="rulesbtn" id="rulesToggle">LUDO RULES</button></div>
- <div class="status" id="status">Kanika (Blue) کی باری ہے۔ ڈائس رول کریں۔</div>
- <section class="rules" id="rules">
-  <h3>Classic Ludo Rules</h3>
-  <ol>
-   <li>ہر کھلاڑی کی 4 گوٹیاں ہوتی ہیں۔ سب گوٹیاں شروع میں اپنے Home میں رہتی ہیں۔</li>
-   <li>گوٹی کو Home سے باہر نکالنے کے لیے 6 آنا ضروری ہے۔</li>
-   <li>6 آنے پر کھلاڑی کو ایک اضافی باری ملتی ہے۔</li>
-   <li>ڈائس کے نمبر کے مطابق اپنی گوٹی آگے بڑھائیں۔</li>
-   <li>اگر مخالف کھلاڑی کی گوٹی عام خانے پر ہو اور آپ وہاں پہنچیں تو اس کی گوٹی واپس Home چلی جاتی ہے۔</li>
-   <li>Star والے Safe Squares پر گوٹی محفوظ رہتی ہے؛ وہاں اسے نہیں مارا جا سکتا۔</li>
-   <li>اپنی گوٹی کو آخری Home تک پہنچانے کے لیے بالکل درست نمبر آنا ضروری ہے۔</li>
-   <li>جو کھلاڑی اپنی چاروں گوٹیاں Finish تک پہنچا دے، وہ جیت جاتا ہے۔</li>
-   <li>اگر کوئی قانونی چال نہ ہو تو باری اگلے کھلاڑی کو منتقل ہو جاتی ہے۔</li>
-  </ol>
-  <li>ایک وقت میں صرف اپنی رنگ کی گوٹی منتخب کریں۔ اگر ایک سے زیادہ قانونی چالیں ہوں تو اپنی پسند کی گوٹی پر ٹیپ کریں۔</li>
-   <li>ایک ہی رنگ کی دو یا زیادہ گوٹیاں ایک خانے پر اکٹھی ہوں تو وہ اسٹیک بناتی ہیں؛ اس ڈیمو میں اسٹیک کو مخالف نہیں کاٹ سکتا۔</li>
-   <li>تین بار مسلسل 6 آنے پر تیسرا 6 ضائع ہوگا اور باری اگلے کھلاڑی کو ملے گی۔</li>
-  </ol>
-  <p><b>ڈائس کا اصول:</b> ہر کھلاڑی کا الگ ڈائس دکھایا جاتا ہے۔ صرف موجودہ کھلاڑی کا ڈائس روشن ہوگا اور اسی کی باری پر رول ہوگا۔</p>
-  <p><b>نوٹ:</b> یہ سنگل ڈیوائس پر چار کھلاڑیوں کا playable demo ہے؛ آن لائن multiplayer، اکاؤنٹس اور voice chat اس فائل میں شامل نہیں۔</p>
- </section>
- <div class="note">ONE SOUL • Four-player Ludo board</div>
-</div>
-</body>
-</html>
+:root{--blue:#174b9e;--gold:#ffe28a;--red:#f34245;--green:#27a91f;--yellow:#ffc91b;--navy:#253653}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;color:#fff}
+body{min-height:100vh;background:radial-gradient(ellipse at 50% 20%,#3977d4 0,#2059b1 42%,#123d87 100%);background-attachment:fixed;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background:radial-gradient(circle at 18% 20%,#8db9ff 0 28px,transparent 30px),radial-gradient(circle at 78% 13%,#071f5b 0 40px,transparent 42px),radial-gradient(circle at 80% 68%,#8db9ff 0 34px,transparent 36px);background-size:230px 230px}
+.app{position:relative;z-index:1;max-width:560px;margin:auto;min-height:100vh;padding:14px 10px 90px;display:flex;flex-direction:column;align-items:center}
+.topbar{width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.menu{font-size:25px;background:linear-gradient(#31415d,#111d34);border:2px solid #8fa9d2;border-radius:7px;color:white;padding:1px 11px;box-shadow:0 3px 5px #001b4b}.brand{font-weight:1000;letter-spacing:2px;color:#fff0a5;text-shadow:0 2px 5px #00265f;font-size:17px}.profile{width:68px;height:68px;border:3px solid #e9f4ff;border-radius:50%;background:linear-gradient(145deg,#dffaff,#4d8dc3);box-shadow:0 3px 8px #001b4b;display:grid;place-items:center;color:#16437c;font-size:29px;position:relative}.profile:after{content:'+';position:absolute;right:-8px;bottom:0;background:#24b8a9;border:2px solid white;border-radius:50%;width:23px;height:23px;color:white;font-size:18px;line-height:19px;text-align:center}
+.playerstrip{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:5px 0 10px}.player{min-width:0;border:2px solid #dbe8f7;border-radius:12px;padding:5px 7px;background:#122c57a8;display:flex;align-items:center;gap:7px;box-shadow:0 2px 5px #001b4c}.player.active{outline:3px solid #ffe37a;background:#244b82}.pavatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;font-size:15px;flex:none}.pname{font-size:11px;font-weight:900;white-space:nowrap}.pinfo{font-size:9px;color:#e0ebff;margin-top:2px}
+.board-shell{width:min(96vw,510px);padding:8px;border-radius:19px;background:linear-gradient(145deg,#fff,#c7d4e8 35%,#61728d 75%,#fff);box-shadow:0 8px 18px #001b4dcc,0 0 0 2px #ffffff80}.board{width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);background:#f7f8fb;border:3px solid #25324b;border-radius:7px;overflow:hidden;position:relative}.cell{position:relative;min-width:0;min-height:0;border:1px solid #aeb8c7;background:#f8f9fc;display:flex;align-items:center;justify-content:center}.track{background:#f6f7fa}.base-red{background:var(--red)}.base-green{background:var(--green)}.base-yellow{background:var(--yellow)}.base-blue{background:#405ce9}.lane-red{background:#ff4549}.lane-green{background:#21a51e}.lane-yellow{background:#ffc91b}.lane-blue{background:#405ce9}.start-red{background:#e72f35}.start-green{background:#128e17}.start-yellow{background:#e4ae00}.start-blue{background:#293fce}.safe:after{content:'⬟';font-size:clamp(8px,2.3vw,15px);color:#6c7787;text-shadow:0 1px white}.base-inner{position:absolute;inset:9%;background:#fff;border-radius:28% 28% 8% 8%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8%;padding:13%;box-shadow:inset 0 1px 5px #0002}.home-slot{border-radius:50%;background:radial-gradient(circle at 32% 25%,#fff8,#0002 70%);border:2px solid #ffffffc9;box-shadow:0 2px 5px #0003;display:grid;place-items:center}.home-slot:after{content:'';width:80%;height:80%;border-radius:50%;background:#00000012;box-shadow:inset 0 3px 7px #0002}.center{grid-column:7/10;grid-row:7/10;position:relative;background:conic-gradient(from 0deg,var(--yellow) 0 25%,#405ce9 25% 50%,var(--green) 50% 75%,var(--red) 75% 100%);border:1px solid #aeb8c7}.center:after{content:'';position:absolute;inset:0;background:conic-gradient(from 45deg,transparent 0 25%,#ffffff18 25% 50%,transparent 50% 75%,#ffffff18 75%)}
+.token{width:90%;height:90%;border-radius:50%;border:2px solid #fff;color:white;font-weight:900;font-size:clamp(8px,2.4vw,14px);z-index:5;box-shadow:0 3px 5px #0007,inset 0 3px 5px #ffffffa8;cursor:pointer}.token.red{background:radial-gradient(circle at 30% 22%,#ffb4b4,#f12f35 58%,#8b1017)}.token.green{background:radial-gradient(circle at 30% 22%,#c5ffb8,#20a51f 58%,#075b0d)}.token.yellow{background:radial-gradient(circle at 30% 22%,#fff5b3,#ffc51b 58%,#9b6900)}.token.blue{background:radial-gradient(circle at 30% 22%,#c2d3ff,#405ce9 58%,#101c83)}
+.dice-panel{width:100%;display:flex;justify-content:center;align-items:center;gap:12px;margin:12px 0 5px}.die{width:55px;height:55px;border-radius:13px;background:linear-gradient(145deg,#fff,#d6e0ee);border:3px solid #fff;color:#24344f;font-size:35px;display:grid;place-items:center;box-shadow:0 4px 8px #001b4b}.roll{border:2px solid #fff;border-radius:10px;padding:11px 18px;background:linear-gradient(#fff0a5,#e9ae21);font-weight:900;color:#27334b;box-shadow:0 3px 7px #001b4b}.roll:disabled{opacity:.5}.status{width:100%;text-align:center;background:#102b55d9;border:1px solid #b5d0f4;border-radius:10px;padding:10px;margin:5px 0;font-weight:bold;font-size:13px;box-shadow:0 3px 7px #001b4b}.toolbar{position:fixed;z-index:5;bottom:0;left:0;right:0;max-width:560px;margin:auto;height:72px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:70px 1fr 70px;gap:12px;align-items:center;background:linear-gradient(180deg,#ffffffd9,#e8edf8);border-top:2px solid #fff;box-shadow:0 -4px 12px #001b4b55}.toolbtn{height:43px;border:2px solid #163a75;border-radius:9px;background:linear-gradient(#2cc4ff,#0084d7);color:#fff;font-size:23px;text-shadow:0 1px 3px #00345f;box-shadow:0 2px 4px #001b4b;cursor:pointer}.mic{font-size:25px}.panel{display:none;position:fixed;z-index:8;bottom:82px;left:12px;right:12px;max-width:530px;margin:auto;background:#102b55f5;border:2px solid #d6e8ff;border-radius:14px;padding:12px;box-shadow:0 8px 20px #001b4b}.panel.show{display:block}.panelhead{display:flex;justify-content:space-between;font-weight:bold;margin-bottom:8px}.close{border:0;background:transparent;color:white;font-size:20px}.emojis{display:flex;flex-wrap:wrap;gap:9px}.emojis button{font-size:27px;border:0;border-radius:8px;padding:5px;background:#ffffff20}.chatlog{height:120px;overflow:auto;background:#071b38;border-radius:8px;padding:8px;font-size:13px;text-align:left}.chatrow{display:flex;gap:6px;margin-top:8px}.chatrow input{flex:1;min-width:0;border-radius:7px;border:0;padding:10px}.chatrow button{border:0;border-radius:7px;padding:0 13px;background:#20aee9;color:white;font-weight:bold}.hint{font-size:10px;color:#c8dcff;text-align:center;margin-top:7px}.newgame{border:0;border-radius:8px;padding:9px 15px;background:#e9b832;color:#1b2c4a;font-weight:bold;margin:5px}
+@media(max-width:360px){.app{padding-left:7px;padding-right:7px}.board-shell{padding:5px}.player{padding:4px}.profile{width:55px;height:55px}.toolbar{grid-template-columns:58px 1fr 58px;gap:8px}.toolbtn{height:40px}}
+</style></head>
+<body><main class="app">
+<div class="topbar"><button class="menu" onclick="toggleMenu()">☰</button><div class="brand">👑 ONE SOUL 👑</div><div class="profile">👤</div></div>
+<div class="playerstrip" id="players"></div>
+<div class="board-shell"><div class="board" id="board"></div></div>
+<div class="dice-panel"><div class="die" id="die">🎲</div><button class="roll" id="roll" onclick="rollDice()">ROLL DICE</button></div>
+<div class="status" id="status">RED PLAYER — ROLL YOUR DICE</div>
+<button class="newgame" onclick="newGame()">↻ NEW GAME</button>
+</main>
+<div class="toolbar"><button class="toolbtn" onclick="showPanel('emojiPanel')" aria-label="Emoji">☻</button><button class="toolbtn mic" onclick="micInfo()" aria-label="Voice">🎙</button><button class="toolbtn" onclick="showPanel('chatPanel')" aria-label="Inbox">▤</button></div>
+<div class="panel" id="emojiPanel"><div class="panelhead">SEND EMOJI <button class="close" onclick="hidePanels()">×</button></div><div class="emojis" id="emojis"></div><div class="hint">Emoji reactions are shown on this device.</div></div>
+<div class="panel" id="chatPanel"><div class="panelhead">ONE SOUL INBOX <button class="close" onclick="hidePanels()">×</button></div><div class="chatlog" id="chatlog">Welcome to ONE SOUL LUDO.</div><div class="chatrow"><input id="chatInput" placeholder="Write a message..." maxlength="180"><button onclick="sendChat()">SEND</button></div><div class="hint">Local demo chat only. Online inbox needs Firebase / multiplayer connection.</div></div>
 <script>
-
-(() => {
- "use strict";
- const P=[
-  {name:"Kanika",color:"Blue",fill:"#20c5f5",stroke:"#0874b6",start:0,home:[[90,90],[150,90],[90,150],[150,150]],lane:[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]]},
-  {name:"आदित्य",color:"Red",fill:"#ff604d",stroke:"#a9251f",start:13,home:[[450,90],[510,90],[450,150],[510,150]],lane:[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]]},
-  {name:"Lakshmi",color:"Green",fill:"#61e329",stroke:"#087d38",start:26,home:[[450,450],[510,450],[450,510],[510,510]],lane:[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]]},
-  {name:"Guest",color:"Yellow",fill:"#ffdf20",stroke:"#b99b00",start:39,home:[[90,450],[150,450],[90,510],[150,510]],lane:[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]}
- ];
- const track=[[1,6],[2,6],[3,6],[4,6],[5,6],[6,5],[6,4],[6,3],[6,2],[6,1],[6,0],[7,0],[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[9,6],[10,6],[11,6],[12,6],[13,6],[14,6],[14,7],[14,8],[13,8],[12,8],[11,8],[10,8],[9,8],[8,9],[8,10],[8,11],[8,12],[8,13],[8,14],[7,14],[6,14],[6,13],[6,12],[6,11],[6,10],[6,9],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8],[0,7],[0,6]];
- const safe=new Set([0,8,13,21,26,34,39,47]), faces=["⚀","⚁","⚂","⚃","⚄","⚅"];
- const S={turn:0,dice:null,rolled:false,rolling:false,sixes:0,winner:null,pieces:P.map(()=>[-1,-1,-1,-1]),last:[0,0,0,0]};
- const layer=document.getElementById("tokenLayer"), status=document.getElementById("status"), roll=document.getElementById("roll");
- const cards=[...document.querySelectorAll(".dicecard")], ns="http://www.w3.org/2000/svg";
- function pos(pi,progress,bi){
-  if(progress===-1)return P[pi].home[bi];
-  if(progress>=52){let [r,c]=P[pi].lane[progress-52];return [20+c*40,20+r*40];}
-  let [r,c]=track[(P[pi].start+progress)%52];return [20+c*40,20+r*40];
- }
- function legal(){
-  if(!S.rolled)return [];
-  return S.pieces[S.turn].map((v,i)=>v===57?-1:(v===-1?(S.dice===6?i:-1):(v+S.dice<=57?i:-1))).filter(i=>i>=0);
- }
- function draw(){
-  layer.innerHTML="";
-  P.forEach((pl,pi)=>pl.home.forEach((_,bi)=>{
-   const v=S.pieces[pi][bi];if(v===57)return;
-   let [x,y]=pos(pi,v,bi);
-   const stack= S.pieces[pi].slice(0,bi).filter(q=>q===v&&v!==-1).length;
-   x+=stack%2?7:0;y+=stack>1?7:0;
-   const c=document.createElementNS(ns,"circle");
-   c.setAttribute("cx",x);c.setAttribute("cy",y);c.setAttribute("r","15");
-   c.setAttribute("fill",pl.fill);c.setAttribute("stroke",pl.stroke);c.setAttribute("stroke-width","3");
-   c.style.filter="drop-shadow(0 2px 1px #0006)";
-   c.style.cursor=pi===S.turn&&legal().includes(bi)?"pointer":"default";
-   c.addEventListener("click",()=>move(pi,bi));layer.appendChild(c);
-   const h=document.createElementNS(ns,"circle");h.setAttribute("cx",x-5);h.setAttribute("cy",y-5);h.setAttribute("r","4");h.setAttribute("fill","#fff");h.setAttribute("opacity",".45");h.style.pointerEvents="none";layer.appendChild(h);
-  }));
-  cards.forEach((c,i)=>{c.classList.toggle("active",i===S.turn&&S.winner===null);document.getElementById("turn"+i).textContent=S.winner!==null?(S.winner===i?"WINNER":"Finished"):(i===S.turn?(S.rolled?"Choose token":"YOUR TURN"):"Waiting");document.getElementById("die"+i).textContent=S.last[i]?faces[S.last[i]-1]:"⚄";});
-  roll.disabled=S.rolling||S.rolled||S.winner!==null;roll.textContent=S.winner!==null?"GAME OVER":(S.rolled?"SELECT TOKEN":"ROLL DICE");
- }
- function next(){
-  S.turn=(S.turn+1)%4;S.dice=null;S.rolled=false;draw();
-  status.textContent=P[S.turn].name+" ("+P[S.turn].color+") کی باری ہے۔ ڈائس رول کریں۔";
- }
- function rollDice(){
-  if(S.rolling||S.rolled||S.winner!==null)return;
-  S.rolling=true;draw();let t=0;
-  const timer=setInterval(()=>{
-   document.getElementById("die"+S.turn).textContent=faces[Math.floor(Math.random()*6)];t++;
-   if(t<9)return;clearInterval(timer);
-   const n=1+Math.floor(Math.random()*6);S.last[S.turn]=n;S.dice=n;S.rolled=true;S.rolling=false;S.sixes=n===6?S.sixes+1:0;
-   if(S.sixes>=3){S.sixes=0;S.dice=null;S.rolled=false;status.textContent="تین مسلسل 6 آگئے۔ تیسرا 6 ضائع ہوگیا۔";draw();setTimeout(next,1000);return;}
-   const moves=legal();draw();
-   if(!moves.length){
-    status.textContent=P[S.turn].name+" کو "+n+" آیا، مگر کوئی قانونی چال نہیں۔";
-    if(n===6){S.dice=null;S.rolled=false;setTimeout(()=>{draw();status.textContent=P[S.turn].name+" کی اضافی باری ہے۔ دوبارہ ڈائس رول کریں۔";},900);}
-    else setTimeout(next,1000);
-   }else status.textContent=P[S.turn].name+" کو "+n+" آیا۔ اپنی گوٹی منتخب کریں۔";
-  },75);
- }
- function move(pi,bi){
-  if(pi!==S.turn||!S.rolled||!legal().includes(bi)||S.winner!==null)return;
-  const n=S.dice;let v=S.pieces[pi][bi];v=v===-1?0:v+n;S.pieces[pi][bi]=v;
-  let captures=0;
-  if(v<=51){
-   const idx=(P[pi].start+v)%52;
-   if(!safe.has(idx)){
-    P.forEach((op,oi)=>{if(oi===pi)return;const enemies=S.pieces[oi].map((q,j)=>({q,j})).filter(o=>o.q>=0&&o.q<=51&&(op.start+o.q)%52===idx);
-     if(enemies.length===1){S.pieces[oi][enemies[0].j]=-1;captures++;}
-    });
-   }
-  }
-  const won=S.pieces[pi].filter(q=>q===57).length===4;
-  if(won){S.winner=pi;S.rolled=false;S.dice=null;draw();status.textContent="🎉 "+P[pi].name+" جیت گیا! چاروں گوٹیاں Finish پر پہنچ گئیں۔";return;}
-  const extra=n===6||captures>0||v===57;
-  S.rolled=false;S.dice=null;draw();
-  status.textContent=P[pi].name+" کی گوٹی چل گئی۔"+(captures?" مخالف گوٹی Home واپس چلی گئی۔":"")+(extra?" اضافی باری!":"");
-  if(!extra)setTimeout(next,900);
- }
- roll.addEventListener("click",rollDice);
- document.getElementById("rulesToggle").addEventListener("click",()=>document.getElementById("rules").classList.toggle("open"));
- draw();status.textContent=P[0].name+" (Blue) کی باری ہے۔ ڈائس رول کریں۔";
-})();
-
-</script>
+const players=[{name:'RED',emoji:'🔴',color:'red',start:0},{name:'GREEN',emoji:'🟢',color:'green',start:13},{name:'YELLOW',emoji:'🟡',color:'yellow',start:26},{name:'BLUE',emoji:'🔵',color:'blue',start:39}];
+const path=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
+const lanes=[[[7,1],[7,2],[7,3],[7,4],[7,5]],[[1,7],[2,7],[3,7],[4,7],[5,7]],[[7,13],[7,12],[7,11],[7,10],[7,9]],[[13,7],[12,7],[11,7],[10,7],[9,7]]];
+const homes=[[[2,2],[2,4],[4,2],[4,4]],[[2,10],[2,12],[4,10],[4,12]],[[10,10],[10,12],[12,10],[12,12]],[[10,2],[10,4],[12,2],[12,4]]];
+const safe=[0,8,13,21,26,34,39,47];let positions=players.map(()=>[-1,-1,-1,-1]),turn=0,dice=0,hasRolled=false,gameOver=false;const board=document.getElementById('board'),cells={};
+function cell(r,c){return cells[r+','+c]}function addClass(r,c,k){cell(r,c).classList.add(k)}
+function makeBoard(){for(let r=0;r<15;r++)for(let c=0;c<15;c++){let e=document.createElement('div');e.className='cell';e.id='c'+r+'-'+c;board.appendChild(e);cells[r+','+c]=e;
+if(r<6&&c<6)e.classList.add('base-red');if(r<6&&c>8)e.classList.add('base-yellow');if(r>8&&c>8)e.classList.add('base-blue');if(r>8&&c<6)e.classList.add('base-green');}
+path.forEach(([r,c])=>addClass(r,c,'track'));lanes.forEach((ln,p)=>ln.forEach(([r,c])=>addClass(r,c,'lane-'+players[p].color)));
+players.forEach((p,i)=>{addClass(...path[p.start],'start-'+p.color);homes[i].forEach(([r,c])=>{let inner=document.createElement('div');inner.className='base-inner';for(let n=0;n<4;n++){let slot=document.createElement('div');slot.className='home-slot';inner.appendChild(slot)}cell(r,c).appendChild(inner)})});
+// Classic four-colour home triangles in the middle
+let center=document.createElement('div');center.className='center';board.appendChild(center);
+// Safe squares are marked without covering the start colours
+safe.forEach(s=>{let [r,c]=path[s];if(!cell(r,c).classList.contains('start-red')&&!cell(r,c).classList.contains('start-green')&&!cell(r,c).classList.contains('start-yellow')&&!cell(r,c).classList.contains('start-blue'))cell(r,c).classList.add('safe')});}
+function makePlayers(){let area=document.getElementById('players');players.forEach((p,i)=>{let el=document.createElement('div');el.className='player';el.id='player'+i;el.innerHTML=`<div class="pavatar" style="background:${['#e83e43','#20a51f','#ffc91b','#405ce9'][i]}">${p.emoji}</div><div><div class="pname">${p.name} PLAYER</div><div class="pinfo">${i===0?'YOU':'GUEST '+(i+1)} · <span id="count${i}">0/4 HOME</span></div></div>`;area.appendChild(el)})}
+function tokenCoord(p,t){let v=positions[p][t];if(v===-1)return homes[p][t];if(v===57)return [7,7];if(v<52)return path[(players[p].start+v)%52];return lanes[p][v-52]}
+function canMove(p,t){let v=positions[p][t];return v===-1?dice===6:(v<57&&v+dice<=57)}
+function draw(){document.querySelectorAll('.token').forEach(e=>e.remove());positions.forEach((group,p)=>group.forEach((v,t)=>{let [r,c]=tokenCoord(p,t);let b=document.createElement('button');b.className='token '+players[p].color;b.textContent=t+1;b.disabled=!(hasRolled&&turn===p&&!gameOver&&canMove(p,t));b.onclick=()=>moveToken(p,t);cell(r,c).appendChild(b)}));players.forEach((p,i)=>{document.getElementById('player'+i).classList.toggle('active',turn===i&&!gameOver);document.getElementById('count'+i).textContent=positions[i].filter(v=>v===57).length+'/4 HOME'});document.getElementById('roll').disabled=hasRolled||gameOver;}
+function say(s){document.getElementById('status').textContent=s}
+function rollDice(){if(hasRolled||gameOver)return;dice=1+Math.floor(Math.random()*6);hasRolled=true;document.getElementById('die').textContent=['','⚀','⚁','⚂','⚃','⚄','⚅'][dice];draw();if(!positions[turn].some((v,t)=>canMove(turn,t))){say(players[turn].name+' HAS NO MOVE — TURN PASSES');setTimeout(()=>{if(hasRolled&&!gameOver){hasRolled=false;turn=(turn+1)%4;document.getElementById('die').textContent='🎲';say(players[turn].name+' PLAYER TURN');draw()}},900)}else say(players[turn].name+' ROLLED '+dice+' — SELECT A TOKEN')}
+function moveToken(p,t){if(!hasRolled||p!==turn||!canMove(p,t)||gameOver)return;let next=positions[p][t]===-1?0:positions[p][t]+dice;positions[p][t]=next;let captured=false;if(next<52){let sq=(players[p].start+next)%52;if(!safe.includes(sq))positions.forEach((g,op)=>{if(op!==p)g.forEach((v,k)=>{if(v>=0&&v<52&&(players[op].start+v)%52===sq){positions[op][k]=-1;captured=true}})})}let rolled=dice;hasRolled=false;if(positions[p].every(v=>v===57)){gameOver=true;say('🏆 '+players[p].name+' WINS!');draw();return}if(rolled!==6)turn=(turn+1)%4;document.getElementById('die').textContent='🎲';say(captured?'TOKEN CAPTURED! '+players[p].name+' PLAYS AGAIN':rolled===6?players[p].name+' ROLLED SIX — PLAY AGAIN':players[turn].name+' PLAYER TURN');draw()}
+function newGame(){positions=players.map(()=>[-1,-1,-1,-1]);turn=0;dice=0;hasRolled=false;gameOver=false;document.getElementById('die').textContent='🎲';say('NEW GAME — RED PLAYER STARTS');draw()}
+function showPanel(id){hidePanels();document.getElementById(id).classList.add('show')}function hidePanels(){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'))}
+function toggleMenu(){say('ONE SOUL LUDO · MENU');}
+function sendChat(){let input=document.getElementById('chatInput'),v=input.value.trim();if(!v)return;let log=document.getElementById('chatlog');let line=document.createElement('div');line.textContent='You: '+v;log.appendChild(line);log.scrollTop=log.scrollHeight;input.value=''}
+function micInfo(){showPanel('chatPanel');let log=document.getElementById('chatlog');let line=document.createElement('div');line.textContent='Voice chat requires an online multiplayer connection and WebRTC/Firebase setup. This offline file only shows the microphone control.';log.appendChild(line);log.scrollTop=log.scrollHeight}
+['😀','😂','😍','😎','👏','👍','❤️','🔥','😮','😭','🎉','🙏'].forEach(em=>{let b=document.createElement('button');b.textContent=em;b.onclick=()=>{say('REACTION SENT '+em);hidePanels()};document.getElementById('emojis').appendChild(b)});
+makeBoard();makePlayers();draw();
+</script></body></html>
