@@ -7,217 +7,64 @@
 <title>ONE SOUL</title>
 <style>
 :root{--bg:#071747;--red:#ef334e;--green:#19bd70;--yellow:#f5c52e;--blue:#278ce8}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 50% 5%,#2254ad,#071747 62%,#030b28);color:#fff;font-family:Arial,system-ui,sans-serif;min-height:100vh}
-button,input{font:inherit}button{cursor:pointer;color:#fff;border:0}
-.screen{display:none;min-height:100vh;padding:12px;max-width:760px;margin:auto}.screen.active{display:block}
-.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-.btn{background:linear-gradient(#28cfff,#0754d8);border:2px solid #8deaff;border-radius:13px;padding:9px 12px;font-weight:900;box-shadow:0 3px 0 #06317c}
-.btn:disabled{opacity:.35;filter:grayscale(.7);cursor:not-allowed}
-.brand{font-size:clamp(15px,4vw,23px);font-weight:1000;text-align:center;text-shadow:0 2px 8px #3bdcff}
-.logo{font-size:clamp(45px,12vw,76px);line-height:.9;text-align:center;font-weight:1000;letter-spacing:-3px;text-shadow:0 4px 0 #07133d,0 0 20px #49dfff;margin:22px 0}
-.logo span{display:block;color:#ffda36;text-shadow:0 4px 0 #853300,0 0 20px #ffdd49}.crown{font-size:44px;display:block}
-.panel{background:linear-gradient(145deg,#1748ad,#071747);border:2px solid #55cfff;border-radius:19px;padding:14px;box-shadow:0 0 18px #008cff55,inset 0 0 12px #fff2}
-h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
-.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
-.game{min-height:170px;border-radius:24px;border:3px solid #ffffff99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:21px;font-weight:1000;text-shadow:0 2px 4px #0009;box-shadow:0 6px 0 #0006,0 0 16px #fff4}
-.game b{font-size:64px}.g1{background:linear-gradient(145deg,#22b8ff,#0753c7)}.g2{background:linear-gradient(145deg,#37e5a0,#087d9c)}.g3{background:linear-gradient(145deg,#3bd7ad,#087c70)}
-.players{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
-.player{display:flex;align-items:center;gap:7px;padding:7px;border-radius:14px;background:linear-gradient(135deg,#1b3d8c,#07163d);border:2px solid var(--pc);min-width:0;box-shadow:0 0 9px color-mix(in srgb,var(--pc),transparent 55%)}
-.player.active{box-shadow:0 0 0 2px #fff,0 0 17px var(--pc);background:linear-gradient(135deg,#254da6,#10265c)}
-.avatar{width:39px;height:39px;flex:0 0 39px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:2px solid #fff;display:grid;place-items:center;color:#173d85;font-size:23px;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.pinfo{min-width:0;flex:1}.pname{font-weight:1000;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.status{font-size:10px;color:#76ffb4;margin-top:3px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}
-.mini-dice{width:39px;height:39px;flex:0 0 39px;border-radius:10px;background:#fff;color:#09265f;border:2px solid #bcefff;box-shadow:0 2px 0 #698bb9;font-size:27px;display:grid;place-items:center;padding:0}
-.board-shell{padding:7px;background:linear-gradient(145deg,#10285c,#020b2c);border:3px solid #73dfff;border-radius:16px;box-shadow:0 0 18px #00bfff88}
-.board{position:relative;width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#7891b5;border:2px solid #fff;overflow:hidden}
-.cell{position:relative;background:#fff;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
-.cell.path{background:#f8fbff}.cell.redhome{background:#e93650}.cell.greenhome{background:#16ad68}.cell.yellowhome{background:#e9b91d}.cell.bluehome{background:#2385db}
-.cell.home-lane.redlane{background:#ff9aaa}.cell.home-lane.greenlane{background:#8ce9bb}.cell.home-lane.yellowlane{background:#ffec94}.cell.home-lane.bluelane{background:#9bd5ff}
-.cell.safe:after{content:"★";font-size:clamp(7px,2vw,15px);color:#536b96;text-shadow:0 1px 1px white}
-.yard{position:absolute;width:40%;height:40%;padding:5.5%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:9%;z-index:4;border:2px solid #ffffffa8;pointer-events:none}
-.yard.redyard{top:0;left:0;background:#a9002d}.yard.greenyard{top:0;right:0;background:#007342}
-.yard.yellowyard{bottom:0;right:0;background:#967000}.yard.blueyard{bottom:0;left:0;background:#00519c}
-.yard-slot{border-radius:50%;background:linear-gradient(145deg,#fff,#dceaff);border:2px solid #ffffff;box-shadow:0 2px 5px #001c50;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 5%,#2361c8,#071747 65%,#020923);color:#fff;font-family:Arial,system-ui,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer;color:#fff;border:0}
+.screen{display:none;min-height:100vh;padding:10px;max-width:760px;margin:auto}.screen.active{display:block}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.btn{background:linear-gradient(#28cfff,#0754d8);border:2px solid #8deaff;border-radius:13px;padding:9px 12px;font-weight:900;box-shadow:0 3px 0 #06317c}.brand{font-size:clamp(16px,4vw,24px);font-weight:1000;text-align:center;text-shadow:0 2px 8px #3bdcff}
+.logo{font-size:clamp(48px,13vw,78px);line-height:.9;text-align:center;font-weight:1000;letter-spacing:-3px;text-shadow:0 4px 0 #07133d,0 0 20px #49dfff;margin:24px 0}.logo span{display:block;color:#ffda36}.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}.game{min-height:155px;border-radius:24px;border:3px solid #ffffff99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:21px;font-weight:1000;box-shadow:0 6px 0 #0006,0 0 16px #fff4}.game b{font-size:58px}.g1{background:linear-gradient(145deg,#22b8ff,#0753c7)}.g2{background:linear-gradient(145deg,#37e5a0,#087d9c)}.g3{background:linear-gradient(145deg,#3bd7ad,#087c70)}
+.players{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0}.player{display:flex;align-items:center;gap:6px;padding:6px;border-radius:16px;background:linear-gradient(135deg,#173e91,#06163e);border:2px solid var(--pc);min-width:0;box-shadow:0 0 12px color-mix(in srgb,var(--pc),transparent 45%)}.player.active{box-shadow:0 0 0 2px white,0 0 18px var(--pc);background:linear-gradient(135deg,#2854b4,#10265c)}.avatar{width:43px;height:43px;flex:0 0 43px;border-radius:50%;background:linear-gradient(#fff,#8bbcff);border:3px solid #fff;display:grid;place-items:center;color:#173d85;font-size:22px;overflow:hidden;box-shadow:0 0 9px var(--pc)}.avatar img{width:100%;height:100%;object-fit:cover}.pinfo{min-width:0;flex:1}.pname{font-weight:1000;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status{font-size:10px;color:#9dffc7;margin-top:3px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}.mini-dice{width:47px;height:47px;flex:0 0 47px;border-radius:13px;background:linear-gradient(145deg,#fff,#c9e6ff);color:#0750bd;border:3px solid #85dfff;box-shadow:0 4px 0 #5279a8,0 0 12px #00cfff;font-size:31px;display:grid;place-items:center;padding:0;text-shadow:none}.mini-dice:disabled{opacity:.65;filter:saturate(.6)}
+.board-shell{padding:6px;background:linear-gradient(145deg,#e9f7ff,#617b9e 35%,#142b55);border:3px solid #b9eaff;border-radius:18px;box-shadow:0 7px 0 #07122d,0 0 20px #00bfff99}.board{position:relative;width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#52627c;border:2px solid #fff;overflow:hidden}.cell{position:relative;background:#f8fbff;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}.cell.path{background:#f8fbff}.cell.redhome{background:#e93650}.cell.greenhome{background:#16ad68}.cell.yellowhome{background:#e9b91d}.cell.bluehome{background:#2385db}.cell.home-lane.redlane{background:#ff9aaa}.cell.home-lane.greenlane{background:#8ce9bb}.cell.home-lane.yellowlane{background:#ffec94}.cell.home-lane.bluelane{background:#9bd5ff}.cell.safe:after{content:"★";font-size:clamp(7px,2vw,15px);color:#536b96}
+.yard{position:absolute;width:40%;height:40%;padding:5.5%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:9%;z-index:4;border:2px solid #ffffffb8;pointer-events:none}.yard.redyard{top:0;left:0;background:#a9002d}.yard.greenyard{top:0;right:0;background:#007342}.yard.yellowyard{bottom:0;right:0;background:#967000}.yard.blueyard{bottom:0;left:0;background:#00519c}.yard-slot{border-radius:50%;background:linear-gradient(145deg,#fff,#dceaff);border:2px solid #fff;box-shadow:0 2px 5px #001c50;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
 .centerpiece{position:absolute;left:40%;top:40%;width:20%;height:20%;z-index:2;background:conic-gradient(#18b86d 0 25%,#f4c62b 0 50%,#278ce8 0 75%,#ef334e 0);border:1px solid #fff;display:grid;place-items:center;font-size:clamp(12px,4vw,25px)}
-.token{width:78%;height:78%;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 4px #00143d99;display:grid;place-items:center;font-size:clamp(7px,2vw,12px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;z-index:5;position:absolute;cursor:pointer;padding:0}
-.token.red{background:radial-gradient(circle at 30% 25%,#ff9ca9,#d00027 70%)}
-.token.green{background:radial-gradient(circle at 30% 25%,#aaffd0,#008b4b 70%)}
-.token.yellow{background:radial-gradient(circle at 30% 25%,#fff0a2,#d99a00 70%)}
-.token.blue{background:radial-gradient(circle at 30% 25%,#b9e7ff,#0061c6 70%)}
-.token.selectable{outline:3px solid #fff;animation:pulse .7s infinite alternate}
-@keyframes pulse{to{transform:scale(1.12);box-shadow:0 0 12px #fff}}
-.token.multi{width:55%;height:55%}.yard-slot .token{width:86%;height:86%}
-.turnline{text-align:center;color:#ffed83;font-weight:1000;margin:10px 0 4px;font-size:14px}
-.hint{text-align:center;color:#c4e5ff;font-size:11px;margin:4px 0 10px}
-.chat{margin-top:12px;background:#07183f;border:2px solid #3b9fe8;border-radius:14px;padding:9px}
-.messages{height:76px;overflow:auto;background:#102d73;border-radius:9px;padding:7px;font-size:12px}
-.msg{padding:5px 9px;margin:3px 0;width:max-content;max-width:90%;background:#c5f4ff;color:#092453;border-radius:10px;font-weight:700}
-.msg.me{margin-left:auto;background:#d7ffb8}
-.chatrow{display:flex;gap:5px;margin-top:7px}.chatrow input{min-width:0;flex:1;border-radius:9px;padding:9px;border:2px solid #8bdcff}
-.emoji{display:flex;gap:4px;overflow:auto;margin:6px 0}.emoji button{background:#183d91;border-radius:8px;padding:5px;font-size:18px}
+.token{width:72%;height:88%;border-radius:45% 45% 48% 48%;border:2px solid #fff;position:absolute;z-index:5;cursor:pointer;padding:0;background:transparent;filter:drop-shadow(0 3px 2px #00143d99);display:flex;align-items:center;justify-content:center}.token:before{content:"";position:absolute;width:49%;height:49%;border-radius:50%;top:0;left:25%;background:radial-gradient(circle at 30% 25%,#fff9,#fff2 25%,transparent 60%),linear-gradient(145deg,#fff8,#0002);border:1px solid #ffffffaa;z-index:2}.token:after{content:"";position:absolute;left:9%;right:9%;bottom:2%;height:63%;border-radius:45% 45% 48% 48%;background:linear-gradient(110deg,#ffffff75,transparent 35%,#0003 90%);border:1px solid #ffffff99;box-shadow:inset 0 2px 4px #fff8,0 2px 4px #001a55aa}.token.red{background:radial-gradient(circle at 30% 20%,#ffb6b8,#e21d34 65%,#850019)}.token.green{background:radial-gradient(circle at 30% 20%,#d4ffab,#4cda15 65%,#087b17)}.token.yellow{background:radial-gradient(circle at 30% 20%,#fff7b0,#f2bd12 65%,#956000)}.token.blue{background:radial-gradient(circle at 30% 20%,#c2f7ff,#08b9ec 65%,#00518e)}.token.selectable{outline:3px solid #fff;animation:pulse .7s infinite alternate}.token.multi{width:48%;height:58%}.yard-slot .token{width:75%;height:85%}@keyframes pulse{to{transform:scale(1.12);filter:drop-shadow(0 0 7px white)}}
+.turnline{text-align:center;color:#ffed83;font-weight:1000;margin:9px 0 4px;font-size:14px}.hint{text-align:center;color:#c4e5ff;font-size:11px;margin:4px 0 8px}
+.chat{margin-top:10px;background:linear-gradient(145deg,#09296c,#041332);border:2px solid #3b9fe8;border-radius:17px;padding:8px;box-shadow:0 0 14px #00aaff55}.chathead{display:flex;align-items:center;justify-content:space-between;gap:5px;font-weight:1000}.emoji{display:flex;gap:4px;overflow:auto;margin:6px 0}.emoji button{background:linear-gradient(#2364bd,#102e70);border:1px solid #6bcfff;border-radius:9px;padding:5px;font-size:18px}.messages{height:62px;overflow:auto;background:#102d73;border-radius:9px;padding:6px;font-size:12px;margin:6px 0}.msg{padding:5px 9px;margin:3px 0;width:max-content;max-width:90%;background:#c5f4ff;color:#092453;border-radius:10px;font-weight:700}.msg.me{margin-left:auto;background:#d7ffb8}.chatrow{display:flex;gap:6px;align-items:center}.chatrow input{min-width:0;flex:1;border-radius:22px;padding:11px;border:2px solid #4caeff;background:#071b48;color:#fff}.chatrow input::placeholder{color:#c1d8ff}.roundbtn{width:48px;height:48px;border-radius:50%;background:linear-gradient(#2bd8ff,#0755d8);border:3px solid #a7edff;font-size:23px;box-shadow:0 3px 0 #06317c}
+.panel{background:linear-gradient(145deg,#1748ad,#071747);border:2px solid #55cfff;border-radius:19px;padding:14px;box-shadow:0 0 18px #008cff55}.field{margin:12px 0}.field label{display:block;font-weight:900;margin-bottom:5px}.field input{width:100%;padding:11px;border-radius:10px;border:2px solid #83dfff}.wide{width:100%;padding:12px;border-radius:12px;background:linear-gradient(#20cfff,#0756d9);border:2px solid #a4edff;font-weight:1000;color:#fff}.profilepreview{display:flex;justify-content:center;margin:12px}.profilepreview .avatar{width:105px;height:105px;font-size:55px}.card{height:170px;width:125px;margin:20px auto;background:#fff;color:#16316c;border:5px solid #ffe26a;border-radius:16px;display:grid;place-items:center;font-size:55px;font-weight:1000}.snakeboard{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;background:#06143b;padding:4px}.snakecell{aspect-ratio:1;background:#eaf5ff;color:#13295c;display:grid;place-items:center;font-size:clamp(9px,2.4vw,14px);font-weight:900}
 .note{text-align:center;color:#b9dfff;font-size:11px;margin:8px 0}
-.profilepreview{display:flex;justify-content:center;margin:15px}.profilepreview .avatar{width:100px;height:100px;font-size:55px}
-.field{margin:12px 0}.field label{display:block;font-weight:900;margin-bottom:5px}.field input{width:100%;padding:11px;border-radius:10px;border:2px solid #83dfff}
-.wide{width:100%;padding:12px;border-radius:12px;background:linear-gradient(#20cfff,#0756d9);border:2px solid #a4edff;font-weight:1000}
-.card{height:170px;width:125px;margin:20px auto;background:#fff;color:#16316c;border:5px solid #ffe26a;border-radius:16px;display:grid;place-items:center;font-size:55px;font-weight:1000}
-.snakeboard{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;background:#06143b;padding:4px}
-.snakecell{aspect-ratio:1;background:#eaf5ff;color:#13295c;display:grid;place-items:center;font-size:clamp(9px,2.4vw,14px);font-weight:900;position:relative}
-.snakecell:nth-child(4n){background:#baf1d2}.snakecell:nth-child(4n+2){background:#ffe7a2}
-@media(max-width:390px){.screen{padding:7px}.players{gap:5px}.player{padding:5px;gap:5px}.avatar{width:33px;height:33px;flex-basis:33px}.mini-dice{width:34px;height:34px;flex-basis:34px;font-size:23px}.pname{font-size:11px}.board-shell{padding:4px}.game{min-height:145px}.game b{font-size:55px}}
+@media(max-width:390px){.screen{padding:6px}.players{gap:4px}.player{padding:4px;gap:4px}.avatar{width:35px;height:35px;flex-basis:35px}.mini-dice{width:39px;height:39px;flex-basis:39px;font-size:26px}.pname{font-size:10px}.board-shell{padding:4px}.messages{height:52px}}
 </style>
 </head>
 <body>
-<section id="home" class="screen active">
- <div class="top"><button class="btn" onclick="openProfile()">👤 Profile</button><div class="brand">👑 ONE SOUL</div><button class="btn" onclick="show('settings')">⚙ Settings</button></div>
- <div class="logo"><span class="crown">👑</span>ONE<span>SOUL</span></div>
- <h2>Play together. Connect together.</h2>
- <div class="menu">
-  <button class="game g1" onclick="startLudo()"><b>🎲</b>LUDO</button>
-  <button class="game g2" onclick="show('cards')"><b>🃏</b>COLOR CARD</button>
-  <button class="game g3" onclick="startSnake()"><b>🐍</b>SNAKE & LADDER</button>
- </div><p class="note">ONE SOUL • Play together • Have fun</p>
-</section>
-<section id="ludo" class="screen">
- <div class="top"><button class="btn" onclick="show('home')">← Games</button><div class="brand">👑 ONE SOUL LUDO</div><button class="btn" onclick="openProfile()">Profile</button></div>
- <div id="topPlayers" class="players"></div>
- <div class="board-shell"><div id="board" class="board"></div></div>
- <div id="bottomPlayers" class="players"></div>
- <div id="turnline" class="turnline">Red player — roll your dice</div><div id="hint" class="hint">Tap the active player's small dice to roll.</div>
- <div class="chat"><b>💬 GAME CHAT</b><div id="messages" class="messages"><div class="msg">Welcome to ONE SOUL! 🎮</div></div><div class="emoji"><button onclick="sendEmoji('😀')">😀</button><button onclick="sendEmoji('😍')">😍</button><button onclick="sendEmoji('😎')">😎</button><button onclick="sendEmoji('😂')">😂</button><button onclick="sendEmoji('👍')">👍</button><button onclick="sendEmoji('❤️')">❤️</button></div><div class="chatrow"><input id="chatinput" maxlength="140" placeholder="Type a message..."><button class="btn" onclick="sendChat()">➤</button></div></div>
- <p class="note">Local pass-and-play on this device. Online multiplayer is not connected.</p>
-</section>
-<section id="profile" class="screen">
- <div class="top"><button class="btn" onclick="show(previousScreen)">← Back</button><b>EDIT PROFILE</b><span></span></div>
- <div class="panel"><div class="profilepreview"><div id="preview" class="avatar">👤</div></div>
- <div class="field"><label>Change Picture</label><input id="photo" type="file" accept="image/*" onchange="loadPhoto(event)"></div>
- <button class="btn" style="width:100%;background:linear-gradient(#a45cff,#5816c9)" onclick="removePhoto()">🗑 Remove Picture</button>
- <div class="field"><label>Enter Name</label><input id="playerName" maxlength="18" placeholder="Your name"></div>
- <button class="wide" onclick="saveProfile()">SAVE PROFILE</button></div><p class="note">Profile is saved in this browser on this device.</p>
-</section>
-<section id="settings" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Back</button><b>SETTINGS</b></div><div class="panel"><h2>Game Settings</h2><p>Players: 4 local players</p><p>Rule set: Classic Ludo (local demo)</p><p>Online play requires a Firebase multiplayer connection.</p></div></section>
+<section id="home" class="screen active"><div class="top"><button class="btn" onclick="openProfile()">👤 Profile</button><div class="brand">👑 ONE SOUL</div><button class="btn" onclick="show('settings')">⚙ Settings</button></div><div class="logo">👑 ONE<span>SOUL</span></div><h2 style="text-align:center">Play together. Connect together.</h2><div class="menu"><button class="game g1" onclick="startLudo()"><b>🎲</b>LUDO</button><button class="game g2" onclick="show('cards')"><b>🃏</b>COLOR CARD</button><button class="game g3" onclick="startSnake()"><b>🐍</b>SNAKE & LADDER</button></div><p class="note">ONE SOUL • Play together • Have fun</p></section>
+<section id="ludo" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><div class="brand">👑 ONE SOUL</div><button class="btn" onclick="openProfile()">Profile</button></div><div id="topPlayers" class="players"></div><div class="board-shell"><div id="board" class="board"></div></div><div id="bottomPlayers" class="players"></div><div id="turnline" class="turnline"></div><div id="hint" class="hint"></div><div class="chat"><div class="chathead"><span>💬 GAME CHAT</span><span style="font-size:10px;color:#9edfff">LOCAL CHAT</span></div><div class="emoji"><button onclick="sendEmoji('😀')">😀</button><button onclick="sendEmoji('😍')">😍</button><button onclick="sendEmoji('😎')">😎</button><button onclick="sendEmoji('😂')">😂</button><button onclick="sendEmoji('👍')">👍</button><button onclick="sendEmoji('❤️')">❤️</button></div><div id="messages" class="messages"><div class="msg">Welcome to ONE SOUL! 🎮</div></div><div class="chatrow"><button class="roundbtn" onclick="voiceInfo()" title="Voice">🎙️</button><input id="chatinput" maxlength="140" placeholder="Type a message..."><button class="roundbtn" onclick="sendChat()">➤</button></div></div><p class="note">Pass-and-play on this device. Online voice/chat needs a multiplayer server.</p></section>
+<section id="profile" class="screen"><div class="top"><button class="btn" onclick="show(previousScreen)">← Back</button><b>EDIT PROFILE</b><span></span></div><div class="panel"><div class="profilepreview"><div id="preview" class="avatar">👤</div></div><div class="field"><label>Change Picture</label><input id="photo" type="file" accept="image/*" onchange="loadPhoto(event)"></div><button class="btn" style="width:100%;background:linear-gradient(#a45cff,#5816c9)" onclick="removePhoto()">🗑 Remove Picture</button><div class="field"><label>Enter Name</label><input id="playerName" maxlength="18" placeholder="Your name"></div><button class="wide" onclick="saveProfile()">SAVE PROFILE</button></div><p class="note">Your name and picture are saved on this device.</p></section>
+<section id="settings" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Back</button><b>SETTINGS</b></div><div class="panel"><h2>Game Settings</h2><p>Players: 4 local players</p><p>Rule set: Classic Ludo</p><p>Online multiplayer is not connected.</p></div></section>
 <section id="cards" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><b>COLOR CARD</b></div><div class="panel" style="text-align:center"><h2>Draw a card</h2><div id="card" class="card">🃏</div><p id="cardtext">Tap draw to pick a card.</p><button class="wide" onclick="drawCard()">DRAW CARD</button></div></section>
 <section id="snake" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><b>SNAKE & LADDER</b></div><div class="panel"><div style="display:flex;justify-content:space-around"><b>🔴 Red: <span id="rpos">1</span></b><b>🟢 Green: <span id="gpos">1</span></b></div><div id="snakeboard" class="snakeboard" style="margin:12px 0"></div><div class="turnline" id="snaketurn">Red's turn</div><button class="wide" onclick="snakeRoll()">🎲 ROLL</button><p class="note" id="snakemsg">First to reach 100 wins.</p><button class="btn" onclick="resetSnake()">Restart</button></div></section>
 <script>
 'use strict';
-const $=id=>document.getElementById(id);
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active')}
-let previousScreen='home';
-let profile={name:localStorage.getItem('os_name')||'You',photo:localStorage.getItem('os_photo')||''};
-function openProfile(){previousScreen=document.querySelector('.screen.active').id;$('playerName').value=profile.name;$('preview').innerHTML=profile.photo?'<img src="'+profile.photo+'">':'👤';show('profile')}
-function loadPhoto(e){let f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>1500000){alert('Choose a photo smaller than 1.5 MB.');e.target.value='';return}let reader=new FileReader();reader.onload=()=>{profile.photo=reader.result;$('preview').innerHTML='<img src="'+reader.result+'">'};reader.readAsDataURL(f)}
+const $=id=>document.getElementById(id);function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active')}
+let previousScreen='home';let profile={name:localStorage.getItem('os_name')||'One soul',photo:localStorage.getItem('os_photo')||''};
+function openProfile(){previousScreen=document.querySelector('.screen.active').id;$('playerName').value=profile.name;$('preview').innerHTML='';if(profile.photo){let im=document.createElement('img');im.src=profile.photo;$('preview').appendChild(im)}else $('preview').textContent='👤';show('profile')}
+function loadPhoto(e){let f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>900000){alert('Choose a photo smaller than 900 KB.');e.target.value='';return}let rd=new FileReader();rd.onload=()=>{profile.photo=rd.result;$('preview').innerHTML='';let im=document.createElement('img');im.src=rd.result;$('preview').appendChild(im)};rd.readAsDataURL(f)}
 function removePhoto(){profile.photo='';$('preview').textContent='👤';$('photo').value=''}
-function saveProfile(){profile.name=$('playerName').value.trim()||'You';localStorage.setItem('os_name',profile.name);if(profile.photo)localStorage.setItem('os_photo',profile.photo);else localStorage.removeItem('os_photo');renderPlayers();show(previousScreen)}
-const names=['Red','Green','Yellow','Blue'],css=['red','green','yellow','blue'],hex=['#ef334e','#19bd70','#f5c52e','#278ce8'],face=['🔴','🟢','🟡','🔵'];
-const starts=[0,13,26,39];
+function saveProfile(){profile.name=$('playerName').value.trim()||'One soul';try{localStorage.setItem('os_name',profile.name);if(profile.photo)localStorage.setItem('os_photo',profile.photo);else localStorage.removeItem('os_photo')}catch(e){alert('Picture is too large. Please choose a smaller photo.');return}renderPlayers();show(previousScreen)}
+const names=['Red','Green','Yellow','Blue'],css=['red','green','yellow','blue'],hex=['#ef334e','#19bd70','#f5c52e','#278ce8'],face=['🔴','🟢','🟡','🔵'];const starts=[0,13,26,39];
 const route=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
 const homeSlots=[[[1,1],[1,4],[4,1],[4,4]],[[1,10],[1,13],[4,10],[4,13]],[[10,10],[10,13],[13,10],[13,13]],[[10,1],[10,4],[13,1],[13,4]]];
-const lanes=[[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]];
-const safe=[0,8,13,21,26,34,39,47];
-let pawns=Array.from({length:4},()=>[-1,-1,-1,-1]),turn=0,lastRoll=0,sixes=0,awaitMove=false,finished=false;
-const diceFaces=['','⚀','⚁','⚂','⚃','⚄','⚅'];
+const lanes=[[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]];const safe=[0,8,13,21,26,34,39,47];
+let pawns=Array.from({length:4},()=>[-1,-1,-1,-1]),turn=0,lastRoll=0,sixes=0,awaitMove=false,finished=false;const diceFaces=['','⚀','⚁','⚂','⚃','⚄','⚅'];
 function cellAt(r,c){return document.querySelector('.cell[data-pos="'+r+','+c+'"]')}
-function makeBoard(){
- const b=$('board');b.innerHTML='';
- for(let r=0;r<15;r++)for(let c=0;c<15;c++){
-  const d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;
-  if(r<6&&c<6)d.classList.add('redhome');
-  if(r<6&&c>8)d.classList.add('greenhome');
-  if(r>8&&c>8)d.classList.add('yellowhome');
-  if(r>8&&c<6)d.classList.add('bluehome');
-  const idx=route.findIndex(p=>p[0]===r&&p[1]===c);
-  if(idx>=0){d.className='cell path';if(safe.includes(idx))d.classList.add('safe')}
-  for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');
-  if(r>=6&&r<=8&&c>=6&&c<=8)d.className='cell';
-  b.appendChild(d);
- }
- const yardData=[['redyard',0],['greenyard',1],['yellowyard',2],['blueyard',3]];
- yardData.forEach(([cl,p])=>{
-  const yard=document.createElement('div');yard.className='yard '+cl;yard.dataset.player=p;
-  for(let t=0;t<4;t++){const slot=document.createElement('div');slot.className='yard-slot';slot.dataset.home=p+','+t;yard.appendChild(slot)}
-  b.appendChild(yard);
- });
- const center=document.createElement('div');center.className='centerpiece';center.textContent='👑';b.appendChild(center);
- drawPawns();renderPlayers();updateTurn();
-}
+function makeBoard(){const b=$('board');b.innerHTML='';for(let r=0;r<15;r++)for(let c=0;c<15;c++){const d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c>8)d.classList.add('yellowhome');if(r>8&&c<6)d.classList.add('bluehome');let idx=route.findIndex(p=>p[0]===r&&p[1]===c);if(idx>=0){d.className='cell path';if(safe.includes(idx))d.classList.add('safe')}for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');if(r>=6&&r<=8&&c>=6&&c<=8)d.className='cell';b.appendChild(d)}
+[['redyard',0],['greenyard',1],['yellowyard',2],['blueyard',3]].forEach(([cl,p])=>{let y=document.createElement('div');y.className='yard '+cl;for(let t=0;t<4;t++){let s=document.createElement('div');s.className='yard-slot';s.dataset.home=p+','+t;y.appendChild(s)}b.appendChild(y)});let center=document.createElement('div');center.className='centerpiece';center.textContent='👑';b.appendChild(center);drawPawns();renderPlayers();updateTurn()}
 function coordFor(p,t,v){if(v<0)return homeSlots[p][t];if(v<=51)return route[(starts[p]+v)%52];return lanes[p][v-52]}
-function drawPawns(){
- document.querySelectorAll('.token').forEach(x=>x.remove());
- const stackCounts={};
- for(let p=0;p<4;p++)for(let t=0;t<4;t++){
-  const v=pawns[p][t],coord=coordFor(p,t,v),key=coord[0]+','+coord[1];
-  const token=document.createElement('button');token.type='button';token.className='token '+css[p];token.textContent=String(t+1);token.dataset.p=p;token.dataset.t=t;
-  token.setAttribute('aria-label',names[p]+' token '+(t+1));
-  if(awaitMove&&p===turn&&isLegal(p,t,lastRoll))token.classList.add('selectable');
-  if(v<0){const slot=document.querySelector('[data-home="'+p+','+t+'"]');if(slot)slot.appendChild(token)}
-  else{
-   const cell=cellAt(coord[0],coord[1]);if(!cell)continue;
-   const n=stackCounts[key]||0;stackCounts[key]=n+1;
-   if(n>0)token.classList.add('multi');
-   token.style.transform='translate('+(n%2?22:-12)+'%,'+(n>1?22:0)+'%)';
-   cell.appendChild(token);
-  }
-  token.addEventListener('click',()=>choosePawn(p,t));
- }
-}
-function playerCard(p){
- const active=p===turn&&!finished;
- const pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':face[p];
- const nm=p===0?profile.name:names[p]+' Player';
- return '<div class="player '+(active?'active':'')+'" style="--pc:'+hex[p]+'"><div class="avatar">'+pic+'</div><div class="pinfo"><div class="pname">'+nm+'</div><div class="status">● '+(active?'YOUR TURN':'Waiting')+'</div>'+(active?'<div class="turntag">'+(awaitMove?'SELECT TOKEN':'ROLL NOW')+'</div>':'')+'</div><button class="mini-dice" '+(active&&!awaitMove?'':'disabled')+' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+(p===turn&&lastRoll?diceFaces[lastRoll]:'⚀')+'</button></div>';
-}
+function drawPawns(){document.querySelectorAll('.token').forEach(x=>x.remove());let stacks={};for(let p=0;p<4;p++)for(let t=0;t<4;t++){let v=pawns[p][t],co=coordFor(p,t,v),key=co[0]+','+co[1],token=document.createElement('button');token.type='button';token.className='token '+css[p];token.setAttribute('aria-label',names[p]+' token '+(t+1));if(awaitMove&&p===turn&&isLegal(p,t,lastRoll))token.classList.add('selectable');if(v<0){let slot=document.querySelector('[data-home="'+p+','+t+'"]');if(slot)slot.appendChild(token)}else{let cell=cellAt(co[0],co[1]);if(!cell)continue;let n=stacks[key]||0;stacks[key]=n+1;if(n)token.classList.add('multi');token.style.transform='translate('+(n%2?22:-12)+'%,'+(n>1?22:0)+'%)';cell.appendChild(token)}token.addEventListener('click',()=>choosePawn(p,t))}}
+function playerCard(p){let active=p===turn&&!finished,pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':face[p],nm=p===0?profile.name:names[p]+' Player';return '<div class="player '+(active?'active':'')+'" style="--pc:'+hex[p]+'"><div class="avatar">'+pic+'</div><div class="pinfo"><div class="pname">'+escapeHTML(nm)+'</div><div class="status">● '+(active?'PLAYING':'Waiting')+'</div>'+(active?'<div class="turntag">'+(awaitMove?'PICK TOKEN':'YOUR TURN')+'</div>':'')+'</div><button class="mini-dice" '+(active&&!awaitMove?'':'disabled')+' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+(p===turn&&lastRoll?diceFaces[lastRoll]:'⚀')+'</button></div>'}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderPlayers(){$('topPlayers').innerHTML=playerCard(0)+playerCard(1);$('bottomPlayers').innerHTML=playerCard(3)+playerCard(2)}
-function updateTurn(){
- renderPlayers();
- $('turnline').textContent=finished?names[turn]+' WINS THE GAME! 🏆':names[turn]+' PLAYER — '+(awaitMove?'CHOOSE A TOKEN':'ROLL YOUR DICE');
- $('hint').textContent=finished?'All four tokens reached the finish.':awaitMove?'Tap one of the highlighted '+names[turn]+' tokens.':'Tap the small dice beside '+(turn===0?profile.name:names[turn]+' Player')+'.';
-}
-function startLudo(){
- pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);turn=0;lastRoll=0;sixes=0;awaitMove=false;finished=false;
- $('messages').innerHTML='<div class="msg">Game started! Good luck 🎲</div>';
- makeBoard();show('ludo');
-}
-function isLegal(p,t,roll){const v=pawns[p][t];if(v===57)return false;if(v<0)return roll===6;return v+roll<=57}
-function rollFor(p){
- if(p!==turn||awaitMove||finished)return;
- const n=1+Math.floor(Math.random()*6);lastRoll=n;
- if(n===6){sixes++;if(sixes>=3){lastRoll=0;sixes=0;addMsg(names[turn]+' rolled three 6s. Turn cancelled!',false);nextPlayer();return}}
- else sixes=0;
- const legal=[];for(let t=0;t<4;t++)if(isLegal(turn,t,n))legal.push(t);
- if(!legal.length){addMsg(names[turn]+' rolled '+n+' — no legal move.',false);lastRoll=0;nextPlayer();return}
- awaitMove=true;drawPawns();updateTurn();
-}
-function choosePawn(p,t){
- if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;
- const roll=lastRoll,old=pawns[p][t];
- if(old<0)pawns[p][t]=0;else pawns[p][t]=old+roll;
- const v=pawns[p][t];let captured=false;
- if(v<=51){
-  const global=(starts[p]+v)%52;
-  if(!safe.includes(global)){
-   for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){
-    const ov=pawns[op][ot];
-    if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(names[p]+' captured '+names[op]+' token!',false)}
-   }
-  }
- }
- awaitMove=false;
- if(pawns[p].every(x=>x===57)){finished=true;lastRoll=0;addMsg(names[p]+' wins! 🏆',false);drawPawns();updateTurn();return}
- const extra=roll===6||captured||v===57;lastRoll=0;drawPawns();
- if(!extra)nextPlayer();else{addMsg(names[p]+' gets another turn.',false);updateTurn()}
-}
+function updateTurn(){renderPlayers();$('turnline').textContent=finished?names[turn]+' WINS THE GAME! 🏆':names[turn]+' PLAYER — '+(awaitMove?'CHOOSE A TOKEN':'ROLL YOUR DICE');$('hint').textContent=finished?'All four tokens reached the finish.':awaitMove?'Tap one of the highlighted tokens.':'Tap the large dice beside '+(turn===0?profile.name:names[turn]+' Player')+'.'}
+function startLudo(){pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);turn=0;lastRoll=0;sixes=0;awaitMove=false;finished=false;$('messages').innerHTML='<div class="msg">Game started! Good luck 🎲</div>';makeBoard();show('ludo')}
+function isLegal(p,t,roll){let v=pawns[p][t];if(v===57)return false;if(v<0)return roll===6;return v+roll<=57}
+function rollFor(p){if(p!==turn||awaitMove||finished)return;let n=1+Math.floor(Math.random()*6);lastRoll=n;if(n===6){sixes++;if(sixes>=3){lastRoll=0;sixes=0;addMsg(names[turn]+' rolled three 6s. Turn cancelled!');nextPlayer();return}}else sixes=0;let legal=[];for(let t=0;t<4;t++)if(isLegal(turn,t,n))legal.push(t);if(!legal.length){addMsg(names[turn]+' rolled '+n+' — no legal move.');lastRoll=0;nextPlayer();return}awaitMove=true;drawPawns();updateTurn()}
+function choosePawn(p,t){if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;let roll=lastRoll; if(pawns[p][t]<0)pawns[p][t]=0;else pawns[p][t]+=roll;let v=pawns[p][t],captured=false;if(v<=51){let global=(starts[p]+v)%52;if(!safe.includes(global))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(names[p]+' captured '+names[op]+' token!')}}}awaitMove=false;if(pawns[p].every(x=>x===57)){finished=true;lastRoll=0;addMsg(names[p]+' wins! 🏆');drawPawns();updateTurn();return}let extra=roll===6||captured||v===57;lastRoll=0;drawPawns();if(!extra)nextPlayer();else{addMsg(names[p]+' gets another turn.');updateTurn()}}
 function nextPlayer(){turn=(turn+1)%4;lastRoll=0;awaitMove=false;updateTurn();drawPawns()}
-function addMsg(s,me){const d=document.createElement('div');d.className='msg'+(me?' me':'');d.textContent=s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
-function sendChat(){const s=$('chatinput').value.trim();if(!s)return;addMsg((profile.name||'You')+': '+s,true);$('chatinput').value=''}
-function sendEmoji(e){addMsg((profile.name||'You')+': '+e,true)}
-function drawCard(){const a=[['🔴','RED'],['🟢','GREEN'],['🟡','YELLOW'],['🔵','BLUE'],['↩️','REVERSE'],['⏭️','SKIP'],['＋2','DRAW TWO']];const x=a[Math.floor(Math.random()*a.length)];$('card').textContent=x[0];$('cardtext').textContent='You drew '+x[1]}
+function addMsg(s){let d=document.createElement('div');d.className='msg';d.textContent=s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
+function sendChat(){let s=$('chatinput').value.trim();if(!s)return;let d=document.createElement('div');d.className='msg me';d.textContent=profile.name+': '+s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight;$('chatinput').value=''}
+function sendEmoji(e){let d=document.createElement('div');d.className='msg me';d.textContent=profile.name+': '+e;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
+function voiceInfo(){alert('Voice chat is a design button only. Live voice between players needs online multiplayer and a voice server.')}
+function drawCard(){let a=[['🔴','RED'],['🟢','GREEN'],['🟡','YELLOW'],['🔵','BLUE'],['↩️','REVERSE'],['⏭️','SKIP'],['＋2','DRAW TWO']],x=a[Math.floor(Math.random()*a.length)];$('card').textContent=x[0];$('cardtext').textContent='You drew '+x[1]}
 let sp=[1,1],st=0;const ladders={4:14,9:31,20:38,28:84,40:59,63:81,71:91},snakes={17:7,54:34,62:19,87:24,93:73,95:75,99:78};
-function drawSnake(){const b=$('snakeboard');b.innerHTML='';for(let n=100;n>=1;n--){const d=document.createElement('div');d.className='snakecell';d.textContent=n;if(sp[0]===n)d.textContent+='🔴';if(sp[1]===n)d.textContent+='🟢';b.appendChild(d)}$('rpos').textContent=sp[0];$('gpos').textContent=sp[1]}
-function startSnake(){resetSnake();show('snake')}
-function snakeRoll(){const n=1+Math.floor(Math.random()*6),next=sp[st]+n;if(next<=100)sp[st]=ladders[next]||snakes[next]||next;drawSnake();$('snakemsg').textContent=(st?'Green':'Red')+' rolled '+n+'.';if(sp[st]===100){$('snakemsg').textContent=(st?'Green':'Red')+' wins!';return}st=1-st;$('snaketurn').textContent=(st?'Green':'Red')+"'s turn"}
-function resetSnake(){sp=[1,1];st=0;drawSnake();$('snaketurn').textContent="Red's turn";$('snakemsg').textContent='First to reach 100 wins.'}
+function drawSnake(){let b=$('snakeboard');b.innerHTML='';for(let n=100;n>=1;n--){let d=document.createElement('div');d.className='snakecell';d.textContent=n;if(sp[0]===n)d.textContent+='🔴';if(sp[1]===n)d.textContent+='🟢';b.appendChild(d)}$('rpos').textContent=sp[0];$('gpos').textContent=sp[1]}
+function startSnake(){resetSnake();show('snake')}function snakeRoll(){let n=1+Math.floor(Math.random()*6),next=sp[st]+n;if(next<=100)sp[st]=ladders[next]||snakes[next]||next;drawSnake();$('snakemsg').textContent=(st?'Green':'Red')+' rolled '+n+'.';if(sp[st]===100){$('snakemsg').textContent=(st?'Green':'Red')+' wins!';return}st=1-st;$('snaketurn').textContent=(st?'Green':'Red')+"'s turn"}function resetSnake(){sp=[1,1];st=0;drawSnake();$('snaketurn').textContent="Red's turn";$('snakemsg').textContent='First to reach 100 wins.'}
 renderPlayers();
 </script>
-</body>
-</html>
+</body></html>
