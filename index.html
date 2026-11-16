@@ -1,12 +1,17 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#06194d"><title>ONE SOUL — 3D Ludo</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#06194d">
+<title>ONE SOUL — 3D Ludo</title>
 <style>
 :root{--navy:#061747;--cyan:#00d9ff;--gold:#ffd52e;--red:#f3263e;--green:#10c94c;--yellow:#ffc400;--blue:#168dff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 25%,#1763dc 0,#082d83 42%,#020b2b 100%);color:white;font-family:Arial,system-ui,sans-serif;min-height:100vh}
-button,input{font:inherit}button{cursor:pointer;color:white;border:0}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% 25%,#1763dc 0,#082d83 42%,#020b2b 100%);color:white;font-family:Arial,system-ui,sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer;color:white;border:0}
 .app{max-width:760px;margin:auto;padding:10px 10px 22px}
 .header{height:70px;display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:7px}
 .menu{position:absolute;left:0;top:8px;border:2px solid #73eaff;border-radius:12px;background:linear-gradient(#1677e8,#061e66);font-size:25px;padding:7px 13px;box-shadow:0 0 12px #00cfff}
@@ -17,111 +22,67 @@ button,input{font:inherit}button{cursor:pointer;color:white;border:0}
 .player.active{box-shadow:0 0 0 2px white,0 0 22px var(--pc);background:linear-gradient(130deg,#2458c5,#071b51)}
 .avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;border:3px solid white;background:radial-gradient(circle at 30% 20%,#fff,#8ecbff 65%,#1260ba);display:grid;place-items:center;font-size:27px;overflow:hidden;box-shadow:0 0 10px var(--pc);cursor:pointer}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.info{min-width:0;flex:1}.name{font-weight:900;font-size:clamp(11px,3vw,15px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}.status{font-size:11px;color:#7dffc0;margin-top:5px}.turn{font-size:10px;color:#ffe56b;font-weight:900;margin-top:2px}
+.info{min-width:0;flex:1}
+.name{font-weight:900;font-size:clamp(11px,3vw,15px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.status{font-size:11px;color:#7dffc0;margin-top:5px}
+.turn{font-size:10px;color:#ffe56b;font-weight:900;margin-top:2px}
 .die{width:53px;height:53px;flex:0 0 53px;border-radius:13px;background:linear-gradient(145deg,#fff,#cbdcff);border:3px solid #91eaff;color:#092b75;box-shadow:0 4px 0 #607dbb,0 0 12px #35cfff;display:grid;place-items:center;font-size:34px;font-weight:1000;text-shadow:0 1px white}
-.die:disabled{opacity:.55;filter:saturate(.5);cursor:not-allowed}.active .die{animation:glow 1s infinite alternate}@keyframes glow{to{box-shadow:0 0 0 3px white,0 0 23px #00eaff}}
+.die:disabled{opacity:.55;filter:saturate(.5);cursor:not-allowed}
+.active .die{animation:glow 1s infinite alternate}
+@keyframes glow{to{box-shadow:0 0 0 3px white,0 0 23px #00eaff}}
 .boardframe{padding:8px;border-radius:24px;background:linear-gradient(145deg,#fff,#9dbce9 35%,#fff);box-shadow:0 0 0 3px #8beaff,0 8px 0 #18396e,0 0 28px #00cfff}
 .board{width:100%;aspect-ratio:1;position:relative;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#263d62;border:3px solid #fff;overflow:hidden}
 .cell{background:#f5f8ff;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
-.cell.path{background:#fff}.cell.safe:after{content:"★";font-size:clamp(7px,1.8vw,13px);color:#647a9d}
-.cell.lane.red{background:#ff9cac}.cell.lane.green{background:#7ee9ad}.cell.lane.yellow{background:#ffe58a}.cell.lane.blue{background:#91d1ff}
+.cell.path{background:#fff}
+.cell.safe:after{content:"★";font-size:clamp(7px,1.8vw,13px);color:#647a9d}
+.cell.lane.red{background:#ff9cac}
+.cell.lane.green{background:#7ee9ad}
+.cell.lane.yellow{background:#ffe58a}
+.cell.lane.blue{background:#91d1ff}
 .base{position:absolute;width:40%;height:40%;z-index:2;border:3px solid white;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8%;padding:6%;box-shadow:inset 0 0 18px #fff8}
-.base.red{left:0;bottom:0;background:linear-gradient(145deg,#ff4c60,#c90025);border-radius:0 0 0 28%}
-.base.green{right:0;bottom:0;background:linear-gradient(145deg,#32f45b,#008d36);border-radius:0 0 28% 0}
-.base.yellow{left:0;top:0;background:linear-gradient(145deg,#ffe34b,#eaa900);border-radius:28% 0 0 0}
-.base.blue{right:0;top:0;background:linear-gradient(145deg,#45baff,#0759d7);border-radius:0 28% 0 0}
+.base.red{left:0;top:0;background:linear-gradient(145deg,#ff4c60,#c90025);border-radius:28% 0 0 0}
+.base.green{right:0;top:0;background:linear-gradient(145deg,#32f45b,#008d36);border-radius:0 28% 0 0}
+.base.yellow{left:0;bottom:0;background:linear-gradient(145deg,#ffe34b,#eaa900);border-radius:0 0 0 28%}
+.base.blue{right:0;bottom:0;background:linear-gradient(145deg,#45baff,#0759d7);border-radius:0 0 28% 0}
 .slot{border-radius:50%;background:radial-gradient(circle at 35% 25%,#fff,#dcecff 70%);border:3px solid #fff;box-shadow:0 3px 8px #00184c;display:grid;place-items:center;min-width:0;min-height:0;position:relative}
-.pawn{position:absolute;width:76%;height:88%;left:12%;top:6%;border:0;background:transparent;padding:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;filter:drop-shadow(0 3px 2px #00123f99)}
-.pawn .head{width:43%;aspect-ratio:1;border-radius:50%;border:2px solid #fff;background:radial-gradient(circle at 30% 22%,#fff8,#fff2 20%,var(--light) 34%,var(--dark) 100%);box-shadow:inset -3px -3px 4px #0005,0 1px 4px #001b55;z-index:2}
-.pawn .body{width:72%;height:58%;margin-top:-5%;border:2px solid #fff8;border-radius:48% 48% 28% 28%;background:radial-gradient(ellipse at 35% 20%,#fff9,var(--light) 30%,var(--main) 62%,var(--dark));clip-path:polygon(50% 0,85% 25%,100% 100%,0 100%,15% 25%);box-shadow:inset -4px -3px 5px #0005}
-.pawn.red{--main:#ed1735;--light:#ffb5bf;--dark:#8a001b}.pawn.green{--main:#08bb42;--light:#c5ffcf;--dark:#006b27}.pawn.yellow{--main:#f4bd00;--light:#fff5ad;--dark:#996500}.pawn.blue{--main:#0789e9;--light:#c3efff;--dark:#004c9d}
+.pawn{position:absolute;width:90%;height:96%;left:5%;top:2%;border:0;background:transparent;padding:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;filter:drop-shadow(0 3px 2px #00123f99)}
+.pawn .head{width:46%;aspect-ratio:1;border-radius:50%;border:2px solid #fff;background:radial-gradient(circle at 30% 22%,#fff8,#fff2 20%,var(--light) 34%,var(--dark) 100%);box-shadow:inset -3px -3px 4px #0005,0 1px 4px #001b55;z-index:2}
+.pawn .body{width:82%;height:62%;margin-top:-7%;border:2px solid #fff8;border-radius:48% 48% 28% 28%;background:radial-gradient(ellipse at 35% 20%,#fff9,var(--light) 30%,var(--main) 62%,var(--dark));clip-path:polygon(50% 0,85% 25%,100% 100%,0 100%,15% 25%);box-shadow:inset -4px -3px 5px #0005}
+.pawn.red{--main:#ed1735;--light:#ffb5bf;--dark:#8a001b}
+.pawn.green{--main:#08bb42;--light:#c5ffcf;--dark:#006b27}
+.pawn.yellow{--main:#f4bd00;--light:#fff5ad;--dark:#996500}
+.pawn.blue{--main:#0789e9;--light:#c3efff;--dark:#004c9d}
 .pawn.selected{filter:drop-shadow(0 0 7px white) drop-shadow(0 0 5px #00eaff);transform:scale(1.12);animation:pulse .6s infinite alternate}
 @keyframes pulse{to{transform:scale(1.22)}}
-.cell .pawn{width:90%;height:95%;left:5%;top:2%}.cell .pawn .head{width:38%}.cell .pawn .body{width:65%;height:56%}
+.cell .pawn{width:94%;height:98%;left:3%;top:1%}
+.cell .pawn .head{width:43%}
+.cell .pawn .body{width:78%;height:59%}
 .center{position:absolute;left:40%;top:40%;width:20%;height:20%;z-index:3;background:conic-gradient(var(--blue) 0 25%,var(--green) 0 50%,var(--red) 0 75%,var(--yellow) 0);border:2px solid white;display:grid;place-items:center;font-size:clamp(18px,5vw,32px);text-shadow:0 2px 4px #000}
 .progress{position:absolute;color:white;text-shadow:0 2px 4px #001a55;font-size:clamp(12px,3vw,21px);font-weight:1000;z-index:4}
-.p-yellow{left:19%;top:20%}.p-blue{right:19%;top:20%}.p-red{left:19%;bottom:20%}.p-green{right:19%;bottom:20%}
-.turnline{text-align:center;color:#ffe77a;font-size:clamp(14px,3.7vw,20px);font-weight:1000;margin:15px 0 3px}.hint{text-align:center;color:#bdeaff;font-size:12px;margin-bottom:12px}
+.p-red{left:19%;top:20%}
+.p-green{right:19%;top:20%}
+.p-yellow{left:19%;bottom:20%}
+.p-blue{right:19%;bottom:20%}
+.turnline{text-align:center;color:#ffe77a;font-size:clamp(14px,3.7vw,20px);font-weight:1000;margin:15px 0 3px}
+.hint{text-align:center;color:#bdeaff;font-size:12px;margin-bottom:12px}
 .chat{border:3px solid #00bfff;border-radius:22px;padding:10px;background:linear-gradient(145deg,#082d7d,#03123c);box-shadow:0 0 18px #00cfff88}
-.chathead{display:flex;align-items:center;justify-content:space-between;font-weight:1000;font-size:20px;margin:2px 4px 8px}.local{font-size:11px;color:#a9eaff}
-.emojis{display:flex;gap:5px;overflow:auto;padding-bottom:7px}.emojis button{background:linear-gradient(#168ce9,#063c9b);border:2px solid #79dcff;border-radius:12px;padding:7px;font-size:23px;min-width:48px;box-shadow:0 3px 0 #00194e}
-.chatrow{display:flex;gap:7px;align-items:center}.mic,.send{width:54px;height:54px;flex:0 0 54px;border-radius:50%;background:radial-gradient(circle at 35% 25%,#5ff,#0789ff 55%,#0346b5);border:3px solid #8cecff;box-shadow:0 0 12px #00dfff;font-size:25px}
-.chatrow input{min-width:0;flex:1;border-radius:28px;border:2px solid #168dff;background:#061d56;color:white;padding:14px;font-size:15px;outline:none}.chatrow input::placeholder{color:#b7d9ff}
-.messages{max-height:120px;overflow:auto;margin-top:8px;font-size:12px}.message{background:#d8f4ff;color:#08275c;padding:6px 10px;border-radius:12px;margin:4px 0;width:max-content;max-width:90%;font-weight:700}.message.me{margin-left:auto;background:#ddffc5}
+.chathead{display:flex;align-items:center;justify-content:space-between;font-weight:1000;font-size:20px;margin:2px 4px 8px}
+.local{font-size:11px;color:#a9eaff}
+.emojis{display:flex;gap:5px;overflow:auto;padding-bottom:7px}
+.emojis button{background:linear-gradient(#168ce9,#063c9b);border:2px solid #79dcff;border-radius:12px;padding:7px;font-size:23px;min-width:48px;box-shadow:0 3px 0 #00194e}
+.chatrow{display:flex;gap:7px;align-items:center}
+.mic,.send{width:54px;height:54px;flex:0 0 54px;border-radius:50%;background:radial-gradient(circle at 35% 25%,#5ff,#0789ff 55%,#0346b5);border:3px solid #8cecff;box-shadow:0 0 12px #00dfff;font-size:25px}
+.chatrow input{min-width:0;flex:1;border-radius:28px;border:2px solid #168dff;background:#061d56;color:white;padding:14px;font-size:15px;outline:none}
+.chatrow input::placeholder{color:#b7d9ff}
+.messages{max-height:120px;overflow:auto;margin-top:8px;font-size:12px}
+.message{background:#d8f4ff;color:#08275c;padding:6px 10px;border-radius:12px;margin:4px 0;width:max-content;max-width:90%;font-weight:700}
+.message.me{margin-left:auto;background:#ddffc5}
 .note{text-align:center;color:#a9dfff;font-size:11px;margin:10px}
-
-.header{height:82px;margin-bottom:10px}
-.logo{display:flex;align-items:center;justify-content:center;gap:4px;padding:4px 12px;border:2px solid #43dfff;border-radius:30px;background:linear-gradient(180deg,#164fc0aa,#061b58dd);box-shadow:0 0 16px #00dfff,inset 0 0 10px #fff4;font-size:clamp(22px,6vw,39px);white-space:nowrap}
-.logo .wings{font-size:.62em;color:#35dfff;text-shadow:0 0 12px #00eaff}
-.player{min-height:82px;border-width:3px;border-radius:23px;padding:6px;background:linear-gradient(135deg,#123b96,#06143e 72%);position:relative}
-.player.active{border-color:#fff;box-shadow:0 0 0 2px var(--pc),0 0 22px var(--pc)}
-.avatar{width:60px;height:60px;flex-basis:60px;border:4px solid #f7fbff;outline:2px solid var(--pc);box-shadow:0 0 0 3px #06143e,0 0 15px var(--pc);font-size:29px;position:relative}
-.avatar:after{content:"";position:absolute;width:12px;height:12px;right:-1px;bottom:0;background:#21e879;border:2px solid white;border-radius:50%}
-.name{font-size:clamp(11px,3.2vw,15px);text-shadow:0 1px 3px #000}
-.status{font-size:12px;color:#85ffc2}
-.die{width:60px;height:60px;flex-basis:60px;border-radius:18px;border:4px solid #a9efff;font-size:37px;box-shadow:0 5px 0 #486aab,0 0 15px #00dfff,inset 0 2px 6px #fff}
-.boardframe{padding:9px;border-radius:26px;background:linear-gradient(145deg,#fff,#a8d9ff 25%,#fff 65%,#6488bd);box-shadow:0 0 0 4px #8cecff,0 8px 0 #102e67,0 0 30px #00cfff}
-.board{border:4px solid #f8fdff;border-radius:4px;background:#263c60}
-.cell{border:0.5px solid #687c96}
-.base{border:4px solid #fff;box-shadow:inset 0 0 22px #fff8,0 0 8px #001b55}
-.base.yellow{background:linear-gradient(145deg,#ffe94f,#f0b600)}
-.base.blue{background:linear-gradient(145deg,#48baff,#0756d6)}
-.base.red{background:linear-gradient(145deg,#ff5667,#c90028)}
-.base.green{background:linear-gradient(145deg,#4aff62,#00912e)}
-.slot{border:4px solid #fff;background:radial-gradient(circle at 30% 20%,#fff 0,#e5f5ff 60%,#b3d2f2 100%);box-shadow:0 4px 9px #001c55,inset 0 0 8px #8bb8ef}
-.pawn{filter:drop-shadow(0 5px 3px #00123fbb)}
-.pawn .head{border:2px solid #fff;box-shadow:inset -3px -3px 5px #0005,0 0 5px #fff}
-.pawn .body{border:2px solid #ffffffdd;box-shadow:inset -4px -4px 7px #0006,0 3px 6px #001b55}
-.center{border:3px solid white;text-shadow:0 3px 5px #001b55;box-shadow:0 0 12px #fff8}
-.progress{font-size:clamp(13px,3.4vw,22px);-webkit-text-stroke:.5px #09275d}
-.chat{border-width:3px;box-shadow:0 0 20px #00cfff99,inset 0 0 14px #fff1}
-.emojis button{min-width:50px;font-size:25px;border-radius:14px}
-.mic,.send{width:60px;height:60px;flex-basis:60px;border-width:4px;font-size:28px}
-@media(max-width:390px){.app{padding:6px}.avatar{width:48px;height:48px;flex-basis:48px}.die{width:48px;height:48px;flex-basis:48px;font-size:29px}.player{min-height:68px}.boardframe{padding:5px}.logo{font-size:22px}.mic,.send{width:48px;height:48px;flex-basis:48px}}
-
-@media(max-width:390px){.app{padding:6px}.player{gap:4px;padding:5px;min-height:64px}.avatar{width:43px;height:43px;flex-basis:43px}.die{width:43px;height:43px;flex-basis:43px;font-size:28px}.boardframe{padding:5px}.chat{padding:7px}.logo{font-size:27px}}
-</style></head><body><main class="app">
-<header class="header"><button class="menu" onclick="alert('ONE SOUL menu')">☰</button><div class="logo"><span class="wings">🪽</span>👑 ONE SOUL<span class="wings">🪽</span></div></header>
-<div class="players" id="topPlayers"></div>
-<div class="boardframe"><div class="board" id="board"></div></div>
-<div class="players" id="bottomPlayers"></div>
-<div class="turnline" id="turnline">RED PLAYER — ROLL YOUR DICE</div><div class="hint" id="hint">Tap the glowing dice to roll.</div>
-<section class="chat"><div class="chathead"><span>💬 GAME CHAT</span><span class="local">LOCAL CHAT</span></div>
-<div class="emojis"><button onclick="emoji('😀')">😀</button><button onclick="emoji('😍')">😍</button><button onclick="emoji('😎')">😎</button><button onclick="emoji('😂')">😂</button><button onclick="emoji('👍')">👍</button><button onclick="emoji('❤️')">❤️</button></div>
-<div class="chatrow"><button class="mic" onclick="voice()">🎙</button><input id="chatInput" maxlength="140" placeholder="Type a message..." onkeydown="if(event.key==='Enter')send()"><button class="send" onclick="send()">➤</button></div><div class="messages" id="messages"><div class="message">Welcome to ONE SOUL! 🎮</div></div></section>
-<p class="note">ONE SOUL • Local pass-and-play • Tap any player photo to upload a profile picture, or tap their name to edit it</p>
-</main>
-<script>
-const colors=['yellow','blue','red','green'],names=['Yellow Player','Blue Player','One soul','Green Player'],hex=['#ffc400','#168dff','#f3263e','#10c94c'];
-let profile=JSON.parse(localStorage.getItem('onesoul_profiles')||'null')||names.map((n,i)=>({name:n,photo:''}));
-let turn=2,roll=0,awaitMove=false,finished=false,pawns=colors.map(()=>[-1,-1,-1,-1]),sixCount=0;
-const route=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
-const starts=[0,13,39,26];
-const lanes=[[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]],[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]]];
-const homes=[[[1,1],[1,4],[4,1],[4,4]],[[1,10],[1,13],[4,10],[4,13]],[[10,1],[10,4],[13,1],[13,4]],[[10,10],[10,13],[13,10],[13,13]]];
-const safe=[0,8,13,21,26,34,39,47];
-const $=id=>document.getElementById(id);
-function card(p){let active=p===turn,ph=profile[p].photo?`<img src="${profile[p].photo}">`:['🟡','🔵','🔴','🟢'][p];return `<div class="player ${active?'active':''}" style="--pc:${hex[p]}"><div class="avatar" onclick="changePhoto(${p})">${ph}</div><div class="info"><div class="name" onclick="changeName(${p})">${escapeHtml(profile[p].name)}</div><div class="status">● ${active?'Playing':'Waiting'}</div>${active?`<div class="turn">${awaitMove?'PICK TOKEN':'YOUR TURN'}</div>`:''}</div><button class="die" ${active&&!awaitMove&&!finished?'':'disabled'} onclick="dice(${p})">${active&&roll?dieFace(roll):'⚀'}</button></div>`}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function dieFace(n){return ['','⚀','⚁','⚂','⚃','⚄','⚅'][n]}
-function renderCards(){$('topPlayers').innerHTML=card(0)+card(1);$('bottomPlayers').innerHTML=card(2)+card(3)}
-function changeName(p){let n=prompt('Enter player name',profile[p].name);if(n!==null&&n.trim()){profile[p].name=n.trim().slice(0,18);saveProfile()}}
-function changePhoto(p){let i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=()=>{let f=i.files[0];if(!f)return;if(f.size>1200000){alert('Please choose a photo under 1.2 MB');return}let r=new FileReader();r.onload=()=>{profile[p].photo=r.result;saveProfile()};r.readAsDataURL(f)};i.click()}
-function saveProfile(){localStorage.setItem('onesoul_profiles',JSON.stringify(profile));renderCards()}
-function boardBuild(){let b=$('board');b.innerHTML='';for(let r=0;r<15;r++)for(let c=0;c<15;c++){let d=document.createElement('div');d.className='cell';d.dataset.rc=r+','+c;if(r<6&&c<6)d.style.background='#ffe7a0';if(r<6&&c>8)d.style.background='#a9d9ff';if(r>8&&c<6)d.style.background='#ffb1bd';if(r>8&&c>8)d.style.background='#a6efb9';let idx=route.findIndex(q=>q[0]===r&&q[1]===c);if(idx>=0){d.style.background='#fff';d.classList.add('path');if(safe.includes(idx))d.classList.add('safe');if([0,13,26,39].includes(idx)){d.style.background='#ffe08a';d.textContent='🛡️'}}for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c)){d.classList.add('lane',colors[p])}if(r>=6&&r<=8&&c>=6&&c<=8)d.style.background='#f6f8ff';b.appendChild(d)}
-const baseInfo=[['yellow',0],['blue',1],['red',2],['green',3]];for(let [cl,p] of baseInfo){let base=document.createElement('div');base.className='base '+cl;for(let t=0;t<4;t++){let s=document.createElement('div');s.className='slot';s.dataset.home=p+','+t;base.appendChild(s)}b.appendChild(base)}
-let center=document.createElement('div');center.className='center';center.textContent='👑';b.appendChild(center);for(let [cl,cls] of [['yellow','p-yellow'],['blue','p-blue'],['red','p-red'],['green','p-green']]){let x=document.createElement('div');x.className='progress '+cls;x.textContent='0%';b.appendChild(x)}drawPawns()}
-function coord(p,t,v){if(v<0)return homes[p][t];if(v<=51)return route[(starts[p]+v)%52];return lanes[p][v-52]}
-function pawnHTML(p,t){return `<button class="pawn ${colors[p]} ${awaitMove&&p===turn&&legal(p,t,roll)?'selected':''}" data-p="${p}" data-t="${t}" aria-label="${colors[p]} token ${t+1}"><span class="head"></span><span class="body"></span></button>`}
-function drawPawns(){document.querySelectorAll('.pawn').forEach(x=>x.remove());for(let p=0;p<4;p++)for(let t=0;t<4;t++){let v=pawns[p][t],q=coord(p,t,v),el=document.createElement('div');el.innerHTML=pawnHTML(p,t);let token=el.firstElementChild;token.addEventListener('click',()=>move(p,t));if(v<0){let slot=document.querySelector(`[data-home="${p},${t}"]`);if(slot)slot.appendChild(token)}else{let cell=document.querySelector(`[data-rc="${q[0]},${q[1]}"]`);if(cell)cell.appendChild(token)}}}
-function legal(p,t,n){let v=pawns[p][t];return v===-1?n===6:v<57&&v+n<=57}
-function dice(p){if(p!==turn||awaitMove||finished)return;roll=1+Math.floor(Math.random()*6);if(roll===6){sixCount++;if(sixCount===3){say(colors[p]+' rolled three sixes. Turn skipped.');sixCount=0;roll=0;next();return}}else sixCount=0;let moves=pawns[p].some((v,t)=>legal(p,t,roll));if(!moves){say(colors[p]+' rolled '+roll+' — no legal move.');roll=0;next();return}awaitMove=true;drawPawns();update()}
-function move(p,t){if(!awaitMove||p!==turn||!legal(p,t,roll))return;let n=roll,v=pawns[p][t];pawns[p][t]=v<0?0:v+n;let now=pawns[p][t],captured=false;if(now<=51){let spot=(starts[p]+now)%52;if(!safe.includes(spot))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===spot){pawns[op][ot]=-1;captured=true;say(colors[p]+' captured a token!')}}}awaitMove=false;roll=0;drawPawns();if(pawns[p].every(x=>x===57)){finished=true;say(profile[p].name+' wins! 🏆');update();return}if(n===6||captured||now===57){say(profile[p].name+' gets another turn!');update()}else next()}
-function next(){turn=(turn+1)%4;roll=0;awaitMove=false;update();drawPawns()}
-function update(){renderCards();$('turnline').textContent=finished?profile[turn].name+' WINS! 🏆':colors[turn].toUpperCase()+' PLAYER — '+(awaitMove?'CHOOSE A TOKEN':'ROLL YOUR DICE');$('hint').textContent=finished?'Game finished.':awaitMove?'Tap one of the highlighted tokens.':'Tap the glowing dice beside '+profile[turn].name+'.'}
-function say(s){let d=document.createElement('div');d.className='message';d.textContent=s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
-function send(){let x=$('chatInput'),s=x.value.trim();if(!s)return;let d=document.createElement('div');d.className='message me';d.textContent=profile[2].name+': '+s;$('messages').appendChild(d);x.value='';$('messages').scrollTop=$('messages').scrollHeight}
-function emoji(e){$('chatInput').value+=$('chatInput').value?' '+e:e}
-function voice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Voice typing is not supported in this browser. You can use your keyboard microphone.');return}let rec=new SR();rec.lang='ur-PK';rec.onresult=e=>$('chatInput').value+=e.results[0][0].transcript;rec.start()}
-boardBuild();renderCards();update();
-</script></body></html>
+</style>
+</head>
+<body>
+<main class="app">
+<header class="header">
+<button class="menu" onclick="alert('ONE SOUL menu')">☰</button>
+<div class="logo">🪽 👑 ONE SOUL 🪽</div>
+</header>
