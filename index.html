@@ -3,164 +3,157 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#06194d">
-<title>ONE SOUL — Ludo</title>
+<meta name="theme-color" content="#071a58">
+<title>ONE SOUL</title>
 <style>
-:root{--navy:#061747;--cyan:#00d9ff;--gold:#ffd52e}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 50% 20%,#1763dc,#082d83 48%,#020b2b);color:#fff;font-family:Arial,system-ui,sans-serif}
-button{font:inherit;cursor:pointer;color:#fff;border:0}
-.app{max-width:650px;margin:auto;padding:9px 9px 22px}
-header{height:58px;display:flex;align-items:center;justify-content:center}
-.logo{font-size:clamp(25px,7vw,40px);font-weight:1000;color:#ffdc39;text-shadow:0 3px #732400,0 0 13px #00dfff}
-.turnline{text-align:center;color:#ffe77a;font-weight:900;margin:8px 0}
-.players{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0}
-.player{display:flex;align-items:center;gap:7px;min-width:0;padding:7px;border:2px solid var(--c);border-radius:15px;background:linear-gradient(130deg,#123d9c,#04143e);min-height:63px}
-.player.active{box-shadow:0 0 0 2px white,0 0 17px var(--c)}
-.avatar{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:var(--c);font-size:21px;border:2px solid white}
-.pname{font-size:12px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pstate{font-size:10px;color:#c5eaff;margin-top:3px}
-.die{margin-left:auto;width:44px;height:44px;flex:0 0 44px;border-radius:10px;background:linear-gradient(145deg,#fff,#cbdcff);border:2px solid #91eaff;color:#092b75;font-size:29px;font-weight:1000;box-shadow:0 3px 0 #607dbb}
-.die:disabled{opacity:.45}
-.boardframe{padding:6px;border-radius:18px;background:linear-gradient(145deg,#fff,#9dbce9);box-shadow:0 0 0 2px #8beaff,0 6px 0 #18396e,0 0 22px #00cfff}
-.board{width:100%;aspect-ratio:1;position:relative;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#263d62;border:2px solid white;overflow:hidden}
-.cell{background:#f5f8ff;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
-.cell.track{background:#fff}
-.cell.safe:after{content:"★";font-size:clamp(7px,2vw,13px);color:#657a9b}
-.cell.lane.red{background:#ff9cac}.cell.lane.green{background:#7ee9ad}.cell.lane.yellow{background:#ffe58a}.cell.lane.blue{background:#91d1ff}
-.base{position:absolute;width:40%;height:40%;z-index:2;border:3px solid white;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8%;padding:7%;box-shadow:inset 0 0 18px #fff8}
-.base.red{left:0;top:0;background:linear-gradient(145deg,#ff4c60,#c90025);border-radius:22% 0 0 0}
-.base.green{right:0;top:0;background:linear-gradient(145deg,#32f45b,#008d36);border-radius:0 22% 0 0}
-.base.yellow{left:0;bottom:0;background:linear-gradient(145deg,#ffe34b,#eaa900);border-radius:0 0 0 22%}
-.base.blue{right:0;bottom:0;background:linear-gradient(145deg,#45baff,#0759d7);border-radius:0 0 22% 0}
-.slot{border-radius:50%;background:radial-gradient(circle at 35% 25%,#fff,#dcecff 70%);border:2px solid #fff;box-shadow:0 2px 6px #00184c;display:grid;place-items:center;position:relative}
-.pawn{width:82%;height:94%;padding:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;filter:drop-shadow(0 2px 2px #00123f);position:relative;z-index:5}
-.pawn .head{width:48%;aspect-ratio:1;border-radius:50%;border:1px solid #fff;background:radial-gradient(circle at 30% 22%,#fff,var(--light) 35%,var(--dark));z-index:2}
-.pawn .body{width:82%;height:60%;margin-top:-7%;border:1px solid #fff9;border-radius:48% 48% 25% 25%;background:linear-gradient(120deg,var(--light),var(--main) 55%,var(--dark));clip-path:polygon(50% 0,85% 25%,100% 100%,0 100%,15% 25%)}
-.pawn.red{--main:#ed1735;--light:#ffb5bf;--dark:#8a001b}.pawn.green{--main:#08bb42;--light:#c5ffcf;--dark:#006b27}.pawn.yellow{--main:#f4bd00;--light:#fff5ad;--dark:#996500}.pawn.blue{--main:#0789e9;--light:#c3efff;--dark:#004c9d}
-.pawn.movable{outline:2px solid #00dfff;border-radius:8px;filter:drop-shadow(0 0 5px white);animation:pulse .6s infinite alternate}
-@keyframes pulse{to{transform:scale(1.16)}}
-.base .pawn{width:70%;height:90%}
-.center{position:absolute;left:40%;top:40%;width:20%;height:20%;z-index:3;background:conic-gradient(#168dff 0 25%,#10c94c 0 50%,#f3263e 0 75%,#ffc400 0);border:2px solid white;display:grid;place-items:center;font-size:clamp(17px,5vw,30px)}
-.controls{text-align:center;margin:12px 0}
-#rollMain{padding:12px 24px;border-radius:14px;background:linear-gradient(#19aaff,#0644b4);border:2px solid #9cecff;font-weight:1000;box-shadow:0 4px #06265f}
-#rollMain:disabled{opacity:.45}
-.hint{text-align:center;color:#c4eaff;font-size:12px;margin:8px}
-.win{display:none;text-align:center;margin:10px;padding:12px;border:2px solid #ffe56b;border-radius:14px;background:#173d8c;color:#ffe56b;font-size:22px;font-weight:1000}
-#log{text-align:center;color:#d9efff;font-size:12px;min-height:18px;margin:7px}
-.reset{display:block;margin:8px auto;background:#8c1736;padding:9px 16px;border-radius:10px}
-@media(max-width:370px){.player{padding:5px;gap:4px}.avatar{width:32px;height:32px}.die{width:38px;height:38px;flex-basis:38px}.pname{font-size:10px}}
+:root{--bg:#071747;--blue:#1265dc;--cyan:#65eaff;--gold:#ffd84a;--red:#ef334e;--green:#19bd70;--yellow:#f5c52e;--sky:#278ce8}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 5%,#2254ad,#071747 62%,#030b28);color:#fff;font-family:Arial,system-ui,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer;color:#fff;border:0}
+.screen{display:none;min-height:100vh;padding:12px;max-width:760px;margin:auto}.screen.active{display:block}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.btn{background:linear-gradient(#28cfff,#0754d8);border:2px solid #8deaff;border-radius:13px;padding:9px 13px;font-weight:900;box-shadow:0 3px 0 #06317c}.btn:disabled{opacity:.35;filter:grayscale(1);cursor:not-allowed}
+.brand{font-size:24px;font-weight:1000;text-align:center;text-shadow:0 2px 8px #3bdcff}.logo{font-size:clamp(45px,12vw,76px);line-height:.9;text-align:center;font-weight:1000;letter-spacing:-3px;text-shadow:0 4px 0 #07133d,0 0 20px #49dfff;margin:22px 0}.logo span{display:block;color:#ffda36;text-shadow:0 4px 0 #853300,0 0 20px #ffdd49}.crown{font-size:44px;display:block}
+.panel{background:linear-gradient(145deg,#1748ad,#071747);border:2px solid #55cfff;border-radius:19px;padding:14px;box-shadow:0 0 18px #008cff55,inset 0 0 12px #fff2}
+h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
+.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}.game{min-height:190px;border-radius:24px;border:3px solid #ffffff99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:21px;font-weight:1000;text-shadow:0 2px 4px #0009;box-shadow:0 6px 0 #0006,0 0 16px #fff4}.game b{font-size:68px}.g1{background:linear-gradient(145deg,#22b8ff,#0753c7)}.g2{background:linear-gradient(145deg,#37e5a0,#087d9c)}.g3{background:linear-gradient(145deg,#3bd7ad,#087c70)}
+.players{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}.player{display:flex;align-items:center;gap:7px;padding:7px;border-radius:14px;background:linear-gradient(135deg,#1b3d8c,#07163d);border:2px solid var(--pc);min-width:0;box-shadow:0 0 9px color-mix(in srgb,var(--pc),transparent 55%)}.player.active{box-shadow:0 0 0 2px #fff,0 0 17px var(--pc);background:linear-gradient(135deg,#254da6,#10265c)}
+.avatar{width:39px;height:39px;flex:0 0 39px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:2px solid #fff;display:grid;place-items:center;color:#173d85;font-size:23px;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.pinfo{min-width:0;flex:1}.pname{font-weight:1000;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status{font-size:10px;color:#76ffb4;margin-top:3px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}
+.mini-dice{width:39px;height:39px;flex:0 0 39px;border-radius:10px;background:#fff;color:#09265f;border:2px solid #bcefff;box-shadow:0 2px 0 #698bb9;font-size:27px;display:grid;place-items:center;padding:0}.mini-dice:disabled{opacity:.45;filter:grayscale(.5)}
+.board-shell{padding:7px;background:linear-gradient(145deg,#10285c,#020b2c);border:3px solid #73dfff;border-radius:16px;box-shadow:0 0 18px #00bfff88}.board{width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#7891b5;border:2px solid #fff;overflow:hidden}.cell{position:relative;background:#fff;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}.cell.path{background:#f8fbff}.cell.redhome{background:#e93650}.cell.greenhome{background:#16ad68}.cell.yellowhome{background:#e9b91d}.cell.bluehome{background:#2385db}
+.yard{position:absolute;inset:12%;background:#ffffff30;border:2px solid #ffffff9c;border-radius:9%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:9%;padding:10%}.yard-slot{border-radius:50%;background:linear-gradient(145deg,#fff,#dceaff);border:2px solid #ffffff;box-shadow:0 2px 5px #001c50;display:grid;place-items:center;position:relative}
+.home-lane.redlane{background:#ff9aaa}.home-lane.greenlane{background:#8ce9bb}.home-lane.yellowlane{background:#ffec94}.home-lane.bluelane{background:#9bd5ff}
+.safe:after{content:"★";font-size:clamp(7px,2vw,15px);color:#536b96;text-shadow:0 1px 1px white}
+.center{background:conic-gradient(from 45deg,#f4c62b 0 25%,#2185df 0 50%,#ef334e 0 75%,#18b86d 0)!important}
+.token{width:78%;height:78%;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 4px #00143d99;display:grid;place-items:center;font-size:clamp(7px,2vw,12px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;z-index:3;position:absolute;cursor:pointer}
+.token.red{background:radial-gradient(circle at 30% 25%,#ff9ca9,#d00027 70%)}.token.green{background:radial-gradient(circle at 30% 25%,#aaffd0,#008b4b 70%)}.token.yellow{background:radial-gradient(circle at 30% 25%,#fff0a2,#d99a00 70%)}.token.blue{background:radial-gradient(circle at 30% 25%,#b9e7ff,#0061c6 70%)}
+.token.selectable{outline:3px solid #fff;animation:pulse .7s infinite alternate}@keyframes pulse{to{transform:scale(1.12);box-shadow:0 0 12px #fff}}
+.token.multi{width:58%;height:58%}.yard-slot .token{width:86%;height:86%}
+.turnline{text-align:center;color:#ffed83;font-weight:1000;margin:10px 0 4px;font-size:14px}.hint{text-align:center;color:#c4e5ff;font-size:11px;margin:4px 0 10px}
+.chat{margin-top:12px;background:#07183f;border:2px solid #3b9fe8;border-radius:14px;padding:9px}.messages{height:76px;overflow:auto;background:#102d73;border-radius:9px;padding:7px;font-size:12px}.msg{padding:5px 9px;margin:3px 0;width:max-content;max-width:90%;background:#c5f4ff;color:#092453;border-radius:10px;font-weight:700}.msg.me{margin-left:auto;background:#d7ffb8}.chatrow{display:flex;gap:5px;margin-top:7px}.chatrow input{min-width:0;flex:1;border-radius:9px;padding:9px;border:2px solid #8bdcff}.emoji{display:flex;gap:4px;overflow:auto;margin:6px 0}.emoji button{background:#183d91;border-radius:8px;padding:5px;font-size:18px}
+.note{text-align:center;color:#b9dfff;font-size:11px;margin:8px 0}.profilepreview{display:flex;justify-content:center;margin:15px}.profilepreview .avatar{width:100px;height:100px;font-size:55px}.field{margin:12px 0}.field label{display:block;font-weight:900;margin-bottom:5px}.field input{width:100%;padding:11px;border-radius:10px;border:2px solid #83dfff}.wide{width:100%;padding:12px;border-radius:12px;background:linear-gradient(#20cfff,#0756d9);border:2px solid #a4edff;font-weight:1000}
+.card{height:170px;width:125px;margin:20px auto;background:#fff;color:#16316c;border:5px solid #ffe26a;border-radius:16px;display:grid;place-items:center;font-size:55px;font-weight:1000}.snakeboard{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;background:#06143b;padding:4px}.snakecell{aspect-ratio:1;background:#eaf5ff;color:#13295c;display:grid;place-items:center;font-size:clamp(9px,2.4vw,14px);font-weight:900;position:relative}.snakecell:nth-child(4n){background:#baf1d2}.snakecell:nth-child(4n+2){background:#ffe7a2}
+@media(max-width:390px){.screen{padding:7px}.players{gap:5px}.player{padding:5px;gap:5px}.avatar{width:33px;height:33px;flex-basis:33px}.mini-dice{width:34px;height:34px;flex-basis:34px;font-size:23px}.pname{font-size:11px}.board-shell{padding:4px}.game{min-height:155px}.game b{font-size:58px}}
 </style>
 </head>
 <body>
-<main class="app">
-<header><div class="logo">🪽 👑 ONE SOUL 🪽</div></header>
-<div class="players" id="players"></div>
-<div class="turnline" id="turnline">RED ki baari</div>
-<div class="boardframe"><div class="board" id="board"></div></div>
-<div class="controls"><button id="rollMain">🎲 DICE ROLL</button></div>
-<div class="hint">6 par goti bahar niklegi • ★ safe khana hai • finish ke liye exact number chahiye</div>
-<div id="log">Dice roll karein.</div>
-<div class="win" id="win"></div>
-<button class="reset" onclick="location.reload()">↻ Naya Game</button>
-</main>
+<section id="home" class="screen active">
+ <div class="top"><button class="btn" onclick="openProfile()">👤 Profile</button><div class="brand">👑 ONE SOUL</div><button class="btn" onclick="show('settings')">⚙ Settings</button></div>
+ <div class="logo"><span class="crown">👑</span>ONE<span>SOUL</span></div>
+ <h2>Play together. Connect together.</h2>
+ <div class="menu">
+  <button class="game g1" onclick="startLudo()"><b>🎲</b>LUDO</button>
+  <button class="game g2" onclick="show('cards')"><b>🃏</b>COLOR CARD</button>
+  <button class="game g3" onclick="startSnake()"><b>🐍</b>SNAKE & LADDER</button>
+ </div><p class="note">ONE SOUL • Play together • Have fun</p>
+</section>
+<section id="ludo" class="screen">
+ <div class="top"><button class="btn" onclick="show('home')">← Games</button><div class="brand">👑 ONE SOUL LUDO</div><button class="btn" onclick="openProfile()">Profile</button></div>
+ <div id="topPlayers" class="players"></div>
+ <div class="board-shell"><div id="board" class="board"></div></div>
+ <div id="bottomPlayers" class="players"></div>
+ <div id="turnline" class="turnline">Red player's turn</div><div id="hint" class="hint">Tap the active player's dice to roll.</div>
+ <div class="chat"><b>💬 GAME CHAT</b><div id="messages" class="messages"><div class="msg">Welcome to ONE SOUL! 🎮</div></div><div class="emoji"><button onclick="sendEmoji('😀')">😀</button><button onclick="sendEmoji('😍')">😍</button><button onclick="sendEmoji('😎')">😎</button><button onclick="sendEmoji('😂')">😂</button><button onclick="sendEmoji('👍')">👍</button><button onclick="sendEmoji('❤️')">❤️</button></div><div class="chatrow"><input id="chatinput" maxlength="140" placeholder="Type a message..."><button class="btn" onclick="sendChat()">➤</button></div></div>
+ <p class="note">Local pass-and-play game on this device. Online multiplayer is not connected.</p>
+</section>
+<section id="profile" class="screen">
+ <div class="top"><button class="btn" onclick="show(previousScreen)">← Back</button><b>EDIT PROFILE</b><span></span></div><div class="panel"><div class="profilepreview"><div id="preview" class="avatar">👤</div></div><div class="field"><label>Change Picture</label><input id="photo" type="file" accept="image/*" onchange="loadPhoto(event)"></div><button class="btn" style="width:100%;background:linear-gradient(#a45cff,#5816c9)" onclick="removePhoto()">🗑 Remove Picture</button><div class="field"><label>Enter Name</label><input id="playerName" maxlength="18" placeholder="Your name"></div><button class="wide" onclick="saveProfile()">SAVE PROFILE</button></div><p class="note">Profile is saved in this browser on this device.</p>
+</section>
+<section id="settings" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Back</button><b>SETTINGS</b></div><div class="panel"><h2>Game Settings</h2><p>Players: 4 local players</p><p>Rule set: Classic Ludo (local demo)</p><p>Online play requires a Firebase multiplayer connection.</p></div></section>
+<section id="cards" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><b>COLOR CARD</b></div><div class="panel" style="text-align:center"><h2>Draw a card</h2><div id="card" class="card">🃏</div><p id="cardtext">Tap draw to pick a card.</p><button class="wide" onclick="drawCard()">DRAW CARD</button></div></section>
+<section id="snake" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><b>SNAKE & LADDER</b></div><div class="panel"><div style="display:flex;justify-content:space-around"><b>🔴 Red: <span id="rpos">1</span></b><b>🟢 Green: <span id="gpos">1</span></b></div><div id="snakeboard" class="snakeboard" style="margin:12px 0"></div><div class="turnline" id="snaketurn">Red's turn</div><button class="wide" onclick="snakeRoll()">🎲 ROLL</button><p class="note" id="snakemsg">First to reach 100 wins.</p><button class="btn" onclick="resetSnake()">Restart</button></div></section>
 <script>
-const colors=[
- {id:'red',name:'RED',emoji:'🔴',start:0,home:[[1,1],[1,4],[4,1],[4,4]],lane:[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],finish:[7,7]},
- {id:'green',name:'GREEN',emoji:'🟢',start:13,home:[[1,10],[1,13],[4,10],[4,13]],lane:[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],finish:[7,7]},
- {id:'yellow',name:'YELLOW',emoji:'🟡',start:26,home:[[10,10],[10,13],[13,10],[13,13]],lane:[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],finish:[7,7]},
- {id:'blue',name:'BLUE',emoji:'🔵',start:39,home:[[10,1],[10,4],[13,1],[13,4]],lane:[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]],finish:[7,7]}
-];
-// Standard 52-square perimeter route, coordinates are row/column (0-based).
+const $=id=>document.getElementById(id);
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active')}
+let previousScreen='home';
+let profile={name:localStorage.getItem('os_name')||'You',photo:localStorage.getItem('os_photo')||''};
+function openProfile(){previousScreen=document.querySelector('.screen.active').id;$('playerName').value=profile.name;$('preview').innerHTML=profile.photo?'<img src="'+profile.photo+'">':'👤';show('profile')}
+function loadPhoto(e){let f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>1500000){alert('Choose a photo smaller than 1.5 MB.');e.target.value='';return}let reader=new FileReader();reader.onload=()=>{profile.photo=reader.result;$('preview').innerHTML='<img src="'+reader.result+'">'};reader.readAsDataURL(f)}
+function removePhoto(){profile.photo='';$('preview').textContent='👤';$('photo').value=''}
+function saveProfile(){profile.name=$('playerName').value.trim()||'You';localStorage.setItem('os_name',profile.name);if(profile.photo)localStorage.setItem('os_photo',profile.photo);else localStorage.removeItem('os_photo');renderPlayers();show(previousScreen)}
+const names=['Red','Green','Yellow','Blue'],css=['red','green','yellow','blue'],hex=['#ef334e','#19bd70','#f5c52e','#278ce8'],face=['🔴','🟢','🟡','🔵'];
+const starts=[0,13,26,39];
 const route=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
+const homeSlots=[[[1,1],[1,4],[4,1],[4,4]],[[1,10],[1,13],[4,10],[4,13]],[[10,10],[10,13],[13,10],[13,13]],[[10,1],[10,4],[13,1],[13,4]]];
+const lanes=[[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]];
 const safe=[0,8,13,21,26,34,39,47];
-const board=document.getElementById('board');
-let players=colors.map(c=>({color:c.id,turn:c.start,pawns:[-1,-1,-1,-1],done:false}));
-let turn=0,dice=0,rolled=false,gameOver=false;
-function cell(r,c,cls=''){let el=document.createElement('div');el.className='cell '+cls;el.style.gridRow=r+1;el.style.gridColumn=c+1;board.appendChild(el);return el}
-let cells={};
-for(let r=0;r<15;r++)for(let c=0;c<15;c++)cells[r+','+c]=cell(r,c);
-route.forEach((p,i)=>{let el=cells[p.join(',')];el.classList.add('track');if(safe.includes(i))el.classList.add('safe')});
-colors.forEach((co,ci)=>co.lane.forEach(p=>cells[p.join(',')].classList.add('lane',co.id)));
-function addBase(co){
- let b=document.createElement('div');b.className='base '+co.id;
- co.home.forEach((p,i)=>{let s=document.createElement('div');s.className='slot';s.dataset.home=co.id+'-'+i;b.appendChild(s)});
- board.appendChild(b);
-}
-colors.forEach(addBase);
-let center=document.createElement('div');center.className='center';center.textContent='👑';board.appendChild(center);
-function makePawn(ci,pi,where){
- let b=document.createElement('button');b.className='pawn '+colors[ci].id;b.innerHTML='<span class="head"></span><span class="body"></span>';
- b.title=colors[ci].name+' pawn '+(pi+1);
- if(where)b.classList.add('movable');
- b.onclick=()=>choosePawn(ci,pi);
- return b;
-}
-function pawnPos(ci,progress){
- let co=colors[ci];
- if(progress===-1)return null;
- if(progress===58)return [7,7];
- if(progress>=52)return co.lane[progress-52];
- return route[(co.start+progress-1)%52];
-}
-function render(){
- document.querySelectorAll('.cell .pawn,.slot .pawn').forEach(x=>x.remove());
- players.forEach((pl,ci)=>pl.pawns.forEach((pr,pi)=>{
-  let movable=ci===turn&&rolled&&!gameOver&&canMove(ci,pi);
-  let pawn=makePawn(ci,pi,movable);
-  if(pr===-1){let slot=document.querySelector('[data-home="'+pl.color+'-'+pi+'"]');slot.appendChild(pawn)}
-  else{let pos=pawnPos(ci,pr);let target=cells[pos.join(',')];target.appendChild(pawn)}
- }));
- document.getElementById('players').innerHTML=colors.map((co,i)=>`<div class="player ${i===turn?'active':''}" style="--c:${colorHex(co.id)}"><div class="avatar">${co.emoji}</div><div style="min-width:0"><div class="pname">${co.name}</div><div class="pstate">${players[i].pawns.filter(x=>x===57).length}/4 HOME ${players[i].done?'🏆':''}</div></div><button class="die" id="die${i}" ${i!==turn||rolled||gameOver?'disabled':''}>${i===turn&&dice?dice:'⚄'}</button></div>`).join('');
- document.getElementById('turnline').textContent=gameOver?'GAME OVER':colors[turn].name+' ki baari';
- document.getElementById('rollMain').disabled=rolled||gameOver;
- document.getElementById('rollMain').textContent=rolled?'GOTI SELECT KAREIN':'🎲 DICE ROLL';
-}
-function colorHex(id){return {red:'#f3263e',green:'#10c94c',yellow:'#ffc400',blue:'#168dff'}[id]}
-function canMove(ci,pi){
- let p=players[ci].pawns[pi];
- if(p===58)return false;
- if(p===-1)return dice===6;
- return p+dice<=58;
-}
-function roll(){
- if(rolled||gameOver)return;
- dice=Math.floor(Math.random()*6)+1;rolled=true;
- document.getElementById('log').textContent=colors[turn].name+' ko '+dice+' aya.';
- render();
- let possible=players[turn].pawns.some((p,i)=>canMove(turn,i));
- if(!possible){document.getElementById('log').textContent+=' Koi valid chaal nahi. Agli baari.';setTimeout(nextTurn,900)}
-}
-function choosePawn(ci,pi){
- if(ci!==turn||!rolled||gameOver||!canMove(ci,pi))return;
- let pl=players[ci],old=pl.pawns[pi];
- pl.pawns[pi]=old===-1?1:old+dice;
- let landed=pawnPos(ci,pl.pawns[pi]);
- if(pl.pawns[pi]<=51){
-  let routeIndex=(colors[ci].start+pl.pawns[pi]-1)%52;
-  if(!safe.includes(routeIndex)){
-   players.forEach((other,oi)=>{if(oi===ci)return;other.pawns=other.pawns.map(v=>{
-    if(v>=1&&v<=51){let op=pawnPos(oi,v);if(op[0]===landed[0]&&op[1]===landed[1]){document.getElementById('log').textContent=colors[ci].name+' ne '+colors[oi].name+' ki goti maar di!';return -1}}
-    return v;
-   })});
+let pawns=Array.from({length:4},()=>[-1,-1,-1,-1]),turn=0,lastRoll=0,sixes=0,awaitMove=false,finished=false;
+const diceFaces=['','⚀','⚁','⚂','⚃','⚄','⚅'];
+function cellAt(r,c){return document.querySelector('.cell[data-pos="'+r+','+c+'"]')}
+function makeBoard(){
+ let b=$('board');b.innerHTML='';
+ for(let r=0;r<15;r++)for(let c=0;c<15;c++){
+  let d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;
+  if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c>8)d.classList.add('yellowhome');if(r>8&&c<6)d.classList.add('bluehome');
+  let idx=route.findIndex(p=>p[0]===r&&p[1]===c);
+  if(idx>=0){d.className='cell path';if(safe.includes(idx))d.classList.add('safe')}
+  for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');
+  if((r===6||r===8)&&(c===6||c===8)){} 
+  if(r>=6&&r<=8&&c>=6&&c<=8){d.className='cell center';}
+  if((r===7&&c===7)){d.textContent='👑';d.style.fontSize='clamp(9px,2.5vw,17px)'}
+  if((r<6&&c<6)||(r<6&&c>8)||(r>8&&c>8)||(r>8&&c<6)){
+   if((r===0||r===14)&&(c===0||c===14)){} 
   }
+  b.appendChild(d);
  }
- if(pl.pawns.every(v=>v===58)){
-  gameOver=true;pl.done=true;
-  document.getElementById('win').style.display='block';
-  document.getElementById('win').textContent='🏆 '+colors[ci].name+' WINNER! 🏆';
-  document.getElementById('log').textContent='Chaaron gotiyan ghar pahunch gayin!';
-  render();return;
+ const yardAreas=[{row:'1 / span 6',col:'1 / span 6',bg:'#ad092c99'},{row:'1 / span 6',col:'10 / span 6',bg:'#006d3c99'},{row:'10 / span 6',col:'10 / span 6',bg:'#91630099'},{row:'10 / span 6',col:'1 / span 6',bg:'#004d9999'}];
+ for(let p=0;p<4;p++){
+  let home=document.createElement('div');home.className='yard';home.style.gridRow=yardAreas[p].row;home.style.gridColumn=yardAreas[p].col;home.style.inset='10%';home.style.background=yardAreas[p].bg;home.style.zIndex='2';home.style.pointerEvents='none';
+  for(let t=0;t<4;t++){let slot=document.createElement('div');slot.className='yard-slot';slot.dataset.home=p+','+t;slot.style.pointerEvents='auto';home.appendChild(slot)}
+  b.appendChild(home);
  }
- let extra=dice===6||pl.pawns[pi]===58;
- rolled=false;let last=dice;dice=0;
- if(!extra)turn=(turn+1)%4;
- document.getElementById('log').textContent=extra?'6 ya finish! Aap ko ek aur chance.':'Chaal mukammal. Agle player ki baari.';
- render();
+ drawPawns();renderPlayers();updateTurn();
 }
-function nextTurn(){rolled=false;dice=0;turn=(turn+1)%4;render()}
-document.getElementById('rollMain').onclick=roll;
-render();
+function coordFor(p,t,v){if(v<0)return homeSlots[p][t];if(v<=51)return route[(starts[p]+v)%52];return lanes[p][v-52]}
+function drawPawns(){
+ document.querySelectorAll('.token').forEach(x=>x.remove());
+ let counts={};
+ for(let p=0;p<4;p++)for(let t=0;t<4;t++){
+  let v=pawns[p][t],[r,c]=coordFor(p,t,v),key=r+','+c;
+  let cell=cellAt(r,c);if(!cell)continue;
+  let token=document.createElement('button');token.className='token '+css[p];token.textContent='';token.dataset.p=p;token.dataset.t=t;token.setAttribute('aria-label',names[p]+' token '+(t+1));
+  if(awaitMove&&p===turn&&isLegal(p,t,lastRoll))token.classList.add('selectable');
+  if(v<0){let slot=document.querySelector('[data-home="'+p+','+t+'"]');if(slot)slot.appendChild(token);else cell.appendChild(token)}
+  else{let n=counts[key]||0;counts[key]=n+1;if(n>0)token.classList.add('multi');token.style.transform='translate('+(n%2?25:-15)+'%,'+(n>1?25:0)+'%)';cell.appendChild(token)}
+  token.onclick=()=>choosePawn(p,t);
+ }
+}
+function playerCard(p){let active=p===turn&&!finished;let pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':face[p];let nm=p===0?profile.name:names[p]+' Player';return '<div class="player '+(active?'active':'')+'" style="--pc:'+hex[p]+'"><div class="avatar">'+pic+'</div><div class="pinfo"><div class="pname">'+nm+'</div><div class="status">● '+(active?'YOUR TURN':'Ready')+'</div>'+(active?'<div class="turntag">ROLL NOW</div>':'')+'</div><button class="mini-dice" '+(active&&!awaitMove?'':'disabled')+' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+(p===turn&&lastRoll?diceFaces[lastRoll]:'⚀')+'</button></div>'}
+function renderPlayers(){$('topPlayers').innerHTML=playerCard(0)+playerCard(1);$('bottomPlayers').innerHTML=playerCard(3)+playerCard(2)}
+function updateTurn(){renderPlayers();$('turnline').textContent=finished?names[turn]+' WINS THE GAME! 🏆':names[turn]+' PLAYER — '+(awaitMove?'CHOOSE A TOKEN':'ROLL YOUR DICE');$('hint').textContent=finished?'All four tokens reached the finish.':awaitMove?'Tap one of the highlighted '+names[turn]+' tokens.':'Tap the small dice beside '+(turn===0?profile.name:names[turn]+' Player')+'.';}
+function startLudo(){pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);turn=0;lastRoll=0;sixes=0;awaitMove=false;finished=false;$('messages').innerHTML='<div class="msg">Game started! Good luck 🎲</div>';makeBoard();show('ludo')}
+function isLegal(p,t,roll){let v=pawns[p][t];if(v===57)return false;if(v<0)return roll===6;return v+roll<=57}
+function rollFor(p){
+ if(p!==turn||awaitMove||finished)return;
+ let n=1+Math.floor(Math.random()*6);lastRoll=n;
+ if(n===6){sixes++;if(sixes>=3){lastRoll=0;sixes=0;addMsg(names[turn]+' rolled three 6s. Turn cancelled!',false);nextPlayer();return}}
+ else sixes=0;
+ let legal=[];for(let t=0;t<4;t++)if(isLegal(turn,t,n))legal.push(t);
+ if(!legal.length){addMsg(names[turn]+' rolled '+n+' — no legal move.',false);lastRoll=0;nextPlayer();return}
+ awaitMove=true;drawPawns();updateTurn();
+}
+function choosePawn(p,t){
+ if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;
+ let old=pawns[p][t];
+ if(old<0)pawns[p][t]=0;else pawns[p][t]=old+lastRoll;
+ let v=pawns[p][t],captured=false;
+ if(v<=51){let global=(starts[p]+v)%52;if(!safe.includes(global)){
+  for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(names[p]+' captured '+names[op]+' token!',false)}}
+ }}
+ let won=pawns[p].every(x=>x===57);awaitMove=false;
+ if(won){finished=true;addMsg(names[p]+' wins! 🏆',false);drawPawns();updateTurn();return}
+ let extra=lastRoll===6||captured||v===57;lastRoll=0;drawPawns();
+ if(!extra)nextPlayer();else{addMsg(names[p]+' gets another turn.',false);updateTurn()}
+}
+function nextPlayer(){turn=(turn+1)%4;lastRoll=0;awaitMove=false;updateTurn();drawPawns()}
+function addMsg(s,me){let d=document.createElement('div');d.className='msg'+(me?' me':'');d.textContent=s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
+function sendChat(){let s=$('chatinput').value.trim();if(!s)return;addMsg((profile.name||'You')+': '+s,true);$('chatinput').value=''}
+function sendEmoji(e){addMsg((profile.name||'You')+': '+e,true)}
+function drawCard(){let a=[['🔴','RED'],['🟢','GREEN'],['🟡','YELLOW'],['🔵','BLUE'],['↩️','REVERSE'],['⏭️','SKIP'],['＋2','DRAW TWO']];let x=a[Math.floor(Math.random()*a.length)];$('card').textContent=x[0];$('cardtext').textContent='You drew '+x[1]}
+let sp=[1,1],st=0;const ladders={4:14,9:31,20:38,28:84,40:59,63:81,71:91},snakes={17:7,54:34,62:19,87:24,93:73,95:75,99:78};
+function drawSnake(){let b=$('snakeboard');b.innerHTML='';for(let n=100;n>=1;n--){let d=document.createElement('div');d.className='snakecell';d.textContent=n;if(sp[0]===n)d.textContent+='🔴';if(sp[1]===n)d.textContent+='🟢';b.appendChild(d)}$('rpos').textContent=sp[0];$('gpos').textContent=sp[1]}
+function startSnake(){resetSnake();show('snake')}
+function snakeRoll(){let n=1+Math.floor(Math.random()*6),next=sp[st]+n;if(next<=100){next=ladders[next]||snakes[next]||next;sp[st]=next}drawSnake();$('snakemsg').textContent=(st?'Green':'Red')+' rolled '+n+'.';if(sp[st]===100){$('snakemsg').textContent=(st?'Green':'Red')+' wins!';return}st=1-st;$('snaketurn').textContent=(st?'Green':'Red')+"'s turn"}
+function resetSnake(){sp=[1,1];st=0;drawSnake();$('snaketurn').textContent="Red's turn";$('snakemsg').textContent='First to reach 100 wins.'}
+renderPlayers();
 </script>
 </body>
 </html>
