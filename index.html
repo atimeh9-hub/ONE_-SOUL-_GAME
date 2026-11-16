@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,10 +27,7 @@ header{height:58px;display:flex;align-items:center;justify-content:center}
 .cell{background:#f5f8ff;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
 .cell.track{background:#fff}
 .cell.safe:after{content:"★";font-size:clamp(7px,2vw,13px);color:#657a9b}
-.cell.lane.red{background:#ff9cac}
-.cell.lane.green{background:#7ee9ad}
-.cell.lane.yellow{background:#ffe58a}
-.cell.lane.blue{background:#91d1ff}
+.cell.lane.red{background:#ff9cac}.cell.lane.green{background:#7ee9ad}.cell.lane.yellow{background:#ffe58a}.cell.lane.blue{background:#91d1ff}
 .base{position:absolute;width:40%;height:40%;z-index:2;border:3px solid white;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8%;padding:7%;box-shadow:inset 0 0 18px #fff8}
 .base.red{left:0;top:0;background:linear-gradient(145deg,#ff4c60,#c90025);border-radius:22% 0 0 0}
 .base.green{right:0;top:0;background:linear-gradient(145deg,#32f45b,#008d36);border-radius:0 22% 0 0}
@@ -41,10 +37,7 @@ header{height:58px;display:flex;align-items:center;justify-content:center}
 .pawn{width:82%;height:94%;padding:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;filter:drop-shadow(0 2px 2px #00123f);position:relative;z-index:5}
 .pawn .head{width:48%;aspect-ratio:1;border-radius:50%;border:1px solid #fff;background:radial-gradient(circle at 30% 22%,#fff,var(--light) 35%,var(--dark));z-index:2}
 .pawn .body{width:82%;height:60%;margin-top:-7%;border:1px solid #fff9;border-radius:48% 48% 25% 25%;background:linear-gradient(120deg,var(--light),var(--main) 55%,var(--dark));clip-path:polygon(50% 0,85% 25%,100% 100%,0 100%,15% 25%)}
-.pawn.red{--main:#ed1735;--light:#ffb5bf;--dark:#8a001b}
-.pawn.green{--main:#08bb42;--light:#c5ffcf;--dark:#006b27}
-.pawn.yellow{--main:#f4bd00;--light:#fff5ad;--dark:#996500}
-.pawn.blue{--main:#0789e9;--light:#c3efff;--dark:#004c9d}
+.pawn.red{--main:#ed1735;--light:#ffb5bf;--dark:#8a001b}.pawn.green{--main:#08bb42;--light:#c5ffcf;--dark:#006b27}.pawn.yellow{--main:#f4bd00;--light:#fff5ad;--dark:#996500}.pawn.blue{--main:#0789e9;--light:#c3efff;--dark:#004c9d}
 .pawn.movable{outline:2px solid #00dfff;border-radius:8px;filter:drop-shadow(0 0 5px white);animation:pulse .6s infinite alternate}
 @keyframes pulse{to{transform:scale(1.16)}}
 .base .pawn{width:70%;height:90%}
@@ -56,6 +49,7 @@ header{height:58px;display:flex;align-items:center;justify-content:center}
 .win{display:none;text-align:center;margin:10px;padding:12px;border:2px solid #ffe56b;border-radius:14px;background:#173d8c;color:#ffe56b;font-size:22px;font-weight:1000}
 #log{text-align:center;color:#d9efff;font-size:12px;min-height:18px;margin:7px}
 .reset{display:block;margin:8px auto;background:#8c1736;padding:9px 16px;border-radius:10px}
+
 .chat{margin-top:12px;border:2px solid #00cfff;border-radius:17px;padding:10px;background:linear-gradient(145deg,#082d7d,#03123c);box-shadow:0 0 15px #00cfff66}
 .chathead{display:flex;justify-content:space-between;align-items:center;font-weight:1000;margin-bottom:7px}
 .chatmessages{height:75px;overflow:auto;background:#04143e88;border-radius:10px;padding:6px;font-size:12px}
@@ -67,41 +61,174 @@ header{height:58px;display:flex;align-items:center;justify-content:center}
 .chatinput input{min-width:0;flex:1;border-radius:20px;border:2px solid #168dff;background:#061d56;color:white;padding:10px}
 .chatinput button{border-radius:12px;padding:8px 11px;background:linear-gradient(#19aaff,#0644b4);border:1px solid #9cecff;font-weight:900}
 .nameedit{width:100%;max-width:95px;border:1px solid #8cecff;border-radius:6px;background:#061d56;color:white;font-size:11px;padding:3px;margin-top:3px}
-@media(max-width:370px){
-.player{padding:5px;gap:4px}
-.avatar{width:32px;height:32px}
-.die{width:38px;height:38px;flex-basis:38px}
-.pname{font-size:10px}
-}
+\n@media(max-width:370px){.player{padding:5px;gap:4px}.avatar{width:32px;height:32px}.die{width:38px;height:38px;flex-basis:38px}.pname{font-size:10px}}
 </style>
 </head>
 <body>
 <main class="app">
 <header><div class="logo">🪽 👑 ONE SOUL 🪽</div></header>
 <div class="players" id="players"></div>
-<div class="turnline" id="turnline">RED ki baari</div>
+<div class="turnline" id="turnline">RED ki baari — apni profile ka mini dice dabayein</div>
 <div class="boardframe"><div class="board" id="board"></div></div>
-<div class="controls"><button id="rollMain">🎲 DICE ROLL</button></div>
+
 <div class="hint">6 par goti bahar niklegi • ★ safe khana hai • finish ke liye exact number chahiye</div>
 <div id="log">Dice roll karein.</div>
 <div class="win" id="win"></div>
 <section class="chat">
-<div class="chathead"><span>💬 INBOX / CHAT</span><small>ONE SOUL</small></div>
-<div class="chatmessages" id="chatmessages"><div class="msg">Game chat yahan nazar aayegi.</div></div>
-<div class="emojirow">
-<button type="button" onclick="addEmoji('❤️')">❤️</button>
-<button type="button" onclick="addEmoji('😂')">😂</button>
-<button type="button" onclick="addEmoji('😍')">😍</button>
-<button type="button" onclick="addEmoji('🔥')">🔥</button>
-<button type="button" onclick="addEmoji('👏')">👏</button>
-<button type="button" onclick="addEmoji('👍')">👍</button>
-</div>
-<div class="chatinput">
-<button type="button" onclick="voiceInput()" title="Voice typing">🎙️</button>
-<input id="chattext" placeholder="Message likhein..." maxlength="180">
-<button type="button" onclick="sendMessage()">➤</button>
-</div>
+ <div class="chathead"><span>💬 INBOX / CHAT</span><small>ONE SOUL</small></div>
+ <div class="chatmessages" id="chatmessages"><div class="msg">Game chat yahan nazar aayegi.</div></div>
+ <div class="emojirow">
+  <button type="button" onclick="addEmoji('❤️')">❤️</button>
+  <button type="button" onclick="addEmoji('😂')">😂</button>
+  <button type="button" onclick="addEmoji('😍')">😍</button>
+  <button type="button" onclick="addEmoji('🔥')">🔥</button>
+  <button type="button" onclick="addEmoji('👏')">👏</button>
+  <button type="button" onclick="addEmoji('👍')">👍</button>
+ </div>
+ <div class="chatinput">
+  <button type="button" onclick="voiceInput()" title="Voice typing">🎙️</button>
+  <input id="chattext" placeholder="Message likhein..." maxlength="180">
+  <button type="button" onclick="sendMessage()">➤</button>
+ </div>
 </section>
 <div class="hint">Mic supported browser mein voice typing karega. Chat abhi isi device par local hai.</div>
 <button class="reset" onclick="location.reload()">↻ Naya Game</button>
 </main>
+<script>
+const colors=[
+ {id:'red',name:'RED',emoji:'🔴',start:0,home:[[1,1],[1,4],[4,1],[4,4]],lane:[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],finish:[7,7]},
+ {id:'green',name:'GREEN',emoji:'🟢',start:13,home:[[1,10],[1,13],[4,10],[4,13]],lane:[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],finish:[7,7]},
+ {id:'yellow',name:'YELLOW',emoji:'🟡',start:39,home:[[10,1],[10,4],[13,1],[13,4]],lane:[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]],finish:[7,7]},
+ {id:'blue',name:'BLUE',emoji:'🔵',start:26,home:[[10,10],[10,13],[13,10],[13,13]],lane:[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],finish:[7,7]}
+];
+// Standard 52-square perimeter route, coordinates are row/column (0-based).
+const route=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
+const safe=[0,8,13,21,26,34,39,47];
+const board=document.getElementById('board');
+let players=colors.map(c=>({color:c.id,turn:c.start,pawns:[-1,-1,-1,-1],done:false,name:c.name}));
+let turn=0,dice=0,rolled=false,gameOver=false;
+function cell(r,c,cls=''){let el=document.createElement('div');el.className='cell '+cls;el.style.gridRow=r+1;el.style.gridColumn=c+1;board.appendChild(el);return el}
+let cells={};
+for(let r=0;r<15;r++)for(let c=0;c<15;c++)cells[r+','+c]=cell(r,c);
+route.forEach((p,i)=>{let el=cells[p.join(',')];el.classList.add('track');if(safe.includes(i))el.classList.add('safe')});
+colors.forEach((co,ci)=>co.lane.forEach(p=>cells[p.join(',')].classList.add('lane',co.id)));
+function addBase(co){
+ let b=document.createElement('div');b.className='base '+co.id;
+ co.home.forEach((p,i)=>{let s=document.createElement('div');s.className='slot';s.dataset.home=co.id+'-'+i;b.appendChild(s)});
+ board.appendChild(b);
+}
+colors.forEach(addBase);
+let center=document.createElement('div');center.className='center';center.textContent='👑';board.appendChild(center);
+function makePawn(ci,pi,where){
+ let b=document.createElement('button');b.className='pawn '+colors[ci].id;b.innerHTML='<span class="head"></span><span class="body"></span>';
+ b.title=colors[ci].name+' pawn '+(pi+1);
+ if(where)b.classList.add('movable');
+ b.onclick=()=>choosePawn(ci,pi);
+ return b;
+}
+function pawnPos(ci,progress){
+ let co=colors[ci];
+ if(progress===-1)return null;
+ if(progress===59)return [7,7];
+ if(progress>=53)return co.lane[progress-53];
+ return route[(co.start+progress-1)%52];
+}
+function render(){
+ document.querySelectorAll('.cell .pawn,.slot .pawn').forEach(x=>x.remove());
+ players.forEach((pl,ci)=>pl.pawns.forEach((pr,pi)=>{
+  let movable=ci===turn&&rolled&&!gameOver&&canMove(ci,pi);
+  let pawn=makePawn(ci,pi,movable);
+  if(pr===-1){let slot=document.querySelector('[data-home="'+pl.color+'-'+pi+'"]');slot.appendChild(pawn)}
+  else{let pos=pawnPos(ci,pr);let target=cells[pos.join(',')];target.appendChild(pawn)}
+ }));
+ document.getElementById('players').innerHTML=colors.map((co,i)=>`<div class="player ${i===turn?'active':''}" style="--c:${colorHex(co.id)}"><div class="avatar">${co.emoji}</div><div style="min-width:0;flex:1"><div class="pname">${players[i].name}</div><input class="nameedit" aria-label="${co.name} player name" value="${players[i].name.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" onchange="setPlayerName(${i},this.value)" maxlength="14"><div class="pstate">${players[i].pawns.filter(x=>x===59).length}/4 HOME ${players[i].done?'🏆':''}</div></div><button class="die" id="die${i}" onclick="profileRoll(${i})" ${i!==turn||rolled||gameOver?'disabled':''}>${i===turn&&dice?dice:'⚄'}</button></div>`).join('');
+ document.getElementById('turnline').textContent=gameOver?'GAME OVER':colors[turn].name+' ki baari';
+ 
+}
+function colorHex(id){return {red:'#f3263e',green:'#10c94c',yellow:'#ffc400',blue:'#168dff'}[id]}
+function canMove(ci,pi){
+ let p=players[ci].pawns[pi];
+ if(p===59)return false;
+ if(p===-1)return dice===6;
+ return p+dice<=59;
+}
+function roll(){
+ if(rolled||gameOver)return;
+ dice=Math.floor(Math.random()*6)+1;rolled=true;
+ document.getElementById('log').textContent=colors[turn].name+' ko '+dice+' aya.';
+ render();
+ let possible=players[turn].pawns.some((p,i)=>canMove(turn,i));
+ if(!possible){document.getElementById('log').textContent+=' Koi valid chaal nahi. Agli baari.';setTimeout(nextTurn,900)}
+}
+function choosePawn(ci,pi){
+ if(ci!==turn||!rolled||gameOver||!canMove(ci,pi))return;
+ let pl=players[ci],old=pl.pawns[pi];
+ pl.pawns[pi]=old===-1?1:old+dice;
+ let landed=pawnPos(ci,pl.pawns[pi]);
+ if(pl.pawns[pi]<=51){
+  let routeIndex=(colors[ci].start+pl.pawns[pi]-1)%52;
+  if(!safe.includes(routeIndex)){
+   players.forEach((other,oi)=>{if(oi===ci)return;other.pawns=other.pawns.map(v=>{
+    if(v>=1&&v<=51){let op=pawnPos(oi,v);if(op[0]===landed[0]&&op[1]===landed[1]){document.getElementById('log').textContent=colors[ci].name+' ne '+colors[oi].name+' ki goti maar di!';return -1}}
+    return v;
+   })});
+  }
+ }
+ if(pl.pawns.every(v=>v===59)){
+  gameOver=true;pl.done=true;
+  document.getElementById('win').style.display='block';
+  document.getElementById('win').textContent='🏆 '+colors[ci].name+' WINNER! 🏆';
+  document.getElementById('log').textContent='Chaaron gotiyan ghar pahunch gayin!';
+  render();return;
+ }
+ let extra=dice===6||pl.pawns[pi]===59;
+ rolled=false;let last=dice;dice=0;
+ if(!extra)turn=(turn+1)%4;
+ document.getElementById('log').textContent=extra?'6 ya finish! Aap ko ek aur chance.':'Chaal mukammal. Agle player ki baari.';
+ render();
+}
+function nextTurn(){rolled=false;dice=0;turn=(turn+1)%4;render()}
+function profileRoll(i){if(i===turn&&!rolled&&!gameOver)roll()}
+function setPlayerName(i,value){
+ players[i].name=(value.trim()||colors[i].name).slice(0,14);
+ render();
+}
+function addEmoji(symbol){
+ const input=document.getElementById('chattext');
+ input.value+=symbol;
+ input.focus();
+}
+function sendMessage(){
+ const input=document.getElementById('chattext');
+ const value=input.value.trim();
+ if(!value)return;
+ const box=document.getElementById('chatmessages');
+ const msg=document.createElement('div');
+ msg.className='msg me';
+ msg.textContent=players[turn].name+': '+value;
+ box.appendChild(msg);
+ box.scrollTop=box.scrollHeight;
+ input.value='';
+}
+function voiceInput(){
+ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SpeechRecognition){
+  document.getElementById('log').textContent='Voice typing supported nahi. Keyboard ka mic use karein.';
+  return;
+ }
+ const recognition=new SpeechRecognition();
+ recognition.lang='ur-PK';
+ recognition.interimResults=false;
+ recognition.onresult=function(event){
+  const input=document.getElementById('chattext');
+  input.value+=(input.value?' ':'')+event.results[0][0].transcript;
+ };
+ recognition.onerror=function(){
+  document.getElementById('log').textContent='Mic permission check karein.';
+ };
+ recognition.start();
+}
+render();
+</script>
+</body>
+</html>
