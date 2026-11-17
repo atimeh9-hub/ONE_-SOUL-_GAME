@@ -33,8 +33,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #30cfff}
 .cell.track{background:#f9fcff}.cell.redhome{background:#ff5268}.cell.greenhome{background:#21d77b}.cell.bluehome{background:#4aafff}.cell.yellowhome{background:#ffd33e}
 .cell.lane-red{background:#ff8b9a}.cell.lane-green{background:#8af0ba}.cell.lane-yellow{background:#ffe58a}.cell.lane-blue{background:#91d0ff}
 .cell.safe:after{content:"★";color:#4568a9;font-size:clamp(7px,2vw,14px);position:absolute;inset:0;display:grid;place-items:center}
-.cell.center{background:conic-gradient(#21c96b 0 25%,#ffd23b 0 50%,#ff3b59 0 75%,#379fff 0);border:2px solid white}
-.cell.center:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}.cell.center{background:conic-gradient(from -45deg,#20c979 0 25%,#ffd23b 0 50%,#ff3b59 0 75%,#379fff 0);border:2px solid #fff;box-shadow:inset 0 0 0 2px #163b85}
+.cell.center{border:1px solid #fff}.cell.center-red{background:#ff5268}.cell.center-green{background:#21d77b}.cell.center-yellow{background:#ffd33e}.cell.center-blue{background:#4aafff}.cell.center-core{background:conic-gradient(from -45deg,#20c979 0 25%,#ffd33b 0 50%,#ff3b59 0 75%,#379fff 0);border:2px solid #fff;box-shadow:inset 0 0 0 2px #163b85}.cell.center-core:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}
 .token{position:absolute;width:76%;height:76%;left:12%;top:12%;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px #0008;z-index:3;display:grid;place-items:center;font-size:clamp(7px,2vw,13px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;cursor:pointer}
 .token.redt{background:#ed183b}.token.greent{background:#00a954}.token.bluet{background:#087ce0}.token.yellowt{background:#e7a900}
 .token.selectable{outline:3px solid #fff;box-shadow:0 0 0 3px #111,0 0 12px #fff;animation:pulse .7s infinite alternate}
@@ -93,7 +92,7 @@ function buildBoard(){
   let idx=path.findIndex(p=>p[0]===r&&p[1]===c);
   if(idx>=0){d.className='cell track';if(safeSquares.includes(idx))d.classList.add('safe')}
   homeLanes.forEach((lane,p)=>lane.forEach(([rr,cc])=>{if(rr===r&&cc===c)d.className='cell lane-'+['red','green','yellow','blue'][p]}));
-  if(r===7&&c===7)d.className='cell center';
+  if(r>=6&&r<=8&&c>=6&&c<=8){d.className='cell center';if(r===7&&c===7)d.classList.add('center-core');else if(r===6&&c===6||r===6&&c===7||r===7&&c===6)d.classList.add('center-red');else if(r===6&&c===8||r===7&&c===8||r===6&&c===7)d.classList.add('center-green');else if(r===8&&c===8||r===7&&c===8||r===8&&c===7)d.classList.add('center-yellow');else d.classList.add('center-blue');}
   b.appendChild(d);
  }
  renderTokens();
@@ -119,7 +118,7 @@ function rollDice(){
  if(gameOver||waitingMove||diceValue)return;
  diceValue=1+Math.floor(Math.random()*6);$('dice').textContent=['','⚀','⚁','⚂','⚃','⚄','⚅'][diceValue];
  let legal=positions[current].map((_,t)=>t).filter(t=>isLegal(current,t));
- if(!legal.length){$('turntxt').textContent=colors[current]+' rolled '+diceValue+'. No legal move — '+(diceValue===6?'roll again!':'next player.');let rolled=diceValue;waitingMove=true;setTimeout(()=>{if(!gameOver){waitingMove=false;nextTurn(rolled===6)}},900);return}
+ if(!legal.length){let rolled=diceValue;waitingMove=false;if(rolled===6){diceValue=0;$('turntxt').textContent=colors[current]+' rolled 6. No token can move — roll again!';$('rollbtn').disabled=false;}else{$('turntxt').textContent=colors[current]+' rolled '+rolled+'. No legal move — next player.';diceValue=0;$('rollbtn').disabled=true;setTimeout(()=>{if(!gameOver){$('rollbtn').disabled=false;nextTurn(false)}},700);}return}
  waitingMove=true;renderTokens();$('turntxt').textContent=colors[current]+' rolled '+diceValue+' — tap a glowing token.';
 }
 function chooseToken(p,t){if(!waitingMove||p!==current||!isLegal(p,t))return;moveToken(t)}
@@ -144,7 +143,7 @@ function moveToken(t){
  if(six){$('turntxt').textContent=colors[current]+' rolled a 6 — roll again!';$('rollbtn').disabled=false;}
  else nextTurn(false);
 }
-function nextTurn(extra){if(gameOver)return;if(!extra)current=(current+1)%4;waitingMove=false;diceValue=0;$('turntxt').textContent=colors[current]+' player — roll the dice';renderTokens()}
+function nextTurn(extra){if(gameOver)return;if(!extra)current=(current+1)%4;waitingMove=false;diceValue=0;$('rollbtn').disabled=false;$('turntxt').textContent=colors[current]+' player — roll the dice';renderTokens()}
 function resetLudo(){startLudo()}
 function sendChat(){let v=$('chatinput').value.trim();if(!v)return;addMsg(profile.name+': '+v,true);$('chatinput').value=''}
 function sendEmoji(e){addMsg(profile.name+': '+e,true)}
