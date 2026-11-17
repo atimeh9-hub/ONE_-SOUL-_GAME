@@ -15,6 +15,7 @@ button,input{font:inherit}button{cursor:pointer;color:#fff;border:0}
 .crown{font-size:48px;display:block;margin-bottom:8px}
 .panel{background:linear-gradient(145deg,#113cbd,#07164e 75%);border:2px solid #2caaff;border-radius:20px;padding:15px;box-shadow:0 0 18px #087dff88,inset 0 0 14px #ffffff18}
 .primary{background:linear-gradient(#23d7ff,#0061ff 55%,#0739c8);border:2px solid #8deaff;border-radius:16px;padding:13px 18px;font-weight:900;font-size:18px;text-shadow:0 2px 2px #00164e;box-shadow:0 5px 0 #062578,0 0 15px #14caff;width:100%}
+.primary:disabled{opacity:.5;cursor:not-allowed}
 .secondary{background:linear-gradient(#9c5aff,#5311d5);border:2px solid #d8b7ff;border-radius:13px;padding:10px;font-weight:800}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
 .smallbtn{background:#0c5fe9;border:1px solid #8eeaff;border-radius:12px;padding:9px 12px;font-weight:800}
@@ -28,13 +29,14 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #30cfff}
 .avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:linear-gradient(#e9f8ff,#8cbcff);border:2px solid white;display:grid;place-items:center;color:#2351a2;font-size:25px;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}.pname{font-weight:900;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.online{font-size:11px;color:#57ff9c}.player-dice{margin-left:auto;flex:0 0 34px;width:34px;height:34px;border-radius:9px;background:#fff;color:#132b65;border:2px solid #dcecff;font-size:24px;line-height:1;box-shadow:0 2px 0 #7895bd;padding:0}.player-dice:disabled{opacity:.45;filter:grayscale(.7)}.player-dice.active-dice{box-shadow:0 0 0 2px #fff,0 0 10px #fff;opacity:1;filter:none}
 .board-wrap{background:#061342;padding:7px;border-radius:18px;border:3px solid #70dfff;box-shadow:0 0 20px #00bfff88}
-.board{display:grid;grid-template-columns:repeat(15,1fr);aspect-ratio:1;background:#d9e2ee;border:2px solid #fff;gap:0;overflow:hidden}
-.cell{position:relative;background:#fff;min-width:0;min-height:0;border:0;display:grid;place-items:center}
+.board{display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);aspect-ratio:1;background:#d9e2ee;border:2px solid #fff;gap:0;overflow:hidden}
+.cell{position:relative;background:#fff;min-width:0;min-height:0;border:1px solid #aebbd0;display:grid;place-items:center}
 .cell.track{background:#fff}.cell.redhome{background:#ef5367}.cell.greenhome{background:#20c978}.cell.bluehome{background:#43a9ed}.cell.yellowhome{background:#ffd23e}
 .cell.lane-red{background:#ff9aaa}.cell.lane-green{background:#8ce8b7}.cell.lane-yellow{background:#ffe58a}.cell.lane-blue{background:#91ccf5}
 .cell.safe:after{content:"★";color:#4568a9;font-size:clamp(7px,2vw,14px);position:absolute;inset:0;display:grid;place-items:center}
-.cell.center{border:0}.cell.center-red{background:#ff5368}.cell.center-green{background:#20c978}.cell.center-yellow{background:#ffd23e}.cell.center-blue{background:#43a9ed}.cell.center-core{background:conic-gradient(from -45deg,#20c978 0 25%,#ffd23e 0 50%,#ff5368 0 75%,#43a9ed 0);border:0}.cell.center-core:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}
-.cell.home-spot:before{content:"";position:absolute;width:72%;height:72%;border-radius:50%;background:#fff;border:2px solid #e7edf5;box-shadow:inset 0 1px 3px #0002}.token{position:absolute;width:76%;height:76%;left:12%;top:12%;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px #0008;z-index:3;display:grid;place-items:center;font-size:clamp(7px,2vw,13px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;cursor:pointer}
+.cell.center{border:1px solid #aebbd0}.cell.center-red{background:#ff5368}.cell.center-green{background:#20c978}.cell.center-yellow{background:#ffd23e}.cell.center-blue{background:#43a9ed}.cell.center-core{background:conic-gradient(from -45deg,#20c978 0 25%,#ffd23e 0 50%,#ff5368 0 75%,#43a9ed 0);border:1px solid #aebbd0}.cell.center-core:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}
+.cell.home-spot:before{content:"";position:absolute;width:72%;height:72%;border-radius:50%;background:#fff;border:2px solid #e7edf5;box-shadow:inset 0 1px 3px #0002}
+.token{position:absolute;width:76%;height:76%;left:12%;top:12%;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px #0008;z-index:3;display:grid;place-items:center;font-size:clamp(7px,2vw,13px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;cursor:pointer;padding:0}
 .token.redt{background:#ed183b}.token.greent{background:#00a954}.token.bluet{background:#087ce0}.token.yellowt{background:#e7a900}
 .token.selectable{outline:3px solid #fff;box-shadow:0 0 0 3px #111,0 0 12px #fff;animation:pulse .7s infinite alternate}
 @keyframes pulse{to{transform:scale(1.12)}}
@@ -75,30 +77,30 @@ function removePhoto(){profile.photo='';$('preview').textContent='👤';$('photo
 function saveProfile(){profile.name=$('myname').value.trim()||'Player';localStorage.setItem('os_name',profile.name);if(profile.photo)localStorage.setItem('os_photo',profile.photo);else localStorage.removeItem('os_photo');alert('Profile saved on this device.');show(lastScreen);renderPlayers()}
 const colors=['Red','Green','Yellow','Blue'],cls=['redp','greenp','yellowp','bluep'],tokenCls=['redt','greent','yellowt','bluet'],emojis=['🔴','🟢','🟡','🔵'];
 const path=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
-const starts=[0,13,26,39],safeSquares=[0,8,13,21,26,34,39,47];
-const homeSlots=[[[1,1],[1,4],[4,1],[4,4]],[[1,10],[1,13],[4,10],[4,13]],[[10,10],[10,13],[13,10],[13,13]],[[10,1],[10,4],[13,1],[13,4]]];
+const starts=[0,13,39,26],safeSquares=[0,8,13,21,26,34,39,47];
+const homeSlots=[[[1,1],[1,4],[4,1],[4,4]],[[1,10],[1,13],[4,10],[4,13]],[[10,1],[10,4],[13,1],[13,4]],[[10,10],[10,13],[13,10],[13,13]]];
 const homeLanes=[
  [[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],
  [[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],
- [[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],
- [[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]
+ [[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]],
+ [[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]]
 ];
 let playerDice=[0,0,0,0],current=0,diceValue=0,positions=Array.from({length:4},()=>[-1,-1,-1,-1]),finished=[0,0,0,0],gameOver=false,waitingMove=false;
 function buildBoard(){
  const b=$('board');b.innerHTML='';
  for(let r=0;r<15;r++)for(let c=0;c<15;c++){
   let d=document.createElement('div');d.className='cell';d.dataset.rc=r+','+c;
-  if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c<6)d.classList.add('bluehome');if(r>8&&c>8)d.classList.add('yellowhome');
+  if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c<6)d.classList.add('yellowhome');if(r>8&&c>8)d.classList.add('bluehome');
   let idx=path.findIndex(p=>p[0]===r&&p[1]===c);
   if(idx>=0){d.className='cell track';if(safeSquares.includes(idx))d.classList.add('safe')}
   homeLanes.forEach((lane,p)=>lane.forEach(([rr,cc])=>{if(rr===r&&cc===c)d.className='cell lane-'+['red','green','yellow','blue'][p]}));
-  if(r>=6&&r<=8&&c>=6&&c<=8){d.className='cell center';if(r===7&&c===7)d.classList.add('center-core');else if(r===6&&c===6||r===6&&c===7||r===7&&c===6)d.classList.add('center-red');else if(r===6&&c===8||r===7&&c===8||r===6&&c===7)d.classList.add('center-green');else if(r===8&&c===8||r===7&&c===8||r===8&&c===7)d.classList.add('center-yellow');else d.classList.add('center-blue');}
-  if(homeSlots.some((slots)=>slots.some(([rr,cc])=>rr===r&&cc===c)))d.classList.add('home-spot');
+  if(r>=6&&r<=8&&c>=6&&c<=8){d.className='cell center';if(r===7&&c===7)d.classList.add('center-core');else if((r===6&&c===6)||(r===6&&c===7))d.classList.add('center-red');else if((r===6&&c===8)||(r===7&&c===8))d.classList.add('center-green');else if((r===8&&c===8)||(r===8&&c===7))d.classList.add('center-yellow');else d.classList.add('center-blue')}
+  if(homeSlots.some(slots=>slots.some(([rr,cc])=>rr===r&&cc===c)))d.classList.add('home-spot');
   b.appendChild(d);
  }
  renderTokens();
 }
-function tokenCoord(p,t){let v=positions[p][t];if(v<0)return homeSlots[p][t];if(v<=51)return path[(starts[p]+v)%52];if(v<=57)return homeLanes[p][v-52];if(v===58)return [7,7];return [7,7]}
+function tokenCoord(p,t){let v=positions[p][t];if(v<0)return homeSlots[p][t];if(v<=51)return path[(starts[p]+v)%52];if(v<=57)return homeLanes[p][v-52];return [7,7]}
 function renderTokens(){
  document.querySelectorAll('.token').forEach(t=>t.remove());
  positions.forEach((arr,p)=>arr.forEach((v,t)=>{
@@ -110,41 +112,26 @@ function renderPlayers(){
  $('players').innerHTML=colors.map((n,i)=>'<div class="player '+cls[i]+'"><div class="avatar">'+(i===0&&profile.photo?'<img src="'+profile.photo+'">':emojis[i])+'</div><div style="min-width:0;flex:1"><div class="pname">'+(i===0?escapeHtml(profile.name):n+' Player')+'</div><div class="online">'+finished[i]+'/4 home</div></div><button class="player-dice '+(i===current?'active-dice':'')+'" '+(i===current&&!waitingMove&&!gameOver&&diceValue===0?'':'disabled')+' onclick="rollForPlayer('+i+')" aria-label="'+n+' player dice">'+(playerDice[i]?['','⚀','⚁','⚂','⚃','⚄','⚅'][playerDice[i]]:'⚄')+'</button></div>').join('');
 }
 function rollForPlayer(p){if(p!==current)return;rollDice()}
-
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function startLudo(){current=0;diceValue=0;playerDice=[0,0,0,0];positions=Array.from({length:4},()=>[-1,-1,-1,-1]);finished=[0,0,0,0];gameOver=false;waitingMove=false;buildBoard();renderPlayers();$('dice').textContent='⚀';$('rollbtn').disabled=false;$('turntxt').textContent='Red player — roll the dice';$('messages').innerHTML='<div class="msg">Game started! Red player begins. 🎲</div>';show('ludo')}
-function isLegal(p,t){
- let v=positions[p][t];if(v===58)return false;if(v===-1)return diceValue===6;
- return v+diceValue<=58;
-}
+function isLegal(p,t){let v=positions[p][t];if(v===58)return false;if(v===-1)return diceValue===6;return v+diceValue<=58}
 function rollDice(){
  if(gameOver||waitingMove||diceValue)return;
  diceValue=1+Math.floor(Math.random()*6);playerDice[current]=diceValue;$('dice').textContent=['','⚀','⚁','⚂','⚃','⚄','⚅'][diceValue];renderPlayers();
  let legal=positions[current].map((_,t)=>t).filter(t=>isLegal(current,t));
- if(!legal.length){let rolled=diceValue;waitingMove=false;if(rolled===6){diceValue=0;$('turntxt').textContent=colors[current]+' rolled 6. No token can move — roll again!';$('rollbtn').disabled=false;renderPlayers();}else{$('turntxt').textContent=colors[current]+' rolled '+rolled+'. No legal move — next player.';diceValue=0;$('rollbtn').disabled=true;setTimeout(()=>{if(!gameOver){$('rollbtn').disabled=false;nextTurn(false)}},700);}return}
+ if(!legal.length){let rolled=diceValue;waitingMove=false;if(rolled===6){diceValue=0;$('turntxt').textContent=colors[current]+' rolled 6. No token can move — roll again!';$('rollbtn').disabled=false;renderPlayers()}else{$('turntxt').textContent=colors[current]+' rolled '+rolled+'. No legal move — next player.';diceValue=0;$('rollbtn').disabled=true;setTimeout(()=>{if(!gameOver){$('rollbtn').disabled=false;nextTurn(false)}},700)}return}
  waitingMove=true;renderTokens();$('turntxt').textContent=colors[current]+' rolled '+diceValue+' — tap a glowing token.';
 }
 function chooseToken(p,t){if(!waitingMove||p!==current||!isLegal(p,t))return;moveToken(t)}
 function moveToken(t){
- let old=positions[current][t],steps=diceValue;
- positions[current][t]=old===-1?0:old+steps;
+ let old=positions[current][t],steps=diceValue;positions[current][t]=old===-1?0:old+steps;
  let newProgress=positions[current][t],captured=0;
- if(newProgress<=51){
-  let landing=(starts[current]+newProgress)%52;
-  if(!safeSquares.includes(landing)){
-   positions.forEach((arr,p)=>{if(p===current)return;arr.forEach((v,ti)=>{if(v>=0&&v<=51&&(starts[p]+v)%52===landing){positions[p][ti]=-1;captured++}})});
-  }
- }
- let justFinished=newProgress===58;
- if(justFinished)finished[current]++;
+ if(newProgress<=51){let landing=(starts[current]+newProgress)%52;if(!safeSquares.includes(landing)){positions.forEach((arr,p)=>{if(p===current)return;arr.forEach((v,ti)=>{if(v>=0&&v<=51&&(starts[p]+v)%52===landing){positions[p][ti]=-1;captured++}})})}}
+ let justFinished=newProgress===58;if(justFinished)finished[current]++;
  let six=diceValue===6;diceValue=0;waitingMove=false;renderTokens();renderPlayers();
- let message=colors[current]+' moved token '+(t+1)+'.';
- if(captured)message+=' Captured '+captured+' opponent token'+(captured>1?'s':'')+'!';
- if(justFinished)message+=' Token reached home!';
- addMsg(message,false);
+ let message=colors[current]+' moved token '+(t+1)+'.';if(captured)message+=' Captured '+captured+' opponent token'+(captured>1?'s':'')+'!';if(justFinished)message+=' Token reached home!';addMsg(message,false);
  if(finished[current]===4){gameOver=true;$('turntxt').textContent=colors[current]+' player wins the game! 🏆';$('rollbtn').disabled=true;return}
- if(six||captured){$('turntxt').textContent=captured?colors[current]+' captured an opponent token — roll again!':colors[current]+' rolled a 6 — roll again!';$('rollbtn').disabled=false;renderPlayers();}
- else nextTurn(false);
+ if(six||captured){$('turntxt').textContent=captured?colors[current]+' captured an opponent token — roll again!':colors[current]+' rolled a 6 — roll again!';$('rollbtn').disabled=false;renderPlayers()}else nextTurn(false);
 }
 function nextTurn(extra){if(gameOver)return;if(!extra)current=(current+1)%4;waitingMove=false;diceValue=0;$('rollbtn').disabled=false;$('turntxt').textContent=colors[current]+' player — roll the dice';renderTokens();renderPlayers()}
 function resetLudo(){startLudo()}
