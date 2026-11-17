@@ -42,33 +42,36 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .yard-slot{border-radius:50%;background:linear-gradient(145deg,#fff,#dceaff);border:2px solid #ffffff;box-shadow:0 2px 5px #001c50;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
 .centerpiece{position:absolute;left:40%;top:40%;width:20%;height:20%;z-index:2;background:conic-gradient(#18b86d 0 25%,#f4c62b 0 50%,#278ce8 0 75%,#ef334e 0);border:1px solid #fff;display:grid;place-items:center;font-size:clamp(12px,4vw,25px)}
 
-/* Glossy 3D Ludo pawns. Each token is a miniature ball-head, narrow-neck and tapered cone. */
+/* Realistic glossy 3D pawn: tapered body + narrow neck + spherical head. */
 .token{
  width:78%;height:78%;position:absolute;z-index:5;cursor:pointer;padding:0;
  border:0;border-radius:0;background:transparent;display:block;
  color:transparent;font-size:0;line-height:1;overflow:visible;
- filter:drop-shadow(0 2px 1px #00132d88);
- pointer-events:auto;
+ filter:drop-shadow(0 2px 2px #00132dcc);pointer-events:auto;
 }
-.token::before{
- content:"";position:absolute;left:18%;bottom:2%;width:64%;height:65%;
- clip-path:polygon(29% 0,71% 0,100% 100%,0 100%);
- border-radius:0 0 24% 24%;
- background:linear-gradient(90deg,var(--pawn-dark) 0%,var(--pawn-mid) 24%,var(--pawn-light) 43%,var(--pawn-mid) 66%,var(--pawn-dark) 100%);
- box-shadow:inset 0 -2px 3px #0005,inset 2px 0 3px #fff6;
+.token .pawn-body{
+ position:absolute;left:17%;bottom:1%;width:66%;height:66%;display:block;
+ clip-path:polygon(31% 0,69% 0,100% 100%,0 100%);
+ background:linear-gradient(90deg,var(--pawn-dark) 0%,var(--pawn-mid) 22%,var(--pawn-light) 43%,#fff8 49%,var(--pawn-mid) 61%,var(--pawn-dark) 100%);
+ border-radius:0 0 22% 22%;
 }
-.token::after{
- content:"";position:absolute;left:27%;top:0;width:46%;height:46%;border-radius:50%;
- background:radial-gradient(ellipse at 32% 23%,#ffffff 0%,#ffffffb8 8%,var(--pawn-light) 24%,var(--pawn-mid) 57%,var(--pawn-dark) 100%);
- border:1px solid #ffffffb8;
- box-shadow:inset -2px -3px 4px #0005,inset 2px 2px 3px #fff9,0 1px 3px #00132d99;
+.token .pawn-neck{
+ position:absolute;left:39%;top:29%;width:22%;height:22%;display:block;
+ background:linear-gradient(90deg,var(--pawn-dark),var(--pawn-light) 45%,var(--pawn-mid) 70%,var(--pawn-dark));
+ border-radius:3px;box-shadow:inset 0 0 2px #fff9;
 }
-.token.red{--pawn-dark:#9e0826;--pawn-mid:#ed173e;--pawn-light:#ff9aaa}
-.token.green{--pawn-dark:#006b3b;--pawn-mid:#0bbd68;--pawn-light:#9affcb}
-.token.yellow{--pawn-dark:#a66b00;--pawn-mid:#f4c21c;--pawn-light:#fff1a1}
-.token.blue{--pawn-dark:#064a9a;--pawn-mid:#1689ed;--pawn-light:#a9e0ff}
+.token .pawn-head{
+ position:absolute;left:25%;top:0;width:50%;height:50%;display:block;border-radius:50%;
+ background:radial-gradient(ellipse at 31% 22%,#fff 0%,#ffffffd9 7%,var(--pawn-light) 22%,var(--pawn-mid) 55%,var(--pawn-dark) 100%);
+ border:1px solid #ffffffd9;
+ box-shadow:inset -3px -4px 5px #0006,inset 2px 2px 4px #fff,0 2px 4px #00132d99;
+}
+.token.red{--pawn-dark:#8d001f;--pawn-mid:#e9123b;--pawn-light:#ff9bad}
+.token.green{--pawn-dark:#00552e;--pawn-mid:#08ad5c;--pawn-light:#a0ffd0}
+.token.yellow{--pawn-dark:#8d5900;--pawn-mid:#efb900;--pawn-light:#fff2a0}
+.token.blue{--pawn-dark:#003e85;--pawn-mid:#087bdc;--pawn-light:#a9e2ff}
 .token.selectable{outline:2px solid #fff;outline-offset:2px;border-radius:50%;animation:tokenPulse .7s infinite alternate}
-@keyframes tokenPulse{to{outline-color:#ffe66d;filter:drop-shadow(0 0 4px #ffe66d) drop-shadow(0 2px 1px #00132d88)}}
+@keyframes tokenPulse{to{outline-color:#ffe66d;filter:drop-shadow(0 0 5px #ffe66d) drop-shadow(0 2px 2px #00132dcc)}}
 .yard-slot .token{width:86%;height:86%}
 .turnline{text-align:center;color:#ffed83;font-weight:1000;margin:10px 0 4px;font-size:14px}
 .hint{text-align:center;color:#c4e5ff;font-size:11px;margin:4px 0 10px}
@@ -330,7 +333,7 @@ function drawPawns(){
    const token=document.createElement('button');
    token.type='button';
    token.className='token '+css[p];
-   token.textContent='';
+   token.innerHTML='<span class="pawn-body"></span><span class="pawn-neck"></span><span class="pawn-head"></span>';
    token.dataset.p=p;
    token.dataset.t=t;
    token.setAttribute('aria-label',names[p]+' token '+(t+1));
