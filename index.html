@@ -34,7 +34,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #30cfff}
 .cell.lane-red{background:#ff8b9a}.cell.lane-green{background:#8af0ba}.cell.lane-yellow{background:#ffe58a}.cell.lane-blue{background:#91d0ff}
 .cell.safe:after{content:"★";color:#4568a9;font-size:clamp(7px,2vw,14px);position:absolute;inset:0;display:grid;place-items:center}
 .cell.center{background:conic-gradient(#21c96b 0 25%,#ffd23b 0 50%,#ff3b59 0 75%,#379fff 0);border:2px solid white}
-.cell.center:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}
+.cell.center:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}.cell.center{background:conic-gradient(from -45deg,#20c979 0 25%,#ffd23b 0 50%,#ff3b59 0 75%,#379fff 0);border:2px solid #fff;box-shadow:inset 0 0 0 2px #163b85}
 .token{position:absolute;width:76%;height:76%;left:12%;top:12%;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px #0008;z-index:3;display:grid;place-items:center;font-size:clamp(7px,2vw,13px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;cursor:pointer}
 .token.redt{background:#ed183b}.token.greent{background:#00a954}.token.bluet{background:#087ce0}.token.yellowt{background:#e7a900}
 .token.selectable{outline:3px solid #fff;box-shadow:0 0 0 3px #111,0 0 12px #fff;animation:pulse .7s infinite alternate}
@@ -98,7 +98,7 @@ function buildBoard(){
  }
  renderTokens();
 }
-function tokenCoord(p,t){let v=positions[p][t];if(v<0)return homeSlots[p][t];if(v<=51)return path[(starts[p]+v)%52];if(v<=56)return homeLanes[p][v-52];if(v===57)return [7,7];return [7,7]}
+function tokenCoord(p,t){let v=positions[p][t];if(v<0)return homeSlots[p][t];if(v<=51)return path[(starts[p]+v)%52];if(v<=57)return homeLanes[p][v-52];if(v===58)return [7,7];return [7,7]}
 function renderTokens(){
  document.querySelectorAll('.token').forEach(t=>t.remove());
  positions.forEach((arr,p)=>arr.forEach((v,t)=>{
@@ -112,14 +112,14 @@ function renderPlayers(){
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function startLudo(){current=0;diceValue=0;positions=Array.from({length:4},()=>[-1,-1,-1,-1]);finished=[0,0,0,0];gameOver=false;waitingMove=false;buildBoard();renderPlayers();$('dice').textContent='⚀';$('rollbtn').disabled=false;$('turntxt').textContent='Red player — roll the dice';$('messages').innerHTML='<div class="msg">Game started! Red player begins. 🎲</div>';show('ludo')}
 function isLegal(p,t){
- let v=positions[p][t];if(v===57)return false;if(v===-1)return diceValue===6;
- return v+diceValue<=57;
+ let v=positions[p][t];if(v===58)return false;if(v===-1)return diceValue===6;
+ return v+diceValue<=58;
 }
 function rollDice(){
  if(gameOver||waitingMove||diceValue)return;
  diceValue=1+Math.floor(Math.random()*6);$('dice').textContent=['','⚀','⚁','⚂','⚃','⚄','⚅'][diceValue];
  let legal=positions[current].map((_,t)=>t).filter(t=>isLegal(current,t));
- if(!legal.length){$('turntxt').textContent=colors[current]+' rolled '+diceValue+'. No legal move.';let rolled=diceValue;diceValue=0;setTimeout(()=>{if(!gameOver)nextTurn(rolled===6)},800);return}
+ if(!legal.length){$('turntxt').textContent=colors[current]+' rolled '+diceValue+'. No legal move — '+(diceValue===6?'roll again!':'next player.');let rolled=diceValue;waitingMove=true;setTimeout(()=>{if(!gameOver){waitingMove=false;nextTurn(rolled===6)}},900);return}
  waitingMove=true;renderTokens();$('turntxt').textContent=colors[current]+' rolled '+diceValue+' — tap a glowing token.';
 }
 function chooseToken(p,t){if(!waitingMove||p!==current||!isLegal(p,t))return;moveToken(t)}
@@ -133,7 +133,7 @@ function moveToken(t){
    positions.forEach((arr,p)=>{if(p===current)return;arr.forEach((v,ti)=>{if(v>=0&&v<=51&&(starts[p]+v)%52===landing){positions[p][ti]=-1;captured++}})});
   }
  }
- let justFinished=newProgress===57;
+ let justFinished=newProgress===58;
  if(justFinished)finished[current]++;
  let six=diceValue===6;diceValue=0;waitingMove=false;renderTokens();renderPlayers();
  let message=colors[current]+' moved token '+(t+1)+'.';
@@ -141,7 +141,7 @@ function moveToken(t){
  if(justFinished)message+=' Token reached home!';
  addMsg(message,false);
  if(finished[current]===4){gameOver=true;$('turntxt').textContent=colors[current]+' player wins the game! 🏆';$('rollbtn').disabled=true;return}
- if(six){$('turntxt').textContent=colors[current]+' rolled a 6 — roll again!';}
+ if(six){$('turntxt').textContent=colors[current]+' rolled a 6 — roll again!';$('rollbtn').disabled=false;}
  else nextTurn(false);
 }
 function nextTurn(extra){if(gameOver)return;if(!extra)current=(current+1)%4;waitingMove=false;diceValue=0;$('turntxt').textContent=colors[current]+' player — roll the dice';renderTokens()}
