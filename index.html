@@ -26,15 +26,15 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #30cfff}
 .player{display:flex;align-items:center;gap:8px;padding:8px;border-radius:14px;border:2px solid #fff8;background:linear-gradient(135deg,#182f91,#071747);min-width:0}
 .player.redp{border-color:#ff566a}.player.greenp{border-color:#25ed8c}.player.bluep{border-color:#53baff}.player.yellowp{border-color:#ffdc38}
 .avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:linear-gradient(#e9f8ff,#8cbcff);border:2px solid white;display:grid;place-items:center;color:#2351a2;font-size:25px;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}.pname{font-weight:900;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.online{font-size:11px;color:#57ff9c}
+.avatar img{width:100%;height:100%;object-fit:cover}.pname{font-weight:900;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.online{font-size:11px;color:#57ff9c}.player-dice{margin-left:auto;flex:0 0 34px;width:34px;height:34px;border-radius:9px;background:#fff;color:#132b65;border:2px solid #dcecff;font-size:24px;line-height:1;box-shadow:0 2px 0 #7895bd;padding:0}.player-dice:disabled{opacity:.45;filter:grayscale(.7)}.player-dice.active-dice{box-shadow:0 0 0 2px #fff,0 0 10px #fff;opacity:1;filter:none}
 .board-wrap{background:#061342;padding:7px;border-radius:18px;border:3px solid #70dfff;box-shadow:0 0 20px #00bfff88}
-.board{display:grid;grid-template-columns:repeat(15,1fr);aspect-ratio:1;background:#eaf4ff;border:2px solid #fff;gap:1px;overflow:hidden}
-.cell{position:relative;background:#fff;min-width:0;min-height:0;border:1px solid #c7d9ee;display:grid;place-items:center}
-.cell.track{background:#f9fcff}.cell.redhome{background:#ff5268}.cell.greenhome{background:#21d77b}.cell.bluehome{background:#4aafff}.cell.yellowhome{background:#ffd33e}
-.cell.lane-red{background:#ff8b9a}.cell.lane-green{background:#8af0ba}.cell.lane-yellow{background:#ffe58a}.cell.lane-blue{background:#91d0ff}
+.board{display:grid;grid-template-columns:repeat(15,1fr);aspect-ratio:1;background:#d9e2ee;border:2px solid #fff;gap:0;overflow:hidden}
+.cell{position:relative;background:#fff;min-width:0;min-height:0;border:0;display:grid;place-items:center}
+.cell.track{background:#fff}.cell.redhome{background:#ef5367}.cell.greenhome{background:#20c978}.cell.bluehome{background:#43a9ed}.cell.yellowhome{background:#ffd23e}
+.cell.lane-red{background:#ff9aaa}.cell.lane-green{background:#8ce8b7}.cell.lane-yellow{background:#ffe58a}.cell.lane-blue{background:#91ccf5}
 .cell.safe:after{content:"★";color:#4568a9;font-size:clamp(7px,2vw,14px);position:absolute;inset:0;display:grid;place-items:center}
-.cell.center{border:1px solid #fff}.cell.center-red{background:#ff5268}.cell.center-green{background:#21d77b}.cell.center-yellow{background:#ffd33e}.cell.center-blue{background:#4aafff}.cell.center-core{background:conic-gradient(from -45deg,#20c979 0 25%,#ffd33b 0 50%,#ff3b59 0 75%,#379fff 0);border:2px solid #fff;box-shadow:inset 0 0 0 2px #163b85}.cell.center-core:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}
-.token{position:absolute;width:76%;height:76%;left:12%;top:12%;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px #0008;z-index:3;display:grid;place-items:center;font-size:clamp(7px,2vw,13px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;cursor:pointer}
+.cell.center{border:0}.cell.center-red{background:#ff5368}.cell.center-green{background:#20c978}.cell.center-yellow{background:#ffd23e}.cell.center-blue{background:#43a9ed}.cell.center-core{background:conic-gradient(from -45deg,#20c978 0 25%,#ffd23e 0 50%,#ff5368 0 75%,#43a9ed 0);border:0}.cell.center-core:after{content:"🏆";font-size:clamp(10px,3vw,22px);z-index:1}
+.cell.home-spot:before{content:"";position:absolute;width:72%;height:72%;border-radius:50%;background:#fff;border:2px solid #e7edf5;box-shadow:inset 0 1px 3px #0002}.token{position:absolute;width:76%;height:76%;left:12%;top:12%;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px #0008;z-index:3;display:grid;place-items:center;font-size:clamp(7px,2vw,13px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;cursor:pointer}
 .token.redt{background:#ed183b}.token.greent{background:#00a954}.token.bluet{background:#087ce0}.token.yellowt{background:#e7a900}
 .token.selectable{outline:3px solid #fff;box-shadow:0 0 0 3px #111,0 0 12px #fff;animation:pulse .7s infinite alternate}
 @keyframes pulse{to{transform:scale(1.12)}}
@@ -83,7 +83,7 @@ const homeLanes=[
  [[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],
  [[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]
 ];
-let current=0,diceValue=0,positions=Array.from({length:4},()=>[-1,-1,-1,-1]),finished=[0,0,0,0],gameOver=false,waitingMove=false;
+let playerDice=[0,0,0,0],current=0,diceValue=0,positions=Array.from({length:4},()=>[-1,-1,-1,-1]),finished=[0,0,0,0],gameOver=false,waitingMove=false;
 function buildBoard(){
  const b=$('board');b.innerHTML='';
  for(let r=0;r<15;r++)for(let c=0;c<15;c++){
@@ -93,6 +93,7 @@ function buildBoard(){
   if(idx>=0){d.className='cell track';if(safeSquares.includes(idx))d.classList.add('safe')}
   homeLanes.forEach((lane,p)=>lane.forEach(([rr,cc])=>{if(rr===r&&cc===c)d.className='cell lane-'+['red','green','yellow','blue'][p]}));
   if(r>=6&&r<=8&&c>=6&&c<=8){d.className='cell center';if(r===7&&c===7)d.classList.add('center-core');else if(r===6&&c===6||r===6&&c===7||r===7&&c===6)d.classList.add('center-red');else if(r===6&&c===8||r===7&&c===8||r===6&&c===7)d.classList.add('center-green');else if(r===8&&c===8||r===7&&c===8||r===8&&c===7)d.classList.add('center-yellow');else d.classList.add('center-blue');}
+  if(homeSlots.some((slots)=>slots.some(([rr,cc])=>rr===r&&cc===c)))d.classList.add('home-spot');
   b.appendChild(d);
  }
  renderTokens();
@@ -106,19 +107,21 @@ function renderTokens(){
  }));
 }
 function renderPlayers(){
- $('players').innerHTML=colors.map((n,i)=>'<div class="player '+cls[i]+'"><div class="avatar">'+(i===0&&profile.photo?'<img src="'+profile.photo+'">':emojis[i])+'</div><div style="min-width:0"><div class="pname">'+(i===0?escapeHtml(profile.name):n+' Player')+'</div><div class="online">'+finished[i]+'/4 home</div></div></div>').join('');
+ $('players').innerHTML=colors.map((n,i)=>'<div class="player '+cls[i]+'"><div class="avatar">'+(i===0&&profile.photo?'<img src="'+profile.photo+'">':emojis[i])+'</div><div style="min-width:0;flex:1"><div class="pname">'+(i===0?escapeHtml(profile.name):n+' Player')+'</div><div class="online">'+finished[i]+'/4 home</div></div><button class="player-dice '+(i===current?'active-dice':'')+'" '+(i===current&&!waitingMove&&!gameOver&&diceValue===0?'':'disabled')+' onclick="rollForPlayer('+i+')" aria-label="'+n+' player dice">'+(playerDice[i]?['','⚀','⚁','⚂','⚃','⚄','⚅'][playerDice[i]]:'⚄')+'</button></div>').join('');
 }
+function rollForPlayer(p){if(p!==current)return;rollDice()}
+
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function startLudo(){current=0;diceValue=0;positions=Array.from({length:4},()=>[-1,-1,-1,-1]);finished=[0,0,0,0];gameOver=false;waitingMove=false;buildBoard();renderPlayers();$('dice').textContent='⚀';$('rollbtn').disabled=false;$('turntxt').textContent='Red player — roll the dice';$('messages').innerHTML='<div class="msg">Game started! Red player begins. 🎲</div>';show('ludo')}
+function startLudo(){current=0;diceValue=0;playerDice=[0,0,0,0];positions=Array.from({length:4},()=>[-1,-1,-1,-1]);finished=[0,0,0,0];gameOver=false;waitingMove=false;buildBoard();renderPlayers();$('dice').textContent='⚀';$('rollbtn').disabled=false;$('turntxt').textContent='Red player — roll the dice';$('messages').innerHTML='<div class="msg">Game started! Red player begins. 🎲</div>';show('ludo')}
 function isLegal(p,t){
  let v=positions[p][t];if(v===58)return false;if(v===-1)return diceValue===6;
  return v+diceValue<=58;
 }
 function rollDice(){
  if(gameOver||waitingMove||diceValue)return;
- diceValue=1+Math.floor(Math.random()*6);$('dice').textContent=['','⚀','⚁','⚂','⚃','⚄','⚅'][diceValue];
+ diceValue=1+Math.floor(Math.random()*6);playerDice[current]=diceValue;$('dice').textContent=['','⚀','⚁','⚂','⚃','⚄','⚅'][diceValue];renderPlayers();
  let legal=positions[current].map((_,t)=>t).filter(t=>isLegal(current,t));
- if(!legal.length){let rolled=diceValue;waitingMove=false;if(rolled===6){diceValue=0;$('turntxt').textContent=colors[current]+' rolled 6. No token can move — roll again!';$('rollbtn').disabled=false;}else{$('turntxt').textContent=colors[current]+' rolled '+rolled+'. No legal move — next player.';diceValue=0;$('rollbtn').disabled=true;setTimeout(()=>{if(!gameOver){$('rollbtn').disabled=false;nextTurn(false)}},700);}return}
+ if(!legal.length){let rolled=diceValue;waitingMove=false;if(rolled===6){diceValue=0;$('turntxt').textContent=colors[current]+' rolled 6. No token can move — roll again!';$('rollbtn').disabled=false;renderPlayers();}else{$('turntxt').textContent=colors[current]+' rolled '+rolled+'. No legal move — next player.';diceValue=0;$('rollbtn').disabled=true;setTimeout(()=>{if(!gameOver){$('rollbtn').disabled=false;nextTurn(false)}},700);}return}
  waitingMove=true;renderTokens();$('turntxt').textContent=colors[current]+' rolled '+diceValue+' — tap a glowing token.';
 }
 function chooseToken(p,t){if(!waitingMove||p!==current||!isLegal(p,t))return;moveToken(t)}
@@ -140,10 +143,10 @@ function moveToken(t){
  if(justFinished)message+=' Token reached home!';
  addMsg(message,false);
  if(finished[current]===4){gameOver=true;$('turntxt').textContent=colors[current]+' player wins the game! 🏆';$('rollbtn').disabled=true;return}
- if(six){$('turntxt').textContent=colors[current]+' rolled a 6 — roll again!';$('rollbtn').disabled=false;}
+ if(six||captured){$('turntxt').textContent=captured?colors[current]+' captured an opponent token — roll again!':colors[current]+' rolled a 6 — roll again!';$('rollbtn').disabled=false;renderPlayers();}
  else nextTurn(false);
 }
-function nextTurn(extra){if(gameOver)return;if(!extra)current=(current+1)%4;waitingMove=false;diceValue=0;$('rollbtn').disabled=false;$('turntxt').textContent=colors[current]+' player — roll the dice';renderTokens()}
+function nextTurn(extra){if(gameOver)return;if(!extra)current=(current+1)%4;waitingMove=false;diceValue=0;$('rollbtn').disabled=false;$('turntxt').textContent=colors[current]+' player — roll the dice';renderTokens();renderPlayers()}
 function resetLudo(){startLudo()}
 function sendChat(){let v=$('chatinput').value.trim();if(!v)return;addMsg(profile.name+': '+v,true);$('chatinput').value=''}
 function sendEmoji(e){addMsg(profile.name+': '+e,true)}
