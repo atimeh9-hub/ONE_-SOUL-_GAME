@@ -42,14 +42,33 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .yard-slot{border-radius:50%;background:linear-gradient(145deg,#fff,#dceaff);border:2px solid #ffffff;box-shadow:0 2px 5px #001c50;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
 .centerpiece{position:absolute;left:40%;top:40%;width:20%;height:20%;z-index:2;background:conic-gradient(#18b86d 0 25%,#f4c62b 0 50%,#278ce8 0 75%,#ef334e 0);border:1px solid #fff;display:grid;place-items:center;font-size:clamp(12px,4vw,25px)}
 
-/* Flat 2D classic counters. Stacked counters are laid out in a grid by drawPawns(). */
-.token{width:78%;height:78%;border-radius:50%;border:2px solid #fff;box-shadow:inset 0 0 0 2px #ffffff55;display:grid;place-items:center;font-size:clamp(7px,2vw,12px);font-weight:1000;color:#fff;text-shadow:none;z-index:5;position:absolute;cursor:pointer;padding:0;pointer-events:auto;line-height:1}
-.token.red{background:#d7193f}
-.token.green{background:#079653}
-.token.yellow{background:#d99e00;color:#17213a}
-.token.blue{background:#086bc5}
-.token.selectable{outline:2px solid #fff;outline-offset:1px;animation:tokenPulse .7s infinite alternate}
-@keyframes tokenPulse{to{outline-color:#ffe66d}}
+/* Glossy 3D Ludo pawns. Each token is a miniature ball-head, narrow-neck and tapered cone. */
+.token{
+ width:78%;height:78%;position:absolute;z-index:5;cursor:pointer;padding:0;
+ border:0;border-radius:0;background:transparent;display:block;
+ color:transparent;font-size:0;line-height:1;overflow:visible;
+ filter:drop-shadow(0 2px 1px #00132d88);
+ pointer-events:auto;
+}
+.token::before{
+ content:"";position:absolute;left:18%;bottom:2%;width:64%;height:65%;
+ clip-path:polygon(29% 0,71% 0,100% 100%,0 100%);
+ border-radius:0 0 24% 24%;
+ background:linear-gradient(90deg,var(--pawn-dark) 0%,var(--pawn-mid) 24%,var(--pawn-light) 43%,var(--pawn-mid) 66%,var(--pawn-dark) 100%);
+ box-shadow:inset 0 -2px 3px #0005,inset 2px 0 3px #fff6;
+}
+.token::after{
+ content:"";position:absolute;left:27%;top:0;width:46%;height:46%;border-radius:50%;
+ background:radial-gradient(ellipse at 32% 23%,#ffffff 0%,#ffffffb8 8%,var(--pawn-light) 24%,var(--pawn-mid) 57%,var(--pawn-dark) 100%);
+ border:1px solid #ffffffb8;
+ box-shadow:inset -2px -3px 4px #0005,inset 2px 2px 3px #fff9,0 1px 3px #00132d99;
+}
+.token.red{--pawn-dark:#9e0826;--pawn-mid:#ed173e;--pawn-light:#ff9aaa}
+.token.green{--pawn-dark:#006b3b;--pawn-mid:#0bbd68;--pawn-light:#9affcb}
+.token.yellow{--pawn-dark:#a66b00;--pawn-mid:#f4c21c;--pawn-light:#fff1a1}
+.token.blue{--pawn-dark:#064a9a;--pawn-mid:#1689ed;--pawn-light:#a9e0ff}
+.token.selectable{outline:2px solid #fff;outline-offset:2px;border-radius:50%;animation:tokenPulse .7s infinite alternate}
+@keyframes tokenPulse{to{outline-color:#ffe66d;filter:drop-shadow(0 0 4px #ffe66d) drop-shadow(0 2px 1px #00132d88)}}
 .yard-slot .token{width:86%;height:86%}
 .turnline{text-align:center;color:#ffed83;font-weight:1000;margin:10px 0 4px;font-size:14px}
 .hint{text-align:center;color:#c4e5ff;font-size:11px;margin:4px 0 10px}
@@ -311,7 +330,7 @@ function drawPawns(){
    const token=document.createElement('button');
    token.type='button';
    token.className='token '+css[p];
-   token.textContent=String(t+1);
+   token.textContent='';
    token.dataset.p=p;
    token.dataset.t=t;
    token.setAttribute('aria-label',names[p]+' token '+(t+1));
