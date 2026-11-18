@@ -344,6 +344,15 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
   background:linear-gradient(145deg,#fff 0%,#f8fbff 48%,#dce7f2 100%);
 }
 
+
+
+/* FINAL REQUEST: only star squares stay coloured. All other track,
+   start/final, and home-lane squares are white. Home yards stay coloured. */
+.board .cell.path:not(.safe),
+.board .cell.home-lane{
+  background:linear-gradient(145deg,#fff 0%,#f8fbff 48%,#dce7f2 100%) !important;
+  box-shadow:inset 0 0 0 1px #c7d5e4 !important;
+}
 </style>
 </head>
 <body>
