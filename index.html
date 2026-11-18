@@ -145,6 +145,11 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 @media(min-width:600px){.arcade-games{gap:16px}.arcade-game{min-height:205px}.game-art{height:125px}.arcade-shortcuts{margin-top:20px}.arcade-logo{margin:34px 0 28px}}
 </style>
 
+<style id="ludo-betting-styles">
+.ludo-bet-setup{margin-top:18px;padding:14px;border:1px solid #f1d78f;border-radius:17px;background:linear-gradient(145deg,#173f76,#091b3b)}
+.ludo-bet-setup[hidden]{display:none}
+.ludo-bet-setup .field input{font-weight:1000;font-size:18px}
+</style>
 </head>
 <body>
 <section id="home" class="screen active home-screen">
@@ -176,14 +181,23 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 </section>
 <section id="ludoSelect" class="screen">
  <div class="top"><button class="btn" onclick="show('home')">← Home</button><div class="brand">🎲 LUDO MODE</div><span></span></div>
- <div class="panel"><h2>Choose Players</h2><p class="note">Local pass-and-play on this device.</p><div class="select-grid">
- <button class="select-card" onclick="startLudo(2)"><b>👥</b>2 PLAYERS<small>RED vs YELLOW</small></button>
- <button class="select-card" onclick="startLudo(4)"><b>👥👥</b>4 PLAYERS<small>RED • GREEN • YELLOW • BLUE</small></button></div></div>
+ <div class="panel"><h2>Choose Players</h2><p class="note">Local pass-and-play on this device. Each player enters the same coin bet; the winner receives the full prize pool.</p><div class="select-grid">
+ <button class="select-card" onclick="chooseLudoPlayers(2)"><b>👥</b>2 PLAYERS<small>RED vs YELLOW</small></button>
+ <button class="select-card" onclick="chooseLudoPlayers(4)"><b>👥👥</b>4 PLAYERS<small>RED • GREEN • YELLOW • BLUE</small></button></div>
+ <div id="ludoBetSetup" class="ludo-bet-setup" hidden>
+  <h2>🪙 Set Game Bet</h2><p id="ludoBetPlayers" class="note">Each player pays the selected bet.</p>
+  <div class="field"><label for="ludoBet">Bet per player (500–100,000 coins)</label><input id="ludoBet" type="number" min="500" max="100000" step="500" value="500" inputmode="numeric"></div>
+  <p id="ludoBetSummary" class="note">Total prize pool: 1,000 coins</p><p id="ludoBetError" class="note" style="color:#ffd0d0"></p>
+  <button class="wide gold" onclick="confirmLudoStart()">🎲 START GAME</button>
+ </div>
+ <div class="wallet"><div>🪙 AVAILABLE COINS<strong id="ludoAvailableCoins">1,000</strong></div><div>🏆 MAX BET<strong>100,000</strong></div></div>
+ </div></div>
 </section>
 <section id="ludo" class="screen">
  <div class="top"><button class="btn" onclick="show('home')">← Games</button><div class="brand">👑 ONE SOUL LUDO</div><button class="btn" onclick="openProfile()">Profile</button></div>
  <div id="topPlayers" class="players"></div><div class="board-shell"><div id="board" class="board"></div></div><div id="bottomPlayers" class="players"></div>
  <div id="turnline" class="turnline">Red — roll your dice</div>
+  <p id="ludoPrizeInfo" class="note">Entry bet and prize pool</p>
  <div class="chat"><b>💬 GAME CHAT</b><div id="messages" class="messages"><div class="msg">Welcome to ONE SOUL! 🎮</div></div><div class="emoji"><button onclick="sendEmoji('😀')">😀</button><button onclick="sendEmoji('😍')">😍</button><button onclick="sendEmoji('😎')">😎</button><button onclick="sendEmoji('😂')">😂</button><button onclick="sendEmoji('👍')">👍</button><button onclick="sendEmoji('❤️')">❤️</button></div><div class="chatrow"><input id="chatinput" maxlength="140" placeholder="Type a message..."><button class="btn" onclick="sendChat()">➤</button></div></div>
  <p class="note">Local game mode. Online play requires a configured Firebase project and secure multiplayer rules.</p>
 </section>
@@ -228,6 +242,7 @@ const route=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[
 const homeSlots=[[[1,1],[1,4],[4,1],[4,4]],[[1,10],[1,13],[4,10],[4,13]],[[10,10],[10,13],[13,10],[13,13]],[[10,1],[10,4],[13,1],[13,4]]];
 const lanes=[[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]],safe=[0,8,13,21,26,34,39,47];
 let pawns=Array.from({length:4},()=>[-1,-1,-1,-1]),activeSeats=[0,1,2,3],turn=0,lastRoll=0,sixes=0,awaitMove=false,finished=false,rollingDice=false;
+let selectedLudoPlayers=0,ludoBet=500,ludoPrizePool=0,ludoPrizePaid=false;
 function playerLabel(p){return p===0?(profile.name||'Player 1'):names[p]}
 function cellAt(r,c){return document.querySelector('.cell[data-pos="'+r+','+c+'"]')}
 function makeBoard(){let b=$('board');b.innerHTML='';for(let r=0;r<15;r++)for(let c=0;c<15;c++){let d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c>8)d.classList.add('yellowhome');if(r>8&&c<6)d.classList.add('bluehome');let idx=route.findIndex(p=>p[0]===r&&p[1]===c);if(idx>=0){d.className='cell path';if(safe.includes(idx))d.classList.add('safe')}for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');if(r>=6&&r<=8&&c>=6&&c<=8)d.className='cell';b.appendChild(d)}
@@ -240,9 +255,13 @@ function playerCard(p){if(!activeSeats.includes(p))return '<div></div>';let acti
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderPlayers(){$('topPlayers').innerHTML=playerCard(0)+playerCard(1);$('bottomPlayers').innerHTML=playerCard(3)+playerCard(2)}
 function updateTurn(){renderPlayers();$('turnline').textContent=finished?playerLabel(turn)+' WINS THE GAME! 🏆':playerLabel(turn)+' — '+(awaitMove?'CHOOSE A TOKEN':'ROLL YOUR DICE')}
-function startLudo(count){activeSeats=count===2?[0,2]:[0,1,2,3];pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);turn=activeSeats[0];lastRoll=0;sixes=0;rollingDice=false;awaitMove=false;finished=false;$('messages').innerHTML='<div class="msg">'+count+' player game started! Good luck 🎲</div>';makeBoard();show('ludo')}
+function chooseLudoPlayers(count){selectedLudoPlayers=count;$('ludoBetSetup').hidden=false;$('ludoBet').value='500';$('ludoBetPlayers').textContent=count+' players × bet per player. The winner takes the complete prize pool.';$('ludoBetError').textContent='';updateLudoBetSummary();$('ludoAvailableCoins').textContent=fmt(coinBalance);$('ludoBetSetup').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function updateLudoBetSummary(){let bet=Math.floor(Number($('ludoBet').value)||0),count=selectedLudoPlayers||2;$('ludoBetSummary').textContent='Total prize pool: '+fmt(Math.max(0,bet*count))+' coins'}
+$('ludoBet').addEventListener('input',updateLudoBetSummary);
+function confirmLudoStart(){let bet=Number($('ludoBet').value);if(!Number.isInteger(bet)||bet<500||bet>100000){$('ludoBetError').textContent='Bet must be between 500 and 100,000 whole coins.';return}let total=bet*selectedLudoPlayers;if(coinBalance<bet){$('ludoBetError').textContent='Not enough coins. You need '+fmt(bet-coinBalance)+' more coins to enter this game.';return}ludoBet=bet;ludoPrizePool=total;ludoPrizePaid=false;coinBalance-=bet;saveWallet();startLudo(selectedLudoPlayers)}
+function startLudo(count){activeSeats=count===2?[0,2]:[0,1,2,3];pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);turn=activeSeats[0];lastRoll=0;sixes=0;rollingDice=false;awaitMove=false;finished=false;$('messages').innerHTML='<div class="msg">'+count+' player game started! Entry: '+fmt(ludoBet)+' coins each. Prize pool: '+fmt(ludoPrizePool)+' coins. Winner takes all! 🎲</div>';makeBoard();if($('ludoPrizeInfo'))$('ludoPrizeInfo').textContent='Bet: '+fmt(ludoBet)+' coins per player • Winner prize: '+fmt(ludoPrizePool)+' coins';show('ludo')}
 function rollFor(p){if(p!==turn||awaitMove||finished||rollingDice)return;rollingDice=true;lastRoll=0;renderPlayers();let n=1+Math.floor(Math.random()*6);setTimeout(()=>{if(!rollingDice||turn!==p)return;rollingDice=false;lastRoll=n;if(n===6){sixes++;if(sixes>=3){lastRoll=0;sixes=0;addMsg(playerLabel(turn)+' rolled three 6s. Turn cancelled!',false);nextPlayer();return}}else sixes=0;let legal=[];for(let t=0;t<4;t++)if(isLegal(turn,t,n))legal.push(t);if(!legal.length){addMsg(playerLabel(turn)+' rolled '+n+' — no legal move.',false);setTimeout(()=>{if(turn===p&&!awaitMove&&!finished)nextPlayer()},650);return}awaitMove=true;drawPawns();updateTurn()},900)}
-function choosePawn(p,t){if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;let roll=lastRoll,old=pawns[p][t];if(old<0){if(roll!==6)return;pawns[p][t]=0}else pawns[p][t]=old+roll;let v=pawns[p][t],captured=false;if(v<=51){let global=(starts[p]+v)%52;if(!safe.includes(global))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(playerLabel(p)+' captured '+playerLabel(op)+' token!',false)}}}awaitMove=false;if(pawns[p].every(x=>x===57)){finished=true;lastRoll=0;addMsg(playerLabel(p)+' wins! 🏆',false);drawPawns();updateTurn();return}let extra=roll===6||captured||v===57;lastRoll=0;drawPawns();if(!extra)nextPlayer();else{addMsg(playerLabel(p)+' gets another turn.',false);updateTurn()}}
+function choosePawn(p,t){if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;let roll=lastRoll,old=pawns[p][t];if(old<0){if(roll!==6)return;pawns[p][t]=0}else pawns[p][t]=old+roll;let v=pawns[p][t],captured=false;if(v<=51){let global=(starts[p]+v)%52;if(!safe.includes(global))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(playerLabel(p)+' captured '+playerLabel(op)+' token!',false)}}}awaitMove=false;if(pawns[p].every(x=>x===57)){finished=true;lastRoll=0;if(!ludoPrizePaid){coinBalance+=ludoPrizePool;ludoPrizePaid=true;saveWallet();addMsg(playerLabel(p)+' wins '+fmt(ludoPrizePool)+' coins! 🏆 Prize credited to this device wallet.',false)}else addMsg(playerLabel(p)+' wins! 🏆',false);drawPawns();updateTurn();return}let extra=roll===6||captured||v===57;lastRoll=0;drawPawns();if(!extra)nextPlayer();else{addMsg(playerLabel(p)+' gets another turn.',false);updateTurn()}}
 function nextPlayer(){sixes=0;turn=activeSeats[(activeSeats.indexOf(turn)+1)%activeSeats.length];lastRoll=0;awaitMove=false;rollingDice=false;updateTurn();drawPawns()}
 function addMsg(s,me){let d=document.createElement('div');d.className='msg'+(me?' me':'');d.textContent=s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
 function sendChat(){let s=$('chatinput').value.trim();if(!s)return;addMsg((profile.name||'You')+': '+s,true);$('chatinput').value=''}
