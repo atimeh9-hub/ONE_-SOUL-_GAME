@@ -129,7 +129,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .cell.yellowhome{background:linear-gradient(145deg,#fff09a 0%,#f5c52e 45%,#9b7000 100%);box-shadow:inset 0 0 5px #73500055}
 .cell.bluehome{background:linear-gradient(145deg,#83d6ff 0%,#278ce8 45%,#004582 100%);box-shadow:inset 0 0 5px #00315f55}
 .cell.home-lane.redlane{background:linear-gradient(145deg,#ffe1e6,#ff91a4 55%,#ed6b83);box-shadow:inset 0 0 0 1px #df6d82}
-.cell.home-lane.greenlane{background:linear-gradient(145deg,#e1fff0,#8be9b9 55%,#60d397);box-shadow:inset 0 0 0 1px #59c58a}
+.cell.home-lane.greenlane{background:linear-gradient(145deg,#e1fff0,#8be9bb 55%,#60d397);box-shadow:inset 0 0 0 1px #59c58a}
 .cell.home-lane.yellowlane{background:linear-gradient(145deg,#fffbe0,#ffeb91 55%,#f2d25d);box-shadow:inset 0 0 0 1px #e2c04e}
 .cell.home-lane.bluelane{background:linear-gradient(145deg,#e8f7ff,#9bd6ff 55%,#71b9ee);box-shadow:inset 0 0 0 1px #6baee0}
 .cell.safe:after{content:"★";font-size:clamp(8px,2.3vw,16px);color:#405a7a;text-shadow:0 1px 0 #fff,0 0 5px #fff;filter:drop-shadow(0 1px 1px #7187a0)}
@@ -374,6 +374,90 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
    make its five-second roll visibly faster. */
 .player{gap:2px !important}
 .mini-dice.rolling{animation:diceSpin .35s linear infinite !important;will-change:transform}
+
+/* FINAL PAWN-ONLY CHANGE: upright, classic 3D Ludo pawns */
+.token{
+  width:78%;
+  height:88%;
+  position:absolute;
+  z-index:5;
+  display:block;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  overflow:visible;
+  cursor:pointer;
+  transform-origin:center bottom;
+  filter:drop-shadow(0 4px 3px #00132dcc);
+}
+.token .pawn-body{
+  position:absolute;
+  left:12%;
+  bottom:2%;
+  width:76%;
+  height:58%;
+  display:block;
+  clip-path:polygon(34% 0,66% 0,100% 100%,0 100%);
+  border-radius:0 0 28% 28%;
+  background:linear-gradient(90deg,
+    var(--pawn-dark) 0%,
+    var(--pawn-mid) 22%,
+    var(--pawn-light) 42%,
+    #ffffff 49%,
+    var(--pawn-light) 54%,
+    var(--pawn-mid) 76%,
+    var(--pawn-dark) 100%);
+  box-shadow:inset 0 -4px 5px #0007;
+}
+.token .pawn-neck{
+  position:absolute;
+  left:39%;
+  top:34%;
+  width:22%;
+  height:22%;
+  display:block;
+  border-radius:4px;
+  background:linear-gradient(90deg,
+    var(--pawn-dark),
+    var(--pawn-mid) 25%,
+    var(--pawn-light) 44%,
+    #fff 50%,
+    var(--pawn-mid) 72%,
+    var(--pawn-dark));
+  box-shadow:inset 1px 0 3px #fff9,inset -2px 0 3px #0007;
+}
+.token .pawn-head{
+  position:absolute;
+  left:23%;
+  top:0;
+  width:54%;
+  height:54%;
+  display:block;
+  border-radius:50%;
+  border:1px solid #ffffff;
+  background:radial-gradient(ellipse at 30% 22%,
+    #fff 0%,
+    #ffffff 8%,
+    var(--pawn-light) 23%,
+    var(--pawn-mid) 58%,
+    var(--pawn-dark) 100%);
+  box-shadow:
+    inset -4px -5px 7px #0008,
+    inset 2px 2px 5px #ffffff,
+    0 3px 6px #00132dcc;
+}
+.token.red{--pawn-dark:#85001e;--pawn-mid:#ed123b;--pawn-light:#ff9bad}
+.token.green{--pawn-dark:#004c29;--pawn-mid:#08ad5c;--pawn-light:#a0ffd0}
+.token.yellow{--pawn-dark:#805000;--pawn-mid:#efb900;--pawn-light:#fff2a0}
+.token.blue{--pawn-dark:#00356e;--pawn-mid:#087bdc;--pawn-light:#a9e2ff}
+.token.selectable{
+  outline:2px solid #fff;
+  outline-offset:2px;
+  border-radius:50%;
+  animation:tokenPulse .7s infinite alternate;
+}
+.yard-slot .token{width:86%;height:88%}
 </style>
 </head>
 <body>
