@@ -153,6 +153,89 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
   box-shadow:inset -3px -4px 6px #0007,inset 2px 2px 5px #fff,0 3px 5px #00132dbb,0 0 4px #fff9;
 }
 @media(max-width:390px){.screen{padding:7px}.players{gap:5px}.player{padding:5px;gap:5px}.avatar{width:33px;height:33px;flex-basis:33px}.mini-dice{width:34px;height:34px;flex-basis:34px;font-size:23px}.pname{font-size:11px}.board-shell{padding:4px}.game{min-height:145px}.game b{font-size:55px}}
+
+/* ONE SOUL — refined classic 3D board finish (CSS only) */
+.board-shell{
+  padding:8px;
+  background:linear-gradient(145deg,#f7fdff 0%,#8fe1ff 5%,#174b7d 18%,#06152f 76%,#02091d 100%);
+  border:3px solid #c9f5ff;
+  border-radius:25px;
+  box-shadow:0 13px 26px #000a,0 0 0 2px #28618f,0 0 28px #18caff88,inset 0 2px 3px #fff;
+}
+.board{
+  gap:1px;
+  background:linear-gradient(135deg,#405b7b,#dce9f4 48%,#405b7b);
+  border:3px solid #f9fdff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:inset 0 0 0 2px #24415f,inset 0 0 14px #001b3b99,0 4px 10px #00132baa;
+}
+.cell{
+  background:linear-gradient(145deg,#fff 0%,#f4f8fd 55%,#d9e5f1 100%);
+  box-shadow:inset 0 0 0 1px #9aafc5,inset 0 2px 3px #fff;
+}
+.cell.path{
+  background:linear-gradient(145deg,#fff 0%,#f8fbff 48%,#dce7f2 100%);
+  box-shadow:inset 0 0 0 1px #8fa5bc,inset 0 2px 3px #fff;
+}
+.cell.redhome{background:linear-gradient(145deg,#ff8294 0%,#f02c50 48%,#a8002b 100%);box-shadow:inset 0 0 9px #79001e66}
+.cell.greenhome{background:linear-gradient(145deg,#7ff7bd 0%,#18bd70 48%,#00683c 100%);box-shadow:inset 0 0 9px #004b2b66}
+.cell.yellowhome{background:linear-gradient(145deg,#fff3a8 0%,#f4c52e 48%,#987000 100%);box-shadow:inset 0 0 9px #73500066}
+.cell.bluehome{background:linear-gradient(145deg,#8edbff 0%,#278ce8 48%,#00427e 100%);box-shadow:inset 0 0 9px #00315f66}
+.cell.home-lane.redlane{background:linear-gradient(145deg,#ffe9ed,#ff9cac 55%,#ed7188);box-shadow:inset 0 0 0 1px #d96b80,inset 0 2px 2px #fff9}
+.cell.home-lane.greenlane{background:linear-gradient(145deg,#e9fff3,#91edbd 55%,#58cd91);box-shadow:inset 0 0 0 1px #55bf86,inset 0 2px 2px #fff9}
+.cell.home-lane.yellowlane{background:linear-gradient(145deg,#fffde9,#ffed9c 55%,#eacb5a);box-shadow:inset 0 0 0 1px #d7b94c,inset 0 2px 2px #fff9}
+.cell.home-lane.bluelane{background:linear-gradient(145deg,#eefaff,#a4dcff 55%,#6bb7eb);box-shadow:inset 0 0 0 1px #69aede,inset 0 2px 2px #fff9}
+.cell.safe:after{
+  content:"★";font-size:clamp(9px,2.35vw,16px);color:#405b7c;
+  text-shadow:0 1px 0 #fff,0 0 5px #fff;
+  filter:drop-shadow(0 1px 1px #627c9a);
+}
+.yard{
+  width:40%;height:40%;padding:5.2%;gap:8%;
+  border:3px solid #f9fdff;border-radius:5px;
+  box-shadow:inset 0 0 0 2px #ffffff77,inset 0 0 22px #001b4d66,0 4px 9px #00132baa;
+}
+.yard.redyard{background:linear-gradient(145deg,#ff657d 0%,#df1239 48%,#870020 100%)}
+.yard.greenyard{background:linear-gradient(145deg,#59f0a8 0%,#07965a 48%,#004b2c 100%)}
+.yard.yellowyard{background:linear-gradient(145deg,#fff08b 0%,#dca900 48%,#785300 100%)}
+.yard.blueyard{background:linear-gradient(145deg,#67caff 0%,#0875cb 48%,#003568 100%)}
+.yard-slot{
+  border-radius:50%;
+  background:radial-gradient(circle at 31% 23%,#fff 0%,#fbfdff 37%,#e0eaf5 72%,#a8bdd4 100%);
+  border:2px solid #fff;
+  box-shadow:inset 0 3px 7px #61799466,inset 0 -2px 4px #fff,0 4px 7px #00132bbb;
+}
+.centerpiece{
+  left:40%;top:40%;width:20%;height:20%;z-index:6;
+  background:conic-gradient(from -45deg,#ef334e 0deg 90deg,#19bd70 90deg 180deg,#f5c52e 180deg 270deg,#278ce8 270deg 360deg);
+  border:2px solid #fff;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+  filter:drop-shadow(0 4px 5px #00132bdd);
+  font-size:0;
+}
+.centerpiece:after{
+  content:"★";position:absolute;inset:0;display:grid;place-items:center;
+  color:#fff;font-size:clamp(12px,3.2vw,22px);
+  text-shadow:0 2px 4px #00132b,0 0 5px #fff;
+}
+.token{filter:drop-shadow(0 3px 2px #00132dcc) drop-shadow(0 0 1px #fff9)}
+.token .pawn-body{
+  background:linear-gradient(90deg,var(--pawn-dark) 0%,var(--pawn-mid) 20%,var(--pawn-light) 42%,#ffffffc9 49%,var(--pawn-mid) 62%,var(--pawn-dark) 100%);
+  filter:drop-shadow(0 2px 1px #0008);
+}
+.token .pawn-neck{
+  box-shadow:inset 0 1px 2px #fff, inset 0 -2px 2px #0006,0 1px 2px #0006;
+}
+.token .pawn-head{
+  background:radial-gradient(ellipse at 29% 20%,#fff 0%,#ffffffed 6%,var(--pawn-light) 20%,var(--pawn-mid) 56%,var(--pawn-dark) 100%);
+  box-shadow:inset -3px -4px 6px #0008,inset 2px 2px 5px #fff,0 3px 6px #00132dcc,0 0 4px #fff9;
+}
+@media(max-width:390px){
+  .board-shell{padding:6px;border-radius:19px}
+  .board{border-width:2px}
+  .yard{border-width:2px;padding:5.2%;gap:7%}
+}
+
 </style>
 </head>
 <body>
