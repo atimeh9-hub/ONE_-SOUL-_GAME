@@ -23,7 +23,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .game{min-height:170px;border-radius:24px;border:3px solid #ffffff99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:21px;font-weight:1000;text-shadow:0 2px 4px #0009;box-shadow:0 6px 0 #0006,0 0 16px #fff4}
 .game b{font-size:64px}.g1{background:linear-gradient(145deg,#22b8ff,#0753c7)}.g2{background:linear-gradient(145deg,#37e5a0,#087d9c)}.g3{background:linear-gradient(145deg,#3bd7ad,#087c70)}
 .players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;align-items:center}
-.player{display:flex;align-items:center;justify-content:flex-start;gap:2px;padding:5px 9px;border-radius:20px;background:linear-gradient(135deg,#1768b9,#064b91);border:0;min-width:0;min-height:58px;box-shadow:0 3px 0 #001b4d}
+.player{display:flex;align-items:center;justify-content:flex-start;gap:7px;padding:5px 9px;border-radius:20px;background:linear-gradient(135deg,#1768b9,#064b91);border:0;min-width:0;min-height:58px;box-shadow:0 3px 0 #001b4d}
 .player.active{box-shadow:0 3px 0 #001b4d,0 0 10px #39caff66;filter:brightness(1.05)}
 .avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:0;display:grid;place-items:center;color:#173d85;font-size:29px;overflow:hidden;box-shadow:none}
 .avatar img{width:100%;height:100%;object-fit:cover}
@@ -32,7 +32,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .avatar-action{position:absolute;top:-7px;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;padding:0;font-size:12px;line-height:1;border:1.5px solid #fff;box-shadow:0 1px 4px #00143d;z-index:8}
 .avatar-gift{left:-5px;background:linear-gradient(145deg,#ffe77c,#f08a00)}
 .avatar-friend{right:-5px;background:linear-gradient(145deg,#8cecff,#0873df)}
-.mini-dice.rolling{animation:diceSpin .6s linear infinite;will-change:transform}
+.mini-dice.rolling{animation:diceSpin .8s linear infinite;will-change:transform}
 @keyframes diceSpin{0%{transform:rotate(0) scale(1)}25%{transform:rotate(90deg) scale(1.12)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.12)}100%{transform:rotate(360deg) scale(1)}}
 .pinfo{min-width:0;flex:1;text-align:center}.pname{font-weight:1000;font-size:clamp(12px,3.2vw,17px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 3px #001b4d}
 .status{font-size:10px;color:#d8fff0;margin-top:2px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}
@@ -41,7 +41,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .mini-gift:active{transform:translateY(2px);box-shadow:0 1px 0 #8a4b00}
 .player:nth-child(2){flex-direction:row-reverse}
 .player:nth-child(2) .pinfo{text-align:center}
-@media(max-width:390px){.players{gap:5px}.player{gap:2px;padding:4px;min-height:48px}.avatar{width:42px;height:42px;flex-basis:42px;font-size:23px}.avatar-wrap{width:42px;height:42px;flex-basis:42px}.avatar-wrap .avatar{width:42px;height:42px}.avatar-action{width:18px;height:18px;font-size:10px;top:-6px}.mini-dice{width:42px;height:42px;flex-basis:42px;font-size:26px}.pname{font-size:11px}}
+@media(max-width:390px){.players{gap:5px}.player{gap:4px;padding:4px;min-height:48px}.avatar{width:42px;height:42px;flex-basis:42px;font-size:23px}.avatar-wrap{width:42px;height:42px;flex-basis:42px}.avatar-wrap .avatar{width:42px;height:42px}.avatar-action{width:18px;height:18px;font-size:10px;top:-6px}.mini-dice{width:42px;height:42px;flex-basis:42px;font-size:26px}.pname{font-size:11px}}
 .board-shell{padding:7px;background:linear-gradient(145deg,#10285c,#020b2c);border:3px solid #73dfff;border-radius:16px;box-shadow:0 0 18px #00bfff88}
 .board{position:relative;width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#7891b5;border:2px solid #fff;overflow:hidden}
 .cell{position:relative;background:#fff;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
@@ -368,6 +368,12 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
   background:linear-gradient(145deg,#fff 0%,#f8fbff 48%,#dce7f2 100%) !important;
   box-shadow:inset 0 0 0 1px #c7d5e4 !important;
 }
+
+
+/* Requested correction: keep the dice beside the profile picture and
+   make its five-second roll visibly faster. */
+.player{gap:2px !important}
+.mini-dice.rolling{animation:diceSpin .35s linear infinite !important;will-change:transform}
 </style>
 </head>
 <body>
