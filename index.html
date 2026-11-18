@@ -825,6 +825,9 @@ function choosePawn(p,t){
 }
 
 function nextPlayer(){
+ // A consecutive-six streak belongs to the current player only.
+ // Reset it whenever the turn passes to the next player.
+ sixes=0;
  turn=(turn+1)%4;
  lastRoll=0;
  awaitMove=false;
