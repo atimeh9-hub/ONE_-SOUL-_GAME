@@ -22,14 +22,19 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
 .game{min-height:170px;border-radius:24px;border:3px solid #ffffff99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:21px;font-weight:1000;text-shadow:0 2px 4px #0009;box-shadow:0 6px 0 #0006,0 0 16px #fff4}
 .game b{font-size:64px}.g1{background:linear-gradient(145deg,#22b8ff,#0753c7)}.g2{background:linear-gradient(145deg,#37e5a0,#087d9c)}.g3{background:linear-gradient(145deg,#3bd7ad,#087c70)}
-.players{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
-.player{display:flex;align-items:center;gap:7px;padding:7px;border-radius:14px;background:linear-gradient(135deg,#1b3d8c,#07163d);border:2px solid var(--pc);min-width:0;box-shadow:0 0 9px color-mix(in srgb,var(--pc),transparent 55%)}
-.player.active{box-shadow:0 0 0 2px #fff,0 0 17px var(--pc);background:linear-gradient(135deg,#254da6,#10265c)}
-.avatar{width:39px;height:39px;flex:0 0 39px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:2px solid #fff;display:grid;place-items:center;color:#173d85;font-size:23px;overflow:hidden}
+.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;align-items:center}
+.player{display:flex;align-items:center;gap:7px;padding:5px 9px;border-radius:28px;background:linear-gradient(135deg,#1768b9,#064b91);border:2px solid var(--pc);min-width:0;min-height:58px;box-shadow:0 3px 0 #001b4d,0 0 9px color-mix(in srgb,var(--pc),transparent 55%)}
+.player.active{box-shadow:0 0 0 2px #fff,0 0 17px var(--pc);filter:brightness(1.12)}
+.avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:3px solid #fff;display:grid;place-items:center;color:#173d85;font-size:29px;overflow:hidden;box-shadow:0 2px 5px #001b4d}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.pinfo{min-width:0;flex:1}.pname{font-weight:1000;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.status{font-size:10px;color:#76ffb4;margin-top:3px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}
-.mini-dice{width:39px;height:39px;flex:0 0 39px;border-radius:10px;background:#fff;color:#09265f;border:2px solid #bcefff;box-shadow:0 2px 0 #698bb9;font-size:25px;font-weight:1000;display:grid;place-items:center;padding:0}
+.pinfo{min-width:0;flex:1;text-align:center}.pname{font-weight:1000;font-size:clamp(12px,3.2vw,17px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 3px #001b4d}
+.status{font-size:10px;color:#d8fff0;margin-top:2px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}
+.mini-dice{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:linear-gradient(#fff,#dceaff);color:#09265f;border:2px solid #bcefff;box-shadow:0 2px 0 #698bb9;font-size:20px;font-weight:1000;display:grid;place-items:center;padding:0}
+.mini-gift{width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:linear-gradient(145deg,#ffdf72,#f08a00);color:#552600;border:2px solid #fff0b3;box-shadow:0 3px 0 #8a4b00;font-size:19px;display:grid;place-items:center;padding:0}
+.mini-gift:active{transform:translateY(2px);box-shadow:0 1px 0 #8a4b00}
+.player:nth-child(2){flex-direction:row-reverse}
+.player:nth-child(2) .pinfo{text-align:center}
+@media(max-width:390px){.players{gap:5px}.player{gap:4px;padding:4px;min-height:48px}.avatar{width:42px;height:42px;flex-basis:42px;font-size:23px}.mini-dice{width:34px;height:34px;flex-basis:34px;font-size:22px}.pname{font-size:11px}}
 .board-shell{padding:7px;background:linear-gradient(145deg,#10285c,#020b2c);border:3px solid #73dfff;border-radius:16px;box-shadow:0 0 18px #00bfff88}
 .board{position:relative;width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#7891b5;border:2px solid #fff;overflow:hidden}
 .cell{position:relative;background:#fff;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
@@ -382,7 +387,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 </div>
 <div class="chatrow"><input id="chatinput" maxlength="140" placeholder="Type a message..."><button class="btn" onclick="sendChat()">➤</button></div>
 </div>
-<p class="note">Local pass-and-play on this device. Online multiplayer is not connected.</p>
+<p class="note">Local pass-and-play on this device. Gifts abhi local game chat mein nazar aate hain; online gifts ke liye Firebase multiplayer connection zaroori hai.</p>
 </section>
 
 <section id="profile" class="screen">
@@ -394,7 +399,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 <div class="field"><label>Enter Name</label><input id="playerName" maxlength="18" placeholder="Your name"></div>
 <button class="wide" onclick="saveProfile()">SAVE PROFILE</button>
 </div>
-<p class="note">Profile is saved in this browser on this device.</p>
+<p class="note">Picture aur name optional hain. Name khali ho to game mein Guest ID nazar aayegi. Profile isi device par save hoti hai.</p>
 </section>
 
 <section id="settings" class="screen">
@@ -431,14 +436,14 @@ function show(id){
 
 let previousScreen='home';
 let profile={
- name:localStorage.getItem('os_name')||'You',
+ name:localStorage.getItem('os_name')||'',
  photo:localStorage.getItem('os_photo')||''
 };
 
 function openProfile(){
  previousScreen=document.querySelector('.screen.active').id;
  $('playerName').value=profile.name;
- $('preview').innerHTML=profile.photo?'<img src="'+profile.photo+'">':'👤';
+ $('preview').innerHTML=profile.photo?'<img src="'+profile.photo+'">':'';
  show('profile');
 }
 
@@ -460,12 +465,12 @@ function loadPhoto(e){
 
 function removePhoto(){
  profile.photo='';
- $('preview').textContent='👤';
+ $('preview').textContent='';
  $('photo').value='';
 }
 
 function saveProfile(){
- profile.name=$('playerName').value.trim()||'You';
+ profile.name=$('playerName').value.trim();
  localStorage.setItem('os_name',profile.name);
  if(profile.photo)localStorage.setItem('os_photo',profile.photo);
  else localStorage.removeItem('os_photo');
@@ -473,10 +478,10 @@ function saveProfile(){
  show(previousScreen);
 }
 
-const names=['Red','Green','Yellow','Blue'];
+const names=['Player 1','Player 2','Player 3','Player 4'];
 const css=['red','green','yellow','blue'];
 const hex=['#ef334e','#19bd70','#f5c52e','#278ce8'];
-const face=['🔴','🟢','🟡','🔵'];
+const face=['','','',''];
 const starts=[0,13,26,39];
 
 const route=[
@@ -646,10 +651,21 @@ function drawPawns(){
  }
 }
 
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+function sendGift(p){
+ const gifts=['🎁','🌹','❤️','💎','👑','⭐','🍫','🧸'];
+ const choice=prompt('Gift for '+(p===0?(profile.name||'Guest ID'):names[p])+':\\n'+gifts.join('  ')+'\\n\\nType or paste one gift emoji:','🎁');
+ if(!choice||!choice.trim())return;
+ addMsg('🎁 '+(profile.name||'Guest ID')+' sent '+choice.trim()+' to '+(p===0?(profile.name||'Guest ID'):names[p])+'!',true);
+}
+
 function playerCard(p){
  const active=p===turn&&!finished;
- const pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':face[p];
- const nm=p===0?profile.name:names[p]+' Player';
+ const pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':(p===0&&!profile.photo?'':face[p]);
+ const nm=p===0?(profile.name?escapeHTML(profile.name):'Guest ID'):names[p];
 
  let diceText='🎲';
  if(p===turn&&lastRoll>0)diceText=String(lastRoll);
@@ -659,14 +675,15 @@ function playerCard(p){
  '<div class="pinfo"><div class="pname">'+nm+'</div>'+
  '<div class="status">● '+(active?'YOUR TURN':'Waiting')+'</div>'+
  (active?'<div class="turntag">'+(awaitMove?'SELECT TOKEN':'ROLL NOW')+'</div>':'')+
- '</div><button class="mini-dice" '+
+ '</div><button class="mini-gift" onclick="sendGift('+p+')" aria-label="Send gift to '+names[p]+'" title="Send gift">🎁</button>'+
+ '<button class="mini-dice" '+
  (active&&!awaitMove?'':'disabled')+
  ' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+diceText+'</button></div>';
 }
 
 function renderPlayers(){
  $('topPlayers').innerHTML=playerCard(0)+playerCard(1);
- $('bottomPlayers').innerHTML=playerCard(3)+playerCard(2);
+ $('bottomPlayers').innerHTML=playerCard(2)+playerCard(3);
 }
 
 function updateTurn(){
