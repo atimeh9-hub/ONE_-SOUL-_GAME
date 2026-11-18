@@ -27,16 +27,21 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .player.active{box-shadow:0 0 0 2px #fff,0 0 17px var(--pc);filter:brightness(1.12)}
 .avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:3px solid #fff;display:grid;place-items:center;color:#173d85;font-size:29px;overflow:hidden;box-shadow:0 2px 5px #001b4d}
 .avatar img{width:100%;height:100%;object-fit:cover}
+.avatar-wrap{position:relative;flex:0 0 54px;width:54px;height:54px}
+.avatar-wrap .avatar{width:54px;height:54px}
+.avatar-action{position:absolute;top:-7px;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;padding:0;font-size:12px;line-height:1;border:1.5px solid #fff;box-shadow:0 1px 4px #00143d;z-index:8}
+.avatar-gift{left:-5px;background:linear-gradient(145deg,#ffe77c,#f08a00)}
+.avatar-friend{right:-5px;background:linear-gradient(145deg,#8cecff,#0873df)}
+.mini-dice.rolling{animation:diceSpin .72s ease-in-out infinite}
+@keyframes diceSpin{0%{transform:rotate(0) scale(1)}25%{transform:rotate(90deg) scale(1.12)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.12)}100%{transform:rotate(360deg) scale(1)}}
 .pinfo{min-width:0;flex:1;text-align:center}.pname{font-weight:1000;font-size:clamp(12px,3.2vw,17px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 3px #001b4d}
 .status{font-size:10px;color:#d8fff0;margin-top:2px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}
 .mini-dice{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:linear-gradient(#fff,#dceaff);color:#09265f;border:2px solid #bcefff;box-shadow:0 2px 0 #698bb9;font-size:20px;font-weight:1000;display:grid;place-items:center;padding:0}
-.mini-dice.rolling{animation:diceSpin .72s ease-in-out infinite}
-@keyframes diceSpin{0%{transform:rotate(0) scale(1)}25%{transform:rotate(90deg) scale(1.12)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.12)}100%{transform:rotate(360deg) scale(1)}}
 .mini-gift{width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:linear-gradient(145deg,#ffdf72,#f08a00);color:#552600;border:2px solid #fff0b3;box-shadow:0 3px 0 #8a4b00;font-size:19px;display:grid;place-items:center;padding:0}
 .mini-gift:active{transform:translateY(2px);box-shadow:0 1px 0 #8a4b00}
 .player:nth-child(2){flex-direction:row-reverse}
 .player:nth-child(2) .pinfo{text-align:center}
-@media(max-width:390px){.players{gap:5px}.player{gap:4px;padding:4px;min-height:48px}.avatar{width:42px;height:42px;flex-basis:42px;font-size:23px}.mini-dice{width:34px;height:34px;flex-basis:34px;font-size:22px}.pname{font-size:11px}}
+@media(max-width:390px){.players{gap:5px}.player{gap:4px;padding:4px;min-height:48px}.avatar{width:42px;height:42px;flex-basis:42px;font-size:23px}.avatar-wrap{width:42px;height:42px;flex-basis:42px}.avatar-wrap .avatar{width:42px;height:42px}.avatar-action{width:18px;height:18px;font-size:10px;top:-6px}.mini-dice{width:34px;height:34px;flex-basis:34px;font-size:22px}.pname{font-size:11px}}
 .board-shell{padding:7px;background:linear-gradient(145deg,#10285c,#020b2c);border:3px solid #73dfff;border-radius:16px;box-shadow:0 0 18px #00bfff88}
 .board{position:relative;width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);gap:1px;background:#7891b5;border:2px solid #fff;overflow:hidden}
 .cell{position:relative;background:#fff;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
@@ -664,28 +669,31 @@ function sendGift(p){
  addMsg('🎁 '+(profile.name||'Guest ID')+' sent '+choice.trim()+' to '+(p===0?(profile.name||'Guest ID'):names[p])+'!',true);
 }
 
+function addFriend(p){
+ const friend=prompt('Add friend — enter player name:','');
+ if(!friend||!friend.trim())return;
+ addMsg('👥 Friend request sent to '+friend.trim()+' (local demo).',true);
+}
+
 function playerCard(p){
  const active=p===turn&&!finished;
  const pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':(p===0&&!profile.photo?'':face[p]);
  const nm=p===0?(profile.name?escapeHTML(profile.name):'Guest ID'):names[p];
-
- let diceText='🎲';
- if(p===turn&&lastRoll>0&&!rollingDice)diceText=String(lastRoll);
-
  return '<div class="player '+(active?'active':'')+'" style="--pc:'+hex[p]+'">'+
- '<div class="avatar">'+pic+'</div>'+
+ '<div class="avatar-wrap"><div class="avatar">'+pic+'</div>'+
+ '<button class="avatar-action avatar-gift" onclick="sendGift('+p+')" aria-label="Send gift" title="Gift">🎁</button>'+
+ '<button class="avatar-action avatar-friend" onclick="addFriend('+p+')" aria-label="Add friend" title="Add friend">＋</button></div>'+
  '<div class="pinfo"><div class="pname">'+nm+'</div>'+
  '<div class="status">● '+(active?'YOUR TURN':'Waiting')+'</div>'+
  (active?'<div class="turntag">'+(awaitMove?'SELECT TOKEN':'ROLL NOW')+'</div>':'')+
- '</div><button class="mini-gift" onclick="sendGift('+p+')" aria-label="Send gift to '+names[p]+'" title="Send gift">🎁</button>'+
- '<button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" '+
+ '</div><button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" '+
  (active&&!awaitMove&&!rollingDice?'':'disabled')+
- ' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+diceText+'</button></div>';
+ ' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+(active&&rollingDice?'🎲':(active&&lastRoll?lastRoll:'🎲'))+'</button></div>';
 }
 
 function renderPlayers(){
  $('topPlayers').innerHTML=playerCard(0)+playerCard(1);
- $('bottomPlayers').innerHTML=playerCard(2)+playerCard(3);
+ $('bottomPlayers').innerHTML=playerCard(3)+playerCard(2);
 }
 
 function updateTurn(){
@@ -707,9 +715,9 @@ function startLudo(){
  turn=0;
  lastRoll=0;
  sixes=0;
+ rollingDice=false;
  awaitMove=false;
  finished=false;
- rollingDice=false;
 
  $('messages').innerHTML='<div class="msg">Game started! Good luck 🎲</div>';
 
@@ -727,22 +735,23 @@ function isLegal(p,t,roll){
  return v+roll<=57;
 }
 
-/* Dice animates first, then shows the rolled number 1-6 */
+/* Dice spins first, then displays the rolled number before the move. */
 function rollFor(p){
  if(p!==turn||awaitMove||finished||rollingDice)return;
 
- const n=1+Math.floor(Math.random()*6);
  rollingDice=true;
+ lastRoll=0;
  renderPlayers();
+ const n=1+Math.floor(Math.random()*6);
 
  setTimeout(()=>{
+  if(!rollingDice||turn!==p)return;
   rollingDice=false;
   lastRoll=n;
   renderPlayers();
 
   if(n===6){
    sixes++;
-
    if(sixes>=3){
     lastRoll=0;
     sixes=0;
@@ -755,15 +764,12 @@ function rollFor(p){
   }
 
   const legal=[];
-
   for(let t=0;t<4;t++){
    if(isLegal(turn,t,n))legal.push(t);
   }
-
   if(!legal.length){
    addMsg(names[turn]+' rolled '+n+' — no legal move.',false);
-   lastRoll=0;
-   nextPlayer();
+   setTimeout(()=>{if(turn===p&&!awaitMove&&!finished)nextPlayer();},650);
    return;
   }
 
@@ -773,7 +779,6 @@ function rollFor(p){
  },750);
 }
 
-/* Six brings the pawn out of its yard */
 function choosePawn(p,t){
  if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;
 
