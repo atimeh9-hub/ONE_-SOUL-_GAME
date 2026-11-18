@@ -255,6 +255,30 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
   box-shadow:inset 0 0 0 1px #0866bd,inset 0 2px 3px #fff9,0 0 3px #35aaff;
 }
 
+
+/* Bright player-coloured start squares and the last square before each home lane.
+   Pure CSS grid targeting: game JavaScript and movement rules remain untouched. */
+.board > .cell:nth-child(107), .board > .cell:nth-child(106) {
+  background:linear-gradient(145deg,#ffb0bd 0%,#ff3158 38%,#d60032 100%) !important;
+  border:2px solid #fff !important;
+  box-shadow:inset 0 0 0 2px #ffdce2,inset 0 0 10px #8a001e99,0 0 7px #ff3158 !important;
+}
+.board > .cell:nth-child(39), .board > .cell:nth-child(8) {
+  background:linear-gradient(145deg,#b9ffda 0%,#20e783 38%,#00964c 100%) !important;
+  border:2px solid #fff !important;
+  box-shadow:inset 0 0 0 2px #e2fff0,inset 0 0 10px #005c3299,0 0 7px #20e783 !important;
+}
+.board > .cell:nth-child(149), .board > .cell:nth-child(120) {
+  background:linear-gradient(145deg,#fff8b7 0%,#ffdc27 38%,#e7a900 100%) !important;
+  border:2px solid #fff !important;
+  box-shadow:inset 0 0 0 2px #fffde0,inset 0 0 10px #8d650099,0 0 7px #ffdc27 !important;
+}
+.board > .cell:nth-child(217), .board > .cell:nth-child(218) {
+  background:linear-gradient(145deg,#c5efff 0%,#39b8ff 38%,#006fe0 100%) !important;
+  border:2px solid #fff !important;
+  box-shadow:inset 0 0 0 2px #e7f9ff,inset 0 0 10px #003c8799,0 0 7px #39b8ff !important;
+}
+
 </style>
 </head>
 <body>
