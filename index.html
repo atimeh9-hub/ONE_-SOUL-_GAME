@@ -23,9 +23,9 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .game{min-height:170px;border-radius:24px;border:3px solid #ffffff99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:21px;font-weight:1000;text-shadow:0 2px 4px #0009;box-shadow:0 6px 0 #0006,0 0 16px #fff4}
 .game b{font-size:64px}.g1{background:linear-gradient(145deg,#22b8ff,#0753c7)}.g2{background:linear-gradient(145deg,#37e5a0,#087d9c)}.g3{background:linear-gradient(145deg,#3bd7ad,#087c70)}
 .players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;align-items:center}
-.player{display:flex;align-items:center;gap:7px;padding:5px 9px;border-radius:28px;background:linear-gradient(135deg,#1768b9,#064b91);border:2px solid var(--pc);min-width:0;min-height:58px;box-shadow:0 3px 0 #001b4d,0 0 9px color-mix(in srgb,var(--pc),transparent 55%)}
-.player.active{box-shadow:0 0 0 2px #fff,0 0 17px var(--pc);filter:brightness(1.12)}
-.avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:0;display:grid;place-items:center;color:#173d85;font-size:29px;overflow:hidden;box-shadow:0 2px 5px #001b4d}
+.player{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:5px 9px;border-radius:20px;background:linear-gradient(135deg,#1768b9,#064b91);border:0;min-width:0;min-height:58px;box-shadow:0 3px 0 #001b4d}
+.player.active{box-shadow:0 3px 0 #001b4d,0 0 10px #39caff66;filter:brightness(1.05)}
+.avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;background:linear-gradient(#f7ffff,#8bbcff);border:0;display:grid;place-items:center;color:#173d85;font-size:29px;overflow:hidden;box-shadow:none}
 .avatar img{width:100%;height:100%;object-fit:cover}
 .avatar-wrap{position:relative;flex:0 0 54px;width:54px;height:54px}
 .avatar-wrap .avatar{width:54px;height:54px}
@@ -51,6 +51,8 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .yard{position:absolute;width:40%;height:40%;padding:5.5%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:9%;z-index:4;border:2px solid #ffffffa8;pointer-events:none}
 .yard.redyard{top:0;left:0;background:#a9002d}.yard.greenyard{top:0;right:0;background:#007342}
 .yard.yellowyard{bottom:0;right:0;background:#967000}.yard.blueyard{bottom:0;left:0;background:#00519c}
+.yard{grid-template-rows:auto 1fr 1fr !important}
+.yard-name{grid-column:1 / -1;min-width:0;align-self:center;text-align:center;color:#fff;font-size:clamp(8px,2vw,13px);line-height:1.15;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 3px #00132b,0 0 5px #00132b;z-index:6}
 .yard-slot{border-radius:50%;background:linear-gradient(145deg,#fff,#dceaff);border:2px solid #ffffff;box-shadow:0 2px 5px #001c50;position:relative;display:grid;place-items:center;min-width:0;min-height:0}
 .centerpiece{position:absolute;left:40%;top:40%;width:20%;height:20%;z-index:2;background:conic-gradient(#18b86d 0 25%,#f4c62b 0 50%,#278ce8 0 75%,#ef334e 0);border:1px solid #fff;display:grid;place-items:center;font-size:clamp(12px,4vw,25px)}
 
@@ -86,6 +88,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 @keyframes tokenPulse{to{outline-color:#ffe66d;filter:drop-shadow(0 0 5px #ffe66d) drop-shadow(0 2px 2px #00132dcc)}}
 .yard-slot .token{width:86%;height:86%}
 .turnline{text-align:center;color:#ffed83;font-weight:1000;margin:10px 0 4px;font-size:14px}
+#turnline,#hint{display:none !important}
 .hint{text-align:center;color:#c4e5ff;font-size:11px;margin:4px 0 10px}
 .chat{margin-top:12px;background:#07183f;border:2px solid #3b9fe8;border-radius:14px;padding:9px}
 .messages{height:76px;overflow:auto;background:#102d73;border-radius:9px;padding:7px;font-size:12px}
@@ -126,7 +129,7 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .cell.yellowhome{background:linear-gradient(145deg,#fff09a 0%,#f5c52e 45%,#9b7000 100%);box-shadow:inset 0 0 5px #73500055}
 .cell.bluehome{background:linear-gradient(145deg,#83d6ff 0%,#278ce8 45%,#004582 100%);box-shadow:inset 0 0 5px #00315f55}
 .cell.home-lane.redlane{background:linear-gradient(145deg,#ffe1e6,#ff91a4 55%,#ed6b83);box-shadow:inset 0 0 0 1px #df6d82}
-.cell.home-lane.greenlane{background:linear-gradient(145deg,#e1fff0,#8be9bb 55%,#60d397);box-shadow:inset 0 0 0 1px #59c58a}
+.cell.home-lane.greenlane{background:linear-gradient(145deg,#e1fff0,#8be9b9 55%,#60d397);box-shadow:inset 0 0 0 1px #59c58a}
 .cell.home-lane.yellowlane{background:linear-gradient(145deg,#fffbe0,#ffeb91 55%,#f2d25d);box-shadow:inset 0 0 0 1px #e2c04e}
 .cell.home-lane.bluelane{background:linear-gradient(145deg,#e8f7ff,#9bd6ff 55%,#71b9ee);box-shadow:inset 0 0 0 1px #6baee0}
 .cell.safe:after{content:"★";font-size:clamp(8px,2.3vw,16px);color:#405a7a;text-shadow:0 1px 0 #fff,0 0 5px #fff;filter:drop-shadow(0 1px 1px #7187a0)}
@@ -364,24 +367,6 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .board .cell.home-lane{
   background:linear-gradient(145deg,#fff 0%,#f8fbff 48%,#dce7f2 100%) !important;
   box-shadow:inset 0 0 0 1px #c7d5e4 !important;
-}
-
-/* Added only for the requested player names inside the four home yards. */
-.yard{grid-template-rows:auto 1fr 1fr !important}
-.yard-name{
-  grid-column:1 / -1;
-  min-width:0;
-  align-self:center;
-  text-align:center;
-  color:#fff;
-  font-size:clamp(8px,2vw,13px);
-  line-height:1.15;
-  font-weight:1000;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  text-shadow:0 2px 3px #00132b,0 0 5px #00132b;
-  z-index:6;
 }
 </style>
 </head>
@@ -710,15 +695,11 @@ function addFriend(p){
 function playerCard(p){
  const active=p===turn&&!finished;
  const pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':(p===0&&!profile.photo?'':face[p]);
- const nm=p===0?(profile.name?escapeHTML(profile.name):'Guest ID'):names[p];
  return '<div class="player '+(active?'active':'')+'" style="--pc:'+hex[p]+'">'+
  '<div class="avatar-wrap"><div class="avatar">'+pic+'</div>'+
  '<button class="avatar-action avatar-gift" onclick="sendGift('+p+')" aria-label="Send gift" title="Gift">🎁</button>'+
  '<button class="avatar-action avatar-friend" onclick="addFriend('+p+')" aria-label="Add friend" title="Add friend">＋</button></div>'+
- '<div class="pinfo"><div class="pname">'+nm+'</div>'+
- '<div class="status">● '+(active?'YOUR TURN':'Waiting')+'</div>'+
- (active?'<div class="turntag">'+(awaitMove?'SELECT TOKEN':'ROLL NOW')+'</div>':'')+
- '</div><button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" '+
+ '<button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" '+
  (active&&!awaitMove&&!rollingDice?'':'disabled')+
  ' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+(active&&rollingDice?'🎲':(active&&lastRoll?lastRoll:'🎲'))+'</button></div>';
 }
