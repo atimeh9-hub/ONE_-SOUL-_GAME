@@ -30,6 +30,8 @@ h2{text-align:center;margin:8px 0 16px;text-shadow:0 2px 8px #48cfff}
 .pinfo{min-width:0;flex:1;text-align:center}.pname{font-weight:1000;font-size:clamp(12px,3.2vw,17px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 3px #001b4d}
 .status{font-size:10px;color:#d8fff0;margin-top:2px}.turntag{font-size:9px;color:#ffe77b;font-weight:900}
 .mini-dice{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:linear-gradient(#fff,#dceaff);color:#09265f;border:2px solid #bcefff;box-shadow:0 2px 0 #698bb9;font-size:20px;font-weight:1000;display:grid;place-items:center;padding:0}
+.mini-dice.rolling{animation:diceSpin .72s ease-in-out infinite}
+@keyframes diceSpin{0%{transform:rotate(0) scale(1)}25%{transform:rotate(90deg) scale(1.12)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.12)}100%{transform:rotate(360deg) scale(1)}}
 .mini-gift{width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:linear-gradient(145deg,#ffdf72,#f08a00);color:#552600;border:2px solid #fff0b3;box-shadow:0 3px 0 #8a4b00;font-size:19px;display:grid;place-items:center;padding:0}
 .mini-gift:active{transform:translateY(2px);box-shadow:0 1px 0 #8a4b00}
 .player:nth-child(2){flex-direction:row-reverse}
@@ -513,7 +515,7 @@ const lanes=[
 const safe=[0,8,13,21,26,34,39,47];
 
 let pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);
-let turn=0,lastRoll=0,sixes=0,awaitMove=false,finished=false;
+let turn=0,lastRoll=0,sixes=0,awaitMove=false,finished=false,rollingDice=false;
 
 function cellAt(r,c){
  return document.querySelector('.cell[data-pos="'+r+','+c+'"]');
@@ -668,7 +670,7 @@ function playerCard(p){
  const nm=p===0?(profile.name?escapeHTML(profile.name):'Guest ID'):names[p];
 
  let diceText='🎲';
- if(p===turn&&lastRoll>0)diceText=String(lastRoll);
+ if(p===turn&&lastRoll>0&&!rollingDice)diceText=String(lastRoll);
 
  return '<div class="player '+(active?'active':'')+'" style="--pc:'+hex[p]+'">'+
  '<div class="avatar">'+pic+'</div>'+
@@ -676,14 +678,14 @@ function playerCard(p){
  '<div class="status">● '+(active?'YOUR TURN':'Waiting')+'</div>'+
  (active?'<div class="turntag">'+(awaitMove?'SELECT TOKEN':'ROLL NOW')+'</div>':'')+
  '</div><button class="mini-gift" onclick="sendGift('+p+')" aria-label="Send gift to '+names[p]+'" title="Send gift">🎁</button>'+
- '<button class="mini-dice" '+
- (active&&!awaitMove?'':'disabled')+
+ '<button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" '+
+ (active&&!awaitMove&&!rollingDice?'':'disabled')+
  ' onclick="rollFor('+p+')" aria-label="'+names[p]+' dice">'+diceText+'</button></div>';
 }
 
 function renderPlayers(){
  $('topPlayers').innerHTML=playerCard(0)+playerCard(1);
- $('bottomPlayers').innerHTML=playerCard(3)+playerCard(2);
+ $('bottomPlayers').innerHTML=playerCard(2)+playerCard(3);
 }
 
 function updateTurn(){
@@ -707,6 +709,7 @@ function startLudo(){
  sixes=0;
  awaitMove=false;
  finished=false;
+ rollingDice=false;
 
  $('messages').innerHTML='<div class="msg">Game started! Good luck 🎲</div>';
 
@@ -724,43 +727,50 @@ function isLegal(p,t,roll){
  return v+roll<=57;
 }
 
-/* Dice shows actual number 1-6 */
+/* Dice animates first, then shows the rolled number 1-6 */
 function rollFor(p){
- if(p!==turn||awaitMove||finished)return;
+ if(p!==turn||awaitMove||finished||rollingDice)return;
 
  const n=1+Math.floor(Math.random()*6);
- lastRoll=n;
+ rollingDice=true;
+ renderPlayers();
 
- if(n===6){
-  sixes++;
+ setTimeout(()=>{
+  rollingDice=false;
+  lastRoll=n;
+  renderPlayers();
 
-  if(sixes>=3){
-   lastRoll=0;
+  if(n===6){
+   sixes++;
+
+   if(sixes>=3){
+    lastRoll=0;
+    sixes=0;
+    addMsg(names[turn]+' rolled three 6s. Turn cancelled!',false);
+    nextPlayer();
+    return;
+   }
+  }else{
    sixes=0;
-   addMsg(names[turn]+' rolled three 6s. Turn cancelled!',false);
+  }
+
+  const legal=[];
+
+  for(let t=0;t<4;t++){
+   if(isLegal(turn,t,n))legal.push(t);
+  }
+
+  if(!legal.length){
+   addMsg(names[turn]+' rolled '+n+' — no legal move.',false);
+   lastRoll=0;
    nextPlayer();
    return;
   }
- }else{
-  sixes=0;
- }
 
- const legal=[];
-
- for(let t=0;t<4;t++){
-  if(isLegal(turn,t,n))legal.push(t);
- }
-
- if(!legal.length){
-  addMsg(names[turn]+' rolled '+n+' — no legal move.',false);
-  lastRoll=0;
-  nextPlayer();
-  return;
- }
-
- awaitMove=true;
- drawPawns();
- updateTurn();
+  awaitMove=true;
+  drawPawns();
+  updateTurn();
+ },750);
 }
 
 /* Six brings the pawn out of its yard */
@@ -831,6 +841,7 @@ function nextPlayer(){
  turn=(turn+1)%4;
  lastRoll=0;
  awaitMove=false;
+ rollingDice=false;
  updateTurn();
  drawPawns();
 }
