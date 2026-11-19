@@ -155,6 +155,13 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 .sound-setting{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;margin:12px 0;border:1px solid #e8ce8a;border-radius:15px;background:linear-gradient(145deg,#174a85,#091d40)}
 .sound-setting b,.sound-setting small{display:block}.sound-setting small{margin-top:5px;color:#d6eaff;font-size:12px}
 .sound-setting button{white-space:nowrap}
+.sound-preview{margin:14px 0;padding:14px;border:1px solid #e8ce8a;border-radius:15px;background:linear-gradient(145deg,#102f59,#07172f)}
+.sound-preview>b,.sound-preview>small{display:block}.sound-preview>small{margin-top:6px;color:#d6eaff;font-size:12px;line-height:1.5}
+.sound-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.sound-preview-grid button{min-height:65px;padding:9px 5px;line-height:1.5;font-weight:900}
+.sound-preview-grid button small{font-size:10px;color:#e3d5ad;font-weight:500}
+.music-preview-status{display:block;margin-top:10px;color:#ffe7a0;font-size:11px}
+.home-music-indicator{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:90%;margin:9px auto 0;padding:6px 12px;border:1px solid #f6d77b88;border-radius:999px;background:linear-gradient(100deg,#0a2852dd,#5a3a12aa);color:#ffe7a0;font-size:10px;font-weight:900;letter-spacing:1px;text-shadow:0 1px 5px #000;box-shadow:0 0 14px #f7cf5b22}.home-music-indicator .music-bars{display:inline-flex;align-items:center;gap:2px;height:13px}.home-music-indicator i{display:block;width:2px;height:5px;border-radius:3px;background:#ffdf78;animation:musicBar .65s ease-in-out infinite alternate}.home-music-indicator i:nth-child(2){height:11px;animation-delay:.18s}.home-music-indicator i:nth-child(3){height:7px;animation-delay:.34s}.home-music-indicator.muted i{animation-play-state:paused;height:3px!important;opacity:.55}@keyframes musicBar{to{height:12px}}
 </style>
 </head>
 <body>
@@ -171,7 +178,7 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
   <button onclick="show('online')"><span class="shortcut-art crown-art">👑</span><b>VIP</b><small>PLAY TOGETHER</small></button>
   <button onclick="openShop()"><span class="shortcut-art store-art">🏪</span><b>STORE</b><small>COINS & ITEMS</small></button>
  </div>
- <div class="arcade-logo"><div class="arcade-logo-main">LUDO <span>ONE</span></div><div class="arcade-logo-mark"><i></i><i></i><i></i><i></i></div><div class="arcade-tagline">♛ &nbsp; PLAY TOGETHER &nbsp; ♛</div><div class="royal-theme-switch" role="group" aria-label="Choose game theme"><button type="button" id="royalBlueTheme" aria-pressed="true" onclick="setGameTheme('royal')">♛ ROYAL BLUE</button><button type="button" id="goldenTheme" aria-pressed="false" onclick="setGameTheme('golden')">✦ GOLDEN</button></div></div>
+ <div class="arcade-logo"><div class="arcade-logo-main">LUDO <span>ONE</span></div><div class="arcade-logo-mark"><i></i><i></i><i></i><i></i></div><div class="arcade-tagline">♛ &nbsp; PLAY TOGETHER &nbsp; ♛</div><div id="homeMusicIndicator" class="home-music-indicator"><span class="music-bars"><i></i><i></i><i></i></span><span id="homeMusicLabel">ROYAL LOBBY MUSIC</span> ♪</div><div class="royal-theme-switch" role="group" aria-label="Choose game theme"><button type="button" id="royalBlueTheme" aria-pressed="true" onclick="setGameTheme('royal')">♛ ROYAL BLUE</button><button type="button" id="goldenTheme" aria-pressed="false" onclick="setGameTheme('golden')">✦ GOLDEN</button></div></div>
  <div class="arcade-games">
   <button class="arcade-game ludo-card" onclick="show('ludoSelect')">
    <span class="game-art ludo-art"><svg viewBox="0 0 180 125" role="img" aria-label="Colorful Ludo board"><defs><linearGradient id="boardBlue" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#b9d9ef"/></linearGradient><filter id="artShadow"><feGaussianBlur stdDeviation="2"/></filter></defs><g transform="translate(15 8) rotate(-8 75 55)"><rect x="4" y="4" width="145" height="106" rx="9" fill="#061d52" opacity=".35"/><rect width="145" height="106" rx="8" fill="url(#boardBlue)" stroke="#fff" stroke-width="3"/><path d="M0 0h48v38H0z" fill="#ed4c59"/><path d="M97 0h48v38H97z" fill="#20b96f"/><path d="M0 68h48v38H0z" fill="#f4c43e"/><path d="M97 68h48v38H97z" fill="#2697ed"/><g fill="#fff" stroke="#46627d" stroke-width="1.3"><path d="M48 0h16v38H48zM64 0h17v38H64zM81 0h16v38H81zM48 68h16v38H48zM64 68h17v38H64zM81 68h16v38H81zM0 38h48v15H0zM0 53h48v15H0zM97 38h48v15H97zM97 53h48v15H97z"/></g><path d="M48 38L72.5 53 97 38v30L72.5 53 48 68z" fill="#26b76d"/><path d="M48 38L72.5 53 48 68z" fill="#f1c43f"/><path d="M97 38L72.5 53 97 68z" fill="#ed4c59"/><path d="M48 68L72.5 53 97 68z" fill="#258fe5"/><g stroke="#fff" stroke-width="2"><circle cx="24" cy="19" r="8" fill="#ff7d8c"/><circle cx="120" cy="19" r="8" fill="#60e9a3"/><circle cx="24" cy="87" r="8" fill="#ffdf6c"/><circle cx="120" cy="87" r="8" fill="#70caff"/></g><g fill="#10264b"><circle cx="70" cy="18" r="2.5"/><circle cx="79" cy="18" r="2.5"/><circle cx="70" cy="27" r="2.5"/><circle cx="79" cy="27" r="2.5"/><circle cx="70" cy="36" r="2.5"/><circle cx="79" cy="36" r="2.5"/></g></g></svg></span>
@@ -187,13 +194,13 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 </section>
 <section id="ludoSelect" class="screen">
  <div class="top"><button class="btn" onclick="show('home')">← Home</button><div class="brand">🎲 LUDO MODE</div><span></span></div>
- <div class="panel"><h2>Choose Players</h2><p class="note">Local pass-and-play on this device. Each player enters the same coin bet; the winner receives the full prize pool.</p><div class="select-grid">
+ <div class="panel"><h2>Choose Players</h2><p class="note">Local pass-and-play on this device. Play free without coins, or optionally set a coin bet.</p><div class="select-grid">
  <button class="select-card" onclick="chooseLudoPlayers(2)"><b>👥</b>2 PLAYERS<small>RED vs YELLOW</small></button>
  <button class="select-card" onclick="chooseLudoPlayers(4)"><b>👥👥</b>4 PLAYERS<small>RED • GREEN • YELLOW • BLUE</small></button></div>
  <div id="ludoBetSetup" class="ludo-bet-setup" hidden>
-  <h2>🪙 Set Game Bet</h2><p id="ludoBetPlayers" class="note">Each player pays the selected bet.</p>
-  <div class="field"><label for="ludoBet">Bet per player (500–100,000 coins)</label><input id="ludoBet" type="number" min="500" max="100000" step="500" value="500" inputmode="numeric"></div>
-  <p id="ludoBetSummary" class="note">Total prize pool: 1,000 coins</p><p id="ludoBetError" class="note" style="color:#ffd0d0"></p>
+  <h2>🪙 Optional Game Bet</h2><p id="ludoBetPlayers" class="note">You can play free or choose a coin bet.</p>
+  <div class="field"><label for="ludoBet">Bet per player (0 = FREE, or 500–100,000 coins)</label><input id="ludoBet" type="number" min="0" max="100000" step="500" value="0" inputmode="numeric"></div>
+  <p id="ludoBetSummary" class="note">Free game • No coins required</p><p id="ludoBetError" class="note" style="color:#ffd0d0"></p>
   <button class="wide gold" onclick="confirmLudoStart()">🎲 START GAME</button>
  </div>
  <div class="wallet"><div>🪙 AVAILABLE COINS<strong id="ludoAvailableCoins">1,000</strong></div><div>🏆 MAX BET<strong>100,000</strong></div></div>
@@ -211,7 +218,7 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 <section id="gifts" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Home</button><div class="brand">🎁 GIFT CENTER</div><span></span></div><div class="panel"><h2>Send a Gift</h2><div class="wallet"><div>🪙 YOUR COINS<strong id="giftCoins">1,000</strong></div><div class="diamond">💎 DIAMONDS<strong id="giftDiamonds">0</strong></div></div><div class="field"><label for="giftRecipient">Choose recipient</label><select id="giftRecipient"><option value="0">Player 1</option><option value="1">Player 2</option><option value="2">Player 3</option><option value="3">Player 4</option></select></div><div class="gift-grid"><div class="gift-item"><div class="gift-emoji">🌹</div><b>Rose</b><small>100 coins</small><button onclick="buyGift('🌹',100)">SEND GIFT</button></div><div class="gift-item"><div class="gift-emoji">🎁</div><b>Present</b><small>250 coins</small><button onclick="buyGift('🎁',250)">SEND GIFT</button></div><div class="gift-item"><div class="gift-emoji">❤️</div><b>Heart</b><small>300 coins</small><button onclick="buyGift('❤️',300)">SEND GIFT</button></div><div class="gift-item"><div class="gift-emoji">👑</div><b>Crown</b><small>500 coins</small><button onclick="buyGift('👑',500)">SEND GIFT</button></div></div><p id="giftMessage" class="note">Gifts are local demo effects.</p></div></section>
 <section id="online" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Home</button><div class="brand">🌐 ONLINE LOBBY</div><span></span></div><div class="panel"><h2>Play with Friends</h2><p class="note">The online lobby design is ready, but live matchmaking is not connected yet.</p><button class="wide" onclick="onlineNotice('Create Room')">＋ CREATE ROOM</button><div style="height:10px"></div><button class="wide" onclick="onlineNotice('Join Room')">↗ JOIN ROOM</button><h2 style="margin-top:22px">Online Players</h2><div class="online-row"><span><i class="dot"></i>Guest Player 01</span><b>Demo</b></div><div class="online-row"><span><i class="dot"></i>Guest Player 02</span><b>Demo</b></div><div class="online-row"><span><i class="dot"></i>Guest Player 03</span><b>Demo</b></div><p id="onlineMessage" class="note">Connect Firebase to enable real rooms and live player presence.</p></div></section>
 <section id="profile" class="screen"><div class="top"><button class="btn" onclick="show(previousScreen)">← Back</button><b>EDIT PROFILE</b><span></span></div><div class="panel"><div class="profilepreview"><div id="preview" class="avatar">👤</div></div><div class="field"><label>Change Picture</label><input id="photo" type="file" accept="image/*" onchange="loadPhoto(event)"></div><button class="btn" style="width:100%;background:linear-gradient(#a45cff,#5816c9)" onclick="removePhoto()">🗑 Remove Picture</button><div class="field"><label>Enter Name</label><input id="playerName" maxlength="18" placeholder="Your name"></div><button class="wide" onclick="saveProfile()">SAVE PROFILE</button></div><p class="note">Your profile is saved on this device.</p></section>
-<section id="settings" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Back</button><b>SETTINGS</b><span></span></div><div class="panel"><h2>Game Settings</h2><div class="sound-setting"><div><b>🔊 GAME SOUND</b><small id="soundStatus">Sound is ON</small></div><button type="button" id="soundToggle" class="btn" onclick="toggleSound()">🔊 SOUND ON</button></div><p class="note">Turn game sounds on or mute them anytime.</p><p>Game mode: Local demo</p><p>Rule set: Classic Ludo</p><p>Online play: Firebase connection required</p><p>Virtual currency has no real-money value.</p></div></section>
+<section id="settings" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Back</button><b>SETTINGS</b><span></span></div><div class="panel"><h2>Game Settings</h2><div class="sound-setting"><div><b>🔊 GAME SOUND</b><small id="soundStatus">Sound is ON</small></div><button type="button" id="soundToggle" class="btn" onclick="toggleSound()">🔊 SOUND ON</button></div><p class="note">Turn game sounds on or mute them anytime.</p><div class="sound-preview"><b>🎼 HOME MUSIC PREVIEW</b><small>Tap any style to hear a short sample. Choose your favourite and tell me its name.</small><div class="sound-preview-grid"><button type="button" class="btn" onclick="previewMusicStyle('royal')">👑 Royal Piano<br><small>Elegant & classy</small></button><button type="button" class="btn" onclick="previewMusicStyle('arcade')">🕹️ Arcade Game<br><small>Fun & energetic</small></button><button type="button" class="btn" onclick="previewMusicStyle('calm')">🌙 Calm Lounge<br><small>Soft & relaxing</small></button><button type="button" class="btn" onclick="previewMusicStyle('cinematic')">🏆 Epic Cinematic<br><small>Grand & royal</small></button></div><small id="musicPreviewStatus" class="music-preview-status">Sound samples are ready to preview.</small></div><p>Game mode: Local demo</p><p>Rule set: Classic Ludo</p><p>Online play: Firebase connection required</p><p>Virtual currency has no real-money value.</p></div></section>
 <section id="cards" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><b>COLOR CARD</b><span></span></div><div class="panel" style="text-align:center"><h2>Draw a Card</h2><div id="card" class="card">🃏</div><p id="cardtext">Tap draw to pick a card.</p><button class="wide" onclick="drawCard()">DRAW CARD</button></div></section>
 <section id="snake" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><b>SNAKE & LADDER</b><span></span></div><div class="panel"><div style="display:flex;justify-content:space-around"><b>🔴 Red: <span id="rpos">1</span></b><b>🟢 Green: <span id="gpos">1</span></b></div><div id="snakeboard" class="snakeboard" style="margin:12px 0"></div><div class="turnline" id="snaketurn">Red's turn</div><button class="wide" onclick="snakeRoll()">🎲 ROLL</button><p class="note" id="snakemsg">First to reach 100 wins.</p><button class="btn" onclick="resetSnake()">Restart</button></div></section>
 <section id="shop" class="screen">
@@ -231,7 +238,7 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');if(typeof playUiSound==='function')playUiSound()}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');if(typeof playUiSound==='function')playUiSound();if(typeof setHomeMusic==='function')setHomeMusic(id==='home')}
 let previousScreen='home',profile={name:localStorage.getItem('os_name')||'',photo:localStorage.getItem('os_photo')||''};
 let coinBalance=Math.max(0,Number(localStorage.getItem('os_coins')||1000)),diamondBalance=Math.max(0,Number(localStorage.getItem('os_diamonds')||0));
 function fmt(n){return Math.floor(n).toLocaleString('en-US')}
@@ -261,13 +268,13 @@ function playerCard(p){if(!activeSeats.includes(p))return '<div></div>';let acti
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderPlayers(){$('topPlayers').innerHTML=playerCard(0)+playerCard(1);$('bottomPlayers').innerHTML=playerCard(3)+playerCard(2)}
 function updateTurn(){renderPlayers();$('turnline').textContent=finished?playerLabel(turn)+' WINS THE GAME! 🏆':playerLabel(turn)+' — '+(awaitMove?'CHOOSE A TOKEN':'ROLL YOUR DICE')}
-function chooseLudoPlayers(count){selectedLudoPlayers=count;$('ludoBetSetup').hidden=false;$('ludoBet').value='500';$('ludoBetPlayers').textContent=count+' players × bet per player. The winner takes the complete prize pool.';$('ludoBetError').textContent='';updateLudoBetSummary();$('ludoAvailableCoins').textContent=fmt(coinBalance);$('ludoBetSetup').scrollIntoView({behavior:'smooth',block:'nearest'})}
-function updateLudoBetSummary(){let bet=Math.floor(Number($('ludoBet').value)||0),count=selectedLudoPlayers||2;$('ludoBetSummary').textContent='Total prize pool: '+fmt(Math.max(0,bet*count))+' coins'}
+function chooseLudoPlayers(count){selectedLudoPlayers=count;$('ludoBetSetup').hidden=false;$('ludoBet').value='0';$('ludoBetPlayers').textContent=count+' players. Free play is available; coin bet is optional.';$('ludoBetError').textContent='';updateLudoBetSummary();$('ludoAvailableCoins').textContent=fmt(coinBalance);$('ludoBetSetup').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function updateLudoBetSummary(){let bet=Math.floor(Number($('ludoBet').value)||0),count=selectedLudoPlayers||2;$('ludoBetSummary').textContent=bet===0?'Free game • No coins required':'Total prize pool: '+fmt(Math.max(0,bet*count))+' coins'}
 $('ludoBet').addEventListener('input',updateLudoBetSummary);
-function confirmLudoStart(){let bet=Number($('ludoBet').value);if(!Number.isInteger(bet)||bet<500||bet>100000){$('ludoBetError').textContent='Bet must be between 500 and 100,000 whole coins.';return}let total=bet*selectedLudoPlayers;if(coinBalance<bet){$('ludoBetError').textContent='Not enough coins. You need '+fmt(bet-coinBalance)+' more coins to enter this game.';return}ludoBet=bet;ludoPrizePool=total;ludoPrizePaid=false;coinBalance-=bet;saveWallet();startLudo(selectedLudoPlayers)}
-function startLudo(count){activeSeats=count===2?[0,2]:[0,1,2,3];pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);turn=activeSeats[0];lastRoll=0;sixes=0;rollingDice=false;awaitMove=false;finished=false;$('messages').innerHTML='<div class="msg">'+count+' player game started! Entry: '+fmt(ludoBet)+' coins each. Prize pool: '+fmt(ludoPrizePool)+' coins. Winner takes all! 🎲</div>';makeBoard();if($('ludoPrizeInfo'))$('ludoPrizeInfo').textContent='Bet: '+fmt(ludoBet)+' coins per player • Winner prize: '+fmt(ludoPrizePool)+' coins';show('ludo')}
+function confirmLudoStart(){let bet=Number($('ludoBet').value);if(!Number.isInteger(bet)||bet<0||bet>100000||(bet>0&&bet<500)){ $('ludoBetError').textContent='Choose 0 for a free game, or a bet between 500 and 100,000 coins.';return}if(selectedLudoPlayers!==2&&selectedLudoPlayers!==4){$('ludoBetError').textContent='Please choose 2 or 4 players first.';return}if(bet>0&&coinBalance<bet){$('ludoBetError').textContent='Not enough coins. Choose 0 for a free game, or add more coins for a bet.';return}ludoBet=bet;ludoPrizePool=bet*selectedLudoPlayers;ludoPrizePaid=false;if(bet>0){coinBalance-=bet;saveWallet()}startLudo(selectedLudoPlayers)}
+function startLudo(count){activeSeats=count===2?[0,2]:[0,1,2,3];pawns=Array.from({length:4},()=>[-1,-1,-1,-1]);turn=activeSeats[0];lastRoll=0;sixes=0;rollingDice=false;awaitMove=false;finished=false;$('messages').innerHTML='<div class="msg">'+count+' player game started! '+(ludoBet===0?'Free game — no coins used.':'Entry: '+fmt(ludoBet)+' coins each. Prize pool: '+fmt(ludoPrizePool)+' coins. Winner takes all!')+' 🎲</div>';makeBoard();if($('ludoPrizeInfo'))$('ludoPrizeInfo').textContent=ludoBet===0?'FREE GAME • No coins required':'Bet: '+fmt(ludoBet)+' coins per player • Winner prize: '+fmt(ludoPrizePool)+' coins';show('ludo')}
 function rollFor(p){if(p!==turn||awaitMove||finished||rollingDice)return;if(typeof playDiceSound==='function')playDiceSound();rollingDice=true;lastRoll=0;renderPlayers();let n=1+Math.floor(Math.random()*6);setTimeout(()=>{if(!rollingDice||turn!==p)return;rollingDice=false;lastRoll=n;if(n===6){sixes++;if(sixes>=3){lastRoll=0;sixes=0;addMsg(playerLabel(turn)+' rolled three 6s. Turn cancelled!',false);nextPlayer();return}}else sixes=0;let legal=[];for(let t=0;t<4;t++)if(isLegal(turn,t,n))legal.push(t);if(!legal.length){addMsg(playerLabel(turn)+' rolled '+n+' — no legal move.',false);setTimeout(()=>{if(turn===p&&!awaitMove&&!finished)nextPlayer()},650);return}awaitMove=true;drawPawns();updateTurn()},900)}
-function choosePawn(p,t){if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;if(typeof playMoveSound==='function')playMoveSound();let roll=lastRoll,old=pawns[p][t];if(old<0){if(roll!==6)return;pawns[p][t]=0}else pawns[p][t]=old+roll;let v=pawns[p][t],captured=false;if(v<=51){let global=(starts[p]+v)%52;if(!safe.includes(global))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(playerLabel(p)+' captured '+playerLabel(op)+' token!',false)}}}awaitMove=false;if(pawns[p].every(x=>x===57)){finished=true;if(typeof playWinSound==='function')playWinSound();lastRoll=0;if(!ludoPrizePaid){coinBalance+=ludoPrizePool;ludoPrizePaid=true;saveWallet();addMsg(playerLabel(p)+' wins '+fmt(ludoPrizePool)+' coins! 🏆 Prize credited to this device wallet.',false)}else addMsg(playerLabel(p)+' wins! 🏆',false);drawPawns();updateTurn();return}let extra=roll===6||captured||v===57;lastRoll=0;drawPawns();if(!extra)nextPlayer();else{addMsg(playerLabel(p)+' gets another turn.',false);updateTurn()}}
+function choosePawn(p,t){if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;if(typeof playMoveSound==='function')playMoveSound();let roll=lastRoll,old=pawns[p][t];if(old<0){if(roll!==6)return;pawns[p][t]=0}else pawns[p][t]=old+roll;let v=pawns[p][t],captured=false;if(v<=51){let global=(starts[p]+v)%52;if(!safe.includes(global))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(playerLabel(p)+' captured '+playerLabel(op)+' token!',false)}}}awaitMove=false;if(pawns[p].every(x=>x===57)){finished=true;if(typeof playWinSound==='function')playWinSound();lastRoll=0;if(!ludoPrizePaid){coinBalance+=ludoPrizePool;ludoPrizePaid=true;saveWallet();addMsg(ludoPrizePool>0?playerLabel(p)+' wins '+fmt(ludoPrizePool)+' coins! 🏆 Prize credited to this device wallet.':playerLabel(p)+' wins the free game! 🏆',false)}else addMsg(playerLabel(p)+' wins! 🏆',false);drawPawns();updateTurn();return}let extra=roll===6||captured||v===57;lastRoll=0;drawPawns();if(!extra)nextPlayer();else{addMsg(playerLabel(p)+' gets another turn.',false);updateTurn()}}
 function nextPlayer(){sixes=0;turn=activeSeats[(activeSeats.indexOf(turn)+1)%activeSeats.length];lastRoll=0;awaitMove=false;rollingDice=false;updateTurn();drawPawns()}
 function addMsg(s,me){let d=document.createElement('div');d.className='msg'+(me?' me':'');d.textContent=s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
 function sendChat(){let s=$('chatinput').value.trim();if(!s)return;addMsg((profile.name||'You')+': '+s,true);$('chatinput').value=''}
@@ -318,7 +325,7 @@ try{setGameTheme(localStorage.getItem('oneSoulTheme')||'royal')}catch(e){setGame
 // ONE SOUL sound effects: generated locally with Web Audio; no external files required.
 let gameSoundOn=true;
 try{gameSoundOn=localStorage.getItem('os_game_sound')!=='off'}catch(e){}
-let soundContext=null,openingJinglePlayed=false;
+let soundContext=null,openingJinglePlayed=false,homeMusicTimer=null,homeMusicStep=0;
 function getSoundContext(){
  if(!gameSoundOn)return null;
  const AudioCtx=window.AudioContext||window.webkitAudioContext;
@@ -333,14 +340,45 @@ function soundTone(freq,duration,volume,type,delay){
  osc.connect(gain);gain.connect(ctx.destination);osc.start(start);osc.stop(start+duration+0.025);
 }
 function playOpeningJingle(){if(!gameSoundOn||openingJinglePlayed)return;openingJinglePlayed=true;[[523,.16],[659,.16],[784,.2],[1047,.34]].forEach((n,i)=>soundTone(n[0],n[1],.055,'sine',i*.13));}
+// Short audition clips for four possible home-screen music styles.
+function previewMusicStyle(style){
+ if(!gameSoundOn){const st=$('musicPreviewStatus');if(st)st.textContent='Turn GAME SOUND ON first to preview music.';return}
+ getSoundContext();
+ const clips={
+  royal:{name:'Royal Piano',notes:[523,659,784,1047,784,659,587,784,988,784,659,523],wave:'sine',dur:.24,vol:.045},
+  arcade:{name:'Arcade Game',notes:[659,988,784,1175,988,784,1318,988,784,659,988,1318],wave:'square',dur:.14,vol:.022},
+  calm:{name:'Calm Lounge',notes:[392,494,587,494,440,523,659,523,392,494,587,494],wave:'sine',dur:.34,vol:.035},
+  cinematic:{name:'Epic Cinematic',notes:[220,330,440,659,523,659,784,1047,784,659,523,784],wave:'triangle',dur:.28,vol:.045}
+ };
+ const clip=clips[style];if(!clip)return;
+ const st=$('musicPreviewStatus');if(st)st.textContent='▶ Previewing: '+clip.name+' — choose your favourite style.';
+ clip.notes.forEach((n,i)=>soundTone(n,clip.dur,clip.vol,clip.wave,i*(clip.dur+.045)));
+}
 function playUiSound(){soundTone(660,.07,.025,'sine',0)}
 function playDiceSound(){[440,590,740].forEach((n,i)=>soundTone(n,.09,.045,'triangle',i*.075))}
 function playMoveSound(){soundTone(740,.11,.04,'sine',0);soundTone(988,.13,.035,'sine',.08)}
 function playWinSound(){[523,659,784,1047].forEach((n,i)=>soundTone(n,.22,.055,'triangle',i*.15))}
+// Soft royal-style instrumental loop for the home lobby; it never plays during a game.
+const homeMelody=[659,784,880,784,659,587,659,784,523,659,784,659,587,523,587,659,784,880,988,880,784,659,587,659];
+function setHomeMusic(active){
+ const badge=$('homeMusicIndicator');
+ if(!active||!gameSoundOn){if(homeMusicTimer){clearInterval(homeMusicTimer);homeMusicTimer=null}if(badge)badge.classList.add('muted');return}
+ if(badge)badge.classList.remove('muted');
+ if(homeMusicTimer)return;
+ homeMusicStep=0;
+ homeMusicTimer=setInterval(()=>{
+  if(!gameSoundOn||!$('home')||!$('home').classList.contains('active')){setHomeMusic(false);return}
+  const note=homeMelody[homeMusicStep%homeMelody.length];
+  soundTone(note,.24,.014,'sine',0);
+  if(homeMusicStep%4===0)soundTone([131,147,165,147,131,110][Math.floor(homeMusicStep/4)%6],.34,.009,'triangle',0);
+  homeMusicStep++;
+ },290);
+}
+
 function updateSoundControl(){const b=$('soundToggle'),st=$('soundStatus');if(b)b.textContent=gameSoundOn?'🔊 SOUND ON':'🔇 SOUND OFF';if(st)st.textContent=gameSoundOn?'Sound is ON':'Sound is MUTED'}
-function toggleSound(){gameSoundOn=!gameSoundOn;try{localStorage.setItem('os_game_sound',gameSoundOn?'on':'off')}catch(e){}updateSoundControl();if(gameSoundOn){getSoundContext();playUiSound()}}
+function toggleSound(){gameSoundOn=!gameSoundOn;try{localStorage.setItem('os_game_sound',gameSoundOn?'on':'off')}catch(e){}updateSoundControl();if(gameSoundOn){getSoundContext();playUiSound();if($('home')&&$('home').classList.contains('active'))setHomeMusic(true)}else setHomeMusic(false)}
 // Browsers block automatic audio until the player interacts; start the welcome jingle on the first tap/click.
-document.addEventListener('pointerdown',function firstSoundUnlock(){if(!gameSoundOn)return;getSoundContext();playOpeningJingle();document.removeEventListener('pointerdown',firstSoundUnlock)}, {passive:true});
+document.addEventListener('pointerdown',function firstSoundUnlock(){if(!gameSoundOn)return;getSoundContext();playOpeningJingle();if($('home')&&$('home').classList.contains('active'))setHomeMusic(true);document.removeEventListener('pointerdown',firstSoundUnlock)}, {passive:true});
 updateSoundControl();
 
 </script>
