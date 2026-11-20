@@ -325,6 +325,41 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 .uno-human-profile strong{position:absolute;right:8px;top:50%;margin:0!important}
 </style>
 
+
+<style id="one-soul-snake-ladder-arcade">
+#snakeSetup,#snakeGame{max-width:900px}
+#snakeGame>.panel{padding:9px}
+#snakeGame .snake-board-wrap{padding:4px}
+#snakeGame .snake-board{width:100%;max-width:100%;}
+.snake-mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 18px}
+.snake-mode-tabs button{padding:13px 8px;border:2px solid #bceaff;border-radius:14px;background:linear-gradient(#8fc4ff,#367ee5);font-weight:1000;color:#fff;text-shadow:0 2px 3px #164a9a;box-shadow:0 4px 0 #164b9b}
+.snake-mode-tabs button.active{background:linear-gradient(#fff0a7,#e4aa25);color:#573900;border-color:#fff3c5;text-shadow:none}
+.snake-player-options{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0}
+.snake-player-choice{min-height:125px;border:2px solid #a8dfff;border-radius:18px;background:linear-gradient(145deg,#07518e,#06305d);box-shadow:0 5px 0 #041b3b;padding:12px 4px;font-weight:1000;color:#fff}
+.snake-player-choice b{display:block;font-size:37px;color:#ffd45a}.snake-player-choice small{display:block;font-size:11px;margin-top:5px;color:#d7efff}
+.snake-player-choice.active{background:linear-gradient(145deg,#ffe58b,#e9a900);color:#573500;border-color:#fff3bf}.snake-player-choice.active b,.snake-player-choice.active small{color:#684100}
+.snake-bet-panel{padding:13px;border:1px solid #f2d78d;border-radius:16px;background:linear-gradient(145deg,#17447c,#091c3d);margin-top:14px}
+.snake-bet-panel input{width:100%;padding:12px;border-radius:10px;border:1px solid #8bdcff;background:#fff;color:#123}
+.snake-board-wrap{padding:7px;border:3px solid #d9f5ff;border-radius:15px;background:linear-gradient(145deg,#eafaff,#8cb9d7 35%,#203e65);box-shadow:0 8px 0 #061b3e,0 12px 24px #001d48aa}
+.snake-board{position:relative;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:repeat(10,minmax(0,1fr));aspect-ratio:1;background:#fff;border:2px solid #fff;overflow:hidden}
+.snake-square{position:relative;display:flex;align-items:flex-start;justify-content:flex-end;padding:2px;color:#fff;font-weight:1000;font-size:clamp(10px,2.9vw,18px);text-shadow:0 1px 2px #18345c;min-width:0;min-height:0;border:1px solid #ffffffaa}
+.snake-square:nth-child(10n+1){filter:brightness(1.07)}
+.snake-square .sq-num{position:relative;z-index:1}
+.snake-pawns{position:absolute;left:1px;right:1px;bottom:2px;display:flex;justify-content:center;align-items:flex-end;gap:1px;z-index:4}
+.snake-pawn{width:clamp(13px,4vw,25px);height:clamp(17px,4.8vw,29px);border:2px solid #fff;border-radius:50% 50% 45% 45%;display:grid;place-items:center;font-size:clamp(8px,2vw,12px);font-weight:1000;color:#fff;text-shadow:0 1px 2px #000;box-shadow:0 2px 4px #001b45aa}
+.snake-pawn.p0{background:linear-gradient(145deg,#ff9c9c,#d51d39)}.snake-pawn.p1{background:linear-gradient(145deg,#9be4ff,#0873cb)}.snake-pawn.p2{background:linear-gradient(145deg,#aaffc9,#079b5a)}.snake-pawn.p3{background:linear-gradient(145deg,#fff1a0,#dc9b00)}
+.snake-art-overlay{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.snake-art-overlay .ladder{stroke:#e5b96c;stroke-width:1.25;stroke-linecap:round;filter:drop-shadow(0 1px 1px #70451c)}
+.snake-art-overlay .snake-line{fill:none;stroke-width:8.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 2px #14243b)}
+.snake-art-overlay .snake-outline{fill:none;stroke:#18243b;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;opacity:.88}
+.snake-art-overlay .snake-highlight{fill:none;stroke:#ffffff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:.62}
+.snake-art-overlay .snake-head{stroke:#18243b;stroke-width:2.5}
+.snake-game-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.snake-score{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:8px 0}.snake-score span{padding:7px 9px;border:1px solid #9de5ff;border-radius:10px;background:#0a3974;font-size:11px;font-weight:1000}
+.snake-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.snake-dice-face{width:68px;height:68px;margin:8px auto;border:3px solid #fff;border-radius:15px;background:linear-gradient(145deg,#fff,#b9d9ff);color:#16457c;display:grid;place-items:center;font-size:43px;font-weight:1000;box-shadow:0 5px 0 #527eaf}
+.snake-win{padding:12px;border:2px solid #ffe58a;border-radius:14px;background:linear-gradient(145deg,#fff0a6,#dca42c);color:#533500;text-align:center;font-weight:1000;margin:10px 0}
+@media(max-width:390px){.snake-player-choice{min-height:108px}.snake-board-wrap{padding:4px}.snake-square{padding:1px}}
+</style>
+
 </head>
 <body>
 <section id="home" class="screen active home-screen">
@@ -446,7 +481,31 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
  </div>
  <p class="uno-footnote">Match colour or number • First player to finish all cards wins</p>
 </section>
-<section id="snake" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Games</button><b>SNAKE & LADDER</b><span></span></div><div class="panel"><div style="display:flex;justify-content:space-around"><b>🔴 Red: <span id="rpos">1</span></b><b>🟢 Green: <span id="gpos">1</span></b></div><div id="snakeboard" class="snakeboard" style="margin:12px 0"></div><div class="turnline" id="snaketurn">Red's turn</div><button class="wide" onclick="snakeRoll()">🎲 ROLL</button><p class="note" id="snakemsg">First to reach 100 wins.</p><button class="btn" onclick="resetSnake()">Restart</button></div></section>
+<section id="snakeSetup" class="screen">
+ <div class="top"><button class="btn" onclick="show('home')">← Home</button><div class="brand">🐍 SNAKE & LADDER</div><span></span></div>
+ <div class="panel"><div class="snake-mode-tabs"><button id="snakeOnlineTab" onclick="setSnakeMode('online')">🌐 ONLINE</button><button id="snakeOfflineTab" class="active" onclick="setSnakeMode('offline')">📴 OFFLINE</button></div>
+  <h2>Choose Players</h2><div class="snake-player-options">
+   <button class="snake-player-choice active" data-count="2" onclick="chooseSnakePlayers(2)"><b>👥</b>2 PLAYER<small>RED • BLUE</small></button>
+   <button class="snake-player-choice" data-count="3" onclick="chooseSnakePlayers(3)"><b>👥👤</b>3 PLAYER<small>3 COLOURS</small></button>
+   <button class="snake-player-choice" data-count="4" onclick="chooseSnakePlayers(4)"><b>👥👥</b>4 PLAYER<small>4 COLOURS</small></button>
+  </div>
+  <div class="snake-bet-panel"><h2>🪙 Choose Game Entry</h2><p class="note">0 coins = FREE GAME. Coin entry is optional.</p>
+   <div class="field"><label for="snakeEntry">Entry coins per player</label><input id="snakeEntry" type="number" min="0" max="100000" step="100" value="0" oninput="updateSnakeBet()"></div>
+   <p class="note" id="snakeBetSummary">FREE GAME • No coins required</p><p class="note" id="snakeSetupError" style="color:#ffd0d0"></p>
+   <div class="wallet"><div>🪙 YOUR COINS<strong id="snakeCoins">1,000</strong></div><div>🏆 WINNER PRIZE<strong id="snakePrize">0</strong></div></div>
+   <button class="wide gold" onclick="confirmSnakeStart()">▶ PLAY NOW</button>
+  </div><p id="snakeOnlineNote" class="note">Offline mode: play together on this device, taking turns.</p>
+ </div>
+</section>
+<section id="snakeGame" class="screen">
+ <div class="top"><button class="btn" onclick="show('snakeSetup')">← BACK</button><div class="brand">🐍 SNAKE & LADDER</div><button class="btn" onclick="restartSnakeMatch()">↻</button></div>
+ <div class="panel"><div id="snakePlayersScore" class="snake-score"></div><div class="snake-board-wrap"><div id="snakeboard" class="snake-board"></div></div>
+  <div class="turnline" id="snaketurn">Player 1's turn</div><div class="snake-dice-face" id="snakeDiceFace">🎲</div>
+  <button class="wide gold" id="snakeRollButton" onclick="snakeRoll()">🎲 ROLL DICE</button>
+  <p class="note" id="snakemsg">First player to reach 100 wins.</p><div id="snakeWinMessage" class="snake-win" hidden></div>
+  <div class="snake-controls"><button class="btn" onclick="restartSnakeMatch()">↻ RESTART</button><button class="btn" onclick="show('snakeSetup')">⚙ GAME MENU</button></div>
+ </div>
+</section>
 <section id="shop" class="screen">
  <div class="top"><button class="btn" onclick="show('home')">← Home</button><div class="brand">🛍️ COINS SHOP</div><span></span></div>
  <div class="panel">
@@ -507,11 +566,24 @@ function sendChat(){let s=$('chatinput').value.trim();if(!s)return;addMsg((profi
 function sendEmoji(e){addMsg((profile.name||'You')+': '+e,true)}
 function buyGift(emoji,cost){let recipient=+$('giftRecipient').value;if(coinBalance<cost){$('giftMessage').textContent='Not enough coins. Claim your daily bonus or choose a smaller gift.';return}coinBalance-=cost;saveWallet();$('giftMessage').textContent='Gift sent to '+(recipient===0?(profile.name||'Player 1'):names[recipient])+': '+emoji+' ('+cost+' coins). Local demo only.'}
 function drawCard(){let cards=[['🔴','RED'],['🟢','GREEN'],['🔵','BLUE'],['🟡','YELLOW'],['⭐','STAR'],['🌈','RAINBOW'],['❤️','HEART'],['👑','CROWN']],a=cards[Math.floor(Math.random()*cards.length)];$('card').textContent=a[0];$('cardtext').textContent='You picked: '+a[1]}
-let snakePositions=[1,1],snakeTurn=0,snakeFinished=false;const ladders={3:22,5:8,11:26,20:29,27:56,36:44,51:67,71:91,80:100},snakes={17:4,19:7,21:9,43:18,54:34,62:18,64:60,87:24,93:73,95:75,98:79};
-function startSnake(){resetSnake();show('snake')}
-function buildSnakeBoard(){let b=$('snakeboard');b.innerHTML='';for(let row=9;row>=0;row--){let nums=Array.from({length:10},(_,i)=>row*10+i+1);if(row%2)nums.reverse();nums.forEach(n=>{let c=document.createElement('div');c.className='snakecell';c.textContent=n;if(snakePositions[0]===n)c.textContent='🔴';if(snakePositions[1]===n)c.textContent='🟢';if(snakePositions[0]===n&&snakePositions[1]===n)c.textContent='🔴🟢';b.appendChild(c)})}}
-function resetSnake(){snakePositions=[1,1];snakeTurn=0;snakeFinished=false;$('rpos').textContent='1';$('gpos').textContent='1';$('snaketurn').textContent="Red's turn";$('snakemsg').textContent='First to reach 100 wins.';buildSnakeBoard()}
-function snakeRoll(){if(snakeFinished)return;if(typeof playDiceSound==='function')playDiceSound();let roll=1+Math.floor(Math.random()*6),pos=snakePositions[snakeTurn];if(pos+roll<=100){pos+=roll;if(ladders[pos]){$('snakemsg').textContent='Ladder! Climbed from '+pos+' to '+ladders[pos]+'.';pos=ladders[pos]}else if(snakes[pos]){$('snakemsg').textContent='Snake! Slid from '+pos+' to '+snakes[pos]+'.';pos=snakes[pos]}else $('snakemsg').textContent='Dice rolled: '+roll;snakePositions[snakeTurn]=pos}if(pos===100){if(typeof playWinSound==='function')playWinSound();snakeFinished=true;$('snaketurn').textContent=(snakeTurn===0?'Red':'Green')+' WINS! 🏆';$('snakemsg').textContent='Congratulations!'}else{snakeTurn=1-snakeTurn;$('snaketurn').textContent=(snakeTurn===0?'Red':'Green')+"'s turn"}$('rpos').textContent=snakePositions[0];$('gpos').textContent=snakePositions[1];buildSnakeBoard()}
+let snakePlayerCount=2,snakeMode='offline',snakeEntry=0,snakePrizePool=0,snakePositions=[1,1],snakeTurn=0,snakeFinished=false,snakeRolling=false;
+const snakeColors=['#df3048','#1789df','#16a96a','#e5ae18'],snakeNames=['Red','Blue','Green','Yellow'];
+const ladders={3:22,5:8,11:26,20:29,27:56,36:44,51:67,71:91,80:100},snakes={17:4,19:7,21:9,43:18,54:34,62:18,64:60,87:24,93:73,95:75,98:79};
+function startSnake(){show('snakeSetup');chooseSnakePlayers(2);$('snakeCoins').textContent=fmt(coinBalance);updateSnakeBet()}
+function setSnakeMode(mode){snakeMode=mode;$('snakeOnlineTab').classList.toggle('active',mode==='online');$('snakeOfflineTab').classList.toggle('active',mode==='offline');$('snakeOnlineNote').textContent=mode==='online'?'Online rooms need Firebase multiplayer connection. For now, choose OFFLINE to play on this device.':'Offline mode: play together on this device, taking turns.'}
+function chooseSnakePlayers(count){snakePlayerCount=count;document.querySelectorAll('.snake-player-choice').forEach(b=>b.classList.toggle('active',Number(b.dataset.count)===count));updateSnakeBet()}
+function updateSnakeBet(){let entry=Math.floor(Number($('snakeEntry').value)||0);let valid=Number.isFinite(entry)&&entry>=0&&entry<=100000;let prize=valid?entry*snakePlayerCount:0;$('snakeBetSummary').textContent=entry===0?'FREE GAME • No coins required':'Entry: '+fmt(entry)+' coins each • Prize pool: '+fmt(prize)+' coins';$('snakePrize').textContent=fmt(prize);$('snakeCoins').textContent=fmt(coinBalance)}
+function confirmSnakeStart(){let entry=Number($('snakeEntry').value);$('snakeSetupError').textContent='';if(snakeMode==='online'){$('snakeSetupError').textContent='Online multiplayer is not connected yet. Please select OFFLINE.';return}if(!Number.isInteger(entry)||entry<0||entry>100000){$('snakeSetupError').textContent='Enter 0 for free play or a valid amount up to 100,000.';return}if(entry>0&&coinBalance<entry*snakePlayerCount){$('snakeSetupError').textContent='Not enough coins for all players. Reduce entry or choose FREE.';return}snakeEntry=entry;snakePrizePool=entry*snakePlayerCount;if(entry>0){coinBalance-=snakePrizePool;saveWallet()}resetSnake();show('snakeGame');$('snakemsg').textContent=entry===0?'Free game started. Good luck!':'Each player paid '+fmt(entry)+' coins. Winner receives '+fmt(snakePrizePool)+' coins.'}
+function snakeCellXY(n){let row=Math.floor((n-1)/10),col=(n-1)%10;if(row%2)col=9-col;return {x:col*100+50,y:(9-row)*100+50}}
+function snakeSvgArt(){let svg='<svg class="snake-art-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">';
+ Object.entries(ladders).forEach(([a,b],i)=>{let p=snakeCellXY(+a),q=snakeCellXY(+b),dx=q.x-p.x,dy=q.y-p.y,len=Math.hypot(dx,dy),ox=-dy/len*13,oy=dx/len*13;svg+='<g class="ladder"><line x1="'+(p.x+ox)+'" y1="'+(p.y+oy)+'" x2="'+(q.x+ox)+'" y2="'+(q.y+oy)+'"/><line x1="'+(p.x-ox)+'" y1="'+(p.y-oy)+'" x2="'+(q.x-ox)+'" y2="'+(q.y-oy)+'"/>';for(let t=.12;t<.94;t+=.16){let x=p.x+dx*t,y=p.y+dy*t;svg+='<line x1="'+(x-ox)+'" y1="'+(y-oy)+'" x2="'+(x+ox)+'" y2="'+(y+oy)+'"/>'}svg+='</g>'});
+ Object.entries(snakes).forEach(([a,b],i)=>{let p=snakeCellXY(+a),q=snakeCellXY(+b),mx=(p.x+q.x)/2+(i%2?38:-38),my=(p.y+q.y)/2;let color=['#f2b43c','#b34bce','#26a9dc','#e85a38','#64c94e'][i%5];let d='M '+p.x+' '+p.y+' C '+(p.x+75)+' '+(p.y+40)+' '+(mx+75)+' '+(my-65)+' '+mx+' '+my+' S '+(q.x-70)+' '+(q.y+45)+' '+q.x+' '+q.y;svg+='<path class="snake-outline" d="'+d+'"/><path class="snake-line" stroke="'+color+'" d="'+d+'"/><path class="snake-highlight" d="'+d+'"/><circle class="snake-head" cx="'+p.x+'" cy="'+p.y+'" r="23" fill="'+color+'"/><circle cx="'+(p.x-7)+'" cy="'+(p.y-5)+'" r="4.5" fill="#fff"/><circle cx="'+(p.x+7)+'" cy="'+(p.y-5)+'" r="4.5" fill="#fff"/><circle cx="'+(p.x-7)+'" cy="'+(p.y-5)+'" r="2" fill="#18243b"/><circle cx="'+(p.x+7)+'" cy="'+(p.y-5)+'" r="2" fill="#18243b"/>'});return svg+'</svg>'}
+function buildSnakeBoard(){let b=$('snakeboard');if(!b)return;b.innerHTML='';for(let row=9;row>=0;row--){let nums=Array.from({length:10},(_,i)=>row*10+i+1);if(row%2)nums.reverse();nums.forEach(n=>{let c=document.createElement('div');c.className='snake-square';let hue=Math.floor((n-1)/10);let colors=['#4598db','#34ad81','#e8a13b','#dc594d','#9b65b8','#bd7b45','#4aa7a5','#5b83ce','#8c64b7','#4598db'];c.style.background='linear-gradient(145deg,'+colors[hue]+','+colors[hue]+')';c.innerHTML='<span class="sq-num">'+(n===100?'FINISH':n===1?'START':n)+'</span><div class="snake-pawns" id="snakeSq'+n+'"></div>';b.appendChild(c)})}b.insertAdjacentHTML('beforeend',snakeSvgArt());snakePositions.forEach((pos,i)=>{let slot=$('snakeSq'+pos);if(slot){let pawn=document.createElement('span');pawn.className='snake-pawn p'+i;pawn.textContent=i+1;slot.appendChild(pawn)}})}
+function renderSnakeStatus(){let colors=snakeColors;let score=$('snakePlayersScore');score.innerHTML='';for(let i=0;i<snakePlayerCount;i++){let x=document.createElement('span');x.style.borderColor=colors[i];x.style.outline=(!snakeFinished&&snakeTurn===i)?'2px solid #ffe27a':'none';x.textContent=snakeNames[i]+': '+snakePositions[i];score.appendChild(x)}$('snaketurn').textContent=snakeFinished?snakeNames[snakeTurn]+' WINS! 🏆':snakeNames[snakeTurn]+"'s turn — roll the dice";$('snakeRollButton').disabled=snakeFinished||snakeRolling}
+function restartSnakeMatch(){if(snakeEntry>0){if(coinBalance>=snakeEntry*snakePlayerCount){snakePrizePool=snakeEntry*snakePlayerCount;coinBalance-=snakePrizePool;saveWallet()}else{snakePrizePool=0;$('snakemsg').textContent='Not enough coins for another paid match. Restarting as FREE.'}}resetSnake()}
+function resetSnake(){snakePositions=Array(snakePlayerCount).fill(1);snakeTurn=0;snakeFinished=false;snakeRolling=false;$('snakeDiceFace').textContent='🎲';$('snakeWinMessage').hidden=true;$('snakemsg').textContent='First player to reach 100 wins.';buildSnakeBoard();renderSnakeStatus()}
+function snakeRoll(){if(snakeFinished||snakeRolling)return;snakeRolling=true;$('snakeRollButton').disabled=true;if(typeof playDiceSound==='function')playDiceSound();let face=['⚀','⚁','⚂','⚃','⚄','⚅'],steps=0;let anim=setInterval(()=>{$('snakeDiceFace').textContent=face[Math.floor(Math.random()*6)];steps++;if(steps>=9){clearInterval(anim);let roll=1+Math.floor(Math.random()*6);$('snakeDiceFace').textContent=face[roll-1];let old=snakePositions[snakeTurn],pos=old+roll;snakeRolling=false;if(pos>100){$('snakemsg').textContent=snakeNames[snakeTurn]+' rolled '+roll+'. Need exact number to finish.';advanceSnakeTurn();return}let event='';if(ladders[pos]){event='🪜 Ladder! Climbed from '+pos+' to '+ladders[pos]+'.';pos=ladders[pos]}else if(snakes[pos]){event='🐍 Snake! Slid from '+pos+' to '+snakes[pos]+'.';pos=snakes[pos]}else event='🎲 '+snakeNames[snakeTurn]+' rolled '+roll+'.';snakePositions[snakeTurn]=pos;$('snakemsg').textContent=event;buildSnakeBoard();if(pos===100){snakeFinished=true;if(typeof playWinSound==='function')playWinSound();$('snakeWinMessage').hidden=false;$('snakeWinMessage').textContent='🏆 '+snakeNames[snakeTurn]+' WINS! '+(snakePrizePool?'+'+fmt(snakePrizePool)+' COINS':'FREE GAME WINNER');if(snakePrizePool>0){coinBalance+=snakePrizePool;saveWallet()}renderSnakeStatus()}else{advanceSnakeTurn()}}},100)}
+function advanceSnakeTurn(){snakeTurn=(snakeTurn+1)%snakePlayerCount;renderSnakeStatus()}
 // ONE SOUL premium cosmetics shop. Original gameplay and wallet keys remain unchanged.
 const SHOP_PALETTES=[
  ['#fff0a6','#c58a22','#563400'],['#c8f4ff','#2b8fc7','#073d62'],['#d9c8ff','#7042bb','#ffffff'],['#c6ffe4','#168b63','#063e2d'],['#ffd1e6','#c23c79','#5b1237'],['#ffe0bf','#bd6335','#512511'],['#d8f2b0','#639b35','#203e10'],['#d0dcff','#536dc8','#17245d'],['#fff5ce','#d3b85c','#59420c'],['#b8fff8','#168d91','#073f4a'],
