@@ -886,6 +886,36 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 }
 </style>
 
+
+<style id="one-soul-center-safe-final-fix">
+/* Smaller, cleaner four-colour center. */
+#ludo .centerpiece{
+  left:35%!important;top:35%!important;width:30%!important;height:30%!important;
+  border:1px solid #fff!important;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)!important;
+  background:conic-gradient(#20b915 0 25%,#f13d48 0 50%,#f4c400 0 75%,#536df5 0)!important;
+  filter:drop-shadow(0 2px 2px #15213b)!important;
+}
+#ludo .centerpiece:after{display:none!important;content:none!important}
+
+/* Round the outside corner of each home clearly. */
+#ludo .redyard{border-radius:48% 0 0 0!important}
+#ludo .greenyard{border-radius:0 48% 0 0!important}
+#ludo .blueyard{border-radius:0 0 0 48%!important}
+#ludo .yellowyard{border-radius:0 0 48% 0!important}
+
+/* Safe/star squares are coloured by their route colour. */
+#ludo .cell.safe-blue{background:linear-gradient(145deg,#55a8ff,#1664e8)!important}
+#ludo .cell.safe-green{background:linear-gradient(145deg,#57e936,#18a90d)!important}
+#ludo .cell.safe-red{background:linear-gradient(145deg,#ff6468,#df3039)!important}
+#ludo .cell.safe-yellow{background:linear-gradient(145deg,#ffe75b,#e3ae08)!important}
+#ludo .cell.safe:after{
+  width:48%!important;height:58%!important;
+  background:linear-gradient(145deg,#ffffff,#d4dce5)!important;
+  border:1px solid #68737d!important;
+}
+</style>
+
 </head>
 <body>
 <section id="home" class="screen active home-screen">
@@ -1070,7 +1100,7 @@ let pawns=Array.from({length:4},()=>[-1,-1,-1,-1]),activeSeats=[0,1,2,3],turn=0,
 let selectedLudoPlayers=0,ludoBet=500,ludoPrizePool=0,ludoPrizePaid=false;
 function playerLabel(p){return p===0?(profile.name||'Player 1'):names[p]}
 function cellAt(r,c){return document.querySelector('.cell[data-pos="'+r+','+c+'"]')}
-function makeBoard(){let b=$('board');b.innerHTML='';for(let r=0;r<15;r++)for(let c=0;c<15;c++){let d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c>8)d.classList.add('yellowhome');if(r>8&&c<6)d.classList.add('bluehome');let idx=route.findIndex(p=>p[0]===r&&p[1]===c);if(idx>=0){d.className='cell path';if(safe.includes(idx))d.classList.add('safe');if(r===0&&c===7)d.classList.add('start-green');if(r===7&&c===14)d.classList.add('start-red');if(r===14&&c===7)d.classList.add('start-yellow');if(r===7&&c===0)d.classList.add('start-blue')}for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');if(r>=6&&r<=8&&c>=6&&c<=8)d.className='cell';b.appendChild(d)}
+function makeBoard(){let b=$('board');b.innerHTML='';for(let r=0;r<15;r++)for(let c=0;c<15;c++){let d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c>8)d.classList.add('yellowhome');if(r>8&&c<6)d.classList.add('bluehome');let idx=route.findIndex(p=>p[0]===r&&p[1]===c);if(idx>=0){d.className='cell path';if(safe.includes(idx)){d.classList.add('safe');if(idx===0||idx===47)d.classList.add('safe-blue');else if(idx===8||idx===13)d.classList.add('safe-green');else if(idx===21||idx===26)d.classList.add('safe-red');else if(idx===34||idx===39)d.classList.add('safe-yellow');}if(r===0&&c===7)d.classList.add('start-green');if(r===7&&c===14)d.classList.add('start-red');if(r===14&&c===7)d.classList.add('start-yellow');if(r===7&&c===0)d.classList.add('start-blue')}for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');if(r>=6&&r<=8&&c>=6&&c<=8)d.className='cell';b.appendChild(d)}
 [['redyard',0],['greenyard',1],['blueyard',2],['yellowyard',3]].forEach(([cl,p])=>{let y=document.createElement('div');y.className='yard '+cl+(activeSeats.includes(p)?'':' inactive');y.dataset.player=p;let n=document.createElement('div');n.className='yard-name';n.textContent=playerLabel(p);y.appendChild(n);for(let t=0;t<4;t++){let s=document.createElement('div');s.className='yard-slot';s.dataset.home=p+','+t;y.appendChild(s)}b.appendChild(y)});let center=document.createElement('div');center.className='centerpiece';b.appendChild(center);drawPawns();renderPlayers();updateTurn()}
 function renderYardNames(){document.querySelectorAll('.yard').forEach(y=>{let p=+y.dataset.player,n=y.querySelector('.yard-name');if(n)n.textContent=playerLabel(p)})}
 function coordFor(p,t,v){if(v<0)return homeSlots[p][t];if(v<=51)return route[(starts[p]+v)%52];return lanes[p][v-52]}
