@@ -360,6 +360,532 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
 @media(max-width:390px){.snake-player-choice{min-height:108px}.snake-board-wrap{padding:4px}.snake-square{padding:1px}}
 </style>
 
+
+
+
+
+
+
+
+<style id="one-soul-classic-ludo-star-final">
+/* Classic Ludo Star reference styling. Only Ludo board and pawn visuals. */
+#ludo .board-shell{
+  width:min(100%,840px)!important;
+  margin:0 auto!important;
+  padding:7px!important;
+  border-radius:24px!important;
+  background:linear-gradient(145deg,#fff,#cbd5df 45%,#7d8999)!important;
+  border:3px solid #e9f1fa!important;
+  box-shadow:0 9px 0 #68778b,0 14px 24px #0009!important;
+}
+#ludo .board{
+  width:100%!important;max-width:840px!important;aspect-ratio:1!important;
+  grid-template-columns:repeat(15,minmax(0,1fr))!important;
+  grid-template-rows:repeat(15,minmax(0,1fr))!important;
+  gap:2px!important;background:#243552!important;
+  border:3px solid #243552!important;border-radius:4px!important;overflow:hidden!important;
+}
+#ludo .cell{border:0!important;border-radius:0!important;box-shadow:none!important}
+#ludo .cell.path{background:linear-gradient(145deg,#fff,#e2e5eb)!important}
+#ludo .cell.redhome{background:linear-gradient(145deg,#536df5,#4056d7)!important} /* top-left blue */
+#ludo .cell.greenhome{background:linear-gradient(145deg,#26c900,#159900)!important} /* top-right green */
+#ludo .cell.bluehome{background:linear-gradient(145deg,#ffd52b,#e6ae00)!important} /* bottom-left yellow */
+#ludo .cell.yellowhome{background:linear-gradient(145deg,#ff5154,#e52e37)!important} /* bottom-right red */
+#ludo .cell.home-lane.bluelane{background:linear-gradient(145deg,#7185ff,#4c63ed)!important}
+#ludo .cell.home-lane.yellowlane{background:linear-gradient(145deg,#28d51d,#12a900)!important}
+#ludo .cell.home-lane.greenlane{background:linear-gradient(145deg,#ff6265,#ed343d)!important}
+#ludo .cell.home-lane.redlane{background:linear-gradient(145deg,#ffdf43,#f3bb00)!important}
+#ludo .cell.safe:after{font-size:clamp(10px,2.3vw,22px)!important;color:#87909b!important;text-shadow:0 1px #fff!important}
+#ludo .yard{
+  width:40%!important;height:40%!important;padding:5.5%!important;gap:8%!important;
+  border:3px solid #f5f7fc!important;border-radius:0 0 48% 0!important;
+  box-shadow:inset 0 2px 7px #fff5!important;
+  grid-template-columns:1fr 1fr!important;grid-template-rows:1fr 1fr!important;
+  overflow:visible!important;
+}
+#ludo .yard-name{display:none!important}
+#ludo .redyard{top:0!important;left:0!important;right:auto!important;bottom:auto!important;
+  background:linear-gradient(145deg,#536df5,#4056d7)!important;border-radius:0 48% 0 0!important}
+#ludo .greenyard{top:0!important;right:0!important;left:auto!important;bottom:auto!important;
+  background:linear-gradient(145deg,#27c900,#159900)!important;border-radius:48% 0 0 0!important}
+#ludo .blueyard{bottom:0!important;left:0!important;top:auto!important;right:auto!important;
+  background:linear-gradient(145deg,#ffdb32,#e6b000)!important;border-radius:0 0 0 48%!important}
+#ludo .yellowyard{bottom:0!important;right:0!important;top:auto!important;left:auto!important;
+  background:linear-gradient(145deg,#ff5154,#e52e37)!important;border-radius:0 0 48% 0!important}
+#ludo .yard-slot{
+  position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  min-width:0!important;min-height:0!important;border:0!important;border-radius:50%!important;
+  background:radial-gradient(ellipse at 35% 25%,#ffffff28,#07152c22 72%)!important;
+  box-shadow:inset 0 3px 9px #001b4533!important;overflow:visible!important;
+}
+#ludo .yard-slot .token{
+  position:absolute!important;left:7%!important;top:3%!important;width:86%!important;height:94%!important;
+  z-index:6!important;padding:0!important;border:0!important;border-radius:0!important;
+  background:transparent!important;outline:0!important;overflow:visible!important;
+  filter:drop-shadow(0 4px 3px #00152b88)!important;
+}
+#ludo .token{overflow:visible!important;background:transparent!important}
+#ludo .token .pawn-body{
+  position:absolute!important;left:7%!important;bottom:1%!important;width:86%!important;height:59%!important;
+  clip-path:polygon(33% 0,67% 0,100% 100%,0 100%)!important;
+  border-radius:0 0 24% 24%!important;
+  background:linear-gradient(90deg,var(--pd) 0%,var(--pm) 20%,var(--pl) 39%,#fff 49%,var(--pl) 56%,var(--pm) 76%,var(--pd) 100%)!important;
+  box-shadow:inset 0 -5px 8px #0007,inset 0 3px 5px #ffffffb0,0 3px 5px #00132d99!important;
+}
+#ludo .token .pawn-body:after{
+  content:"";position:absolute;left:14%;top:7%;width:24%;height:75%;border-radius:50%;
+  background:linear-gradient(90deg,#ffffff9c,transparent);transform:skew(-12deg);
+}
+#ludo .token .pawn-neck{
+  position:absolute!important;left:37%!important;top:32%!important;width:26%!important;height:25%!important;
+  border-radius:45%!important;
+  background:linear-gradient(90deg,var(--pd),var(--pl) 34%,#fff 50%,var(--pm) 72%,var(--pd))!important;
+  box-shadow:0 1px 4px #0007!important;
+}
+#ludo .token .pawn-head{
+  position:absolute!important;left:17%!important;top:0!important;width:66%!important;height:58%!important;
+  border-radius:50%!important;
+  background:radial-gradient(ellipse at 29% 19%,#fff 0%,var(--pl) 18%,var(--pm) 52%,var(--pd) 86%,#00152d 100%)!important;
+  border:1px solid #ffffffed!important;
+  box-shadow:inset -4px -5px 8px #0008,inset 2px 2px 5px #ffffffd0,0 3px 6px #00132dcc!important;
+}
+#ludo .token.blue{--pd:#1240c5!important;--pm:#315ef4!important;--pl:#c4e4ff!important}
+#ludo .token.green{--pd:#087c14!important;--pm:#20c900!important;--pl:#caff9b!important}
+#ludo .token.yellow{--pd:#a76a00!important;--pm:#f4bd00!important;--pl:#fff2a0!important}
+#ludo .token.red{--pd:#a60d20!important;--pm:#f13b45!important;--pl:#ffc0b8!important}
+#ludo .centerpiece{
+  left:30%!important;top:30%!important;width:40%!important;height:40%!important;z-index:3!important;
+  background:conic-gradient(#20b915 0 25%,#f13d48 0 50%,#f4c400 0 75%,#536df5 0)!important;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)!important;
+  filter:drop-shadow(0 2px 2px #15213b)!important;
+}
+#ludo .centerpiece:after{
+  content:""!important;position:absolute!important;width:24%!important;height:24%!important;left:38%!important;top:38%!important;
+  border-radius:50%!important;background:radial-gradient(circle at 30% 25%,#fff,#e9edf3 70%,#9ba8b8)!important;
+  border:1px solid #dce5ef!important;box-shadow:0 2px 5px #1c2a43!important;
+}
+@media(max-width:390px){
+ #ludo .board-shell{padding:5px!important;border-radius:19px!important}
+ #ludo .yard{padding:5%!important;gap:7%!important}
+}
+</style>
+
+
+<style id="one-soul-ludo-reference-screen">
+/* LUDO screen only: matched to the supplied ONE SOUL LUDO reference.
+   Other game screens and game logic are intentionally unchanged. */
+#ludo{
+  max-width:900px!important;
+  padding:10px 8px 24px!important;
+  background:linear-gradient(180deg,#0758bd 0%,#0879e2 48%,#0750b5 100%);
+}
+#ludo .top{
+  min-height:86px!important;
+  margin-bottom:14px!important;
+  padding:9px 12px!important;
+  border:2px solid #5edcff!important;
+  border-radius:22px!important;
+  background:linear-gradient(110deg,#063d8e,#0870d7 55%,#06438f)!important;
+  box-shadow:0 7px 0 #043579,0 10px 22px #002c6c88,inset 0 2px #ffffff55!important;
+}
+#ludo .top .brand{
+  font-size:clamp(20px,5.2vw,35px)!important;
+  color:#fff!important;
+  text-shadow:0 3px 0 #06448e,0 0 12px #a7edff!important;
+}
+#ludo .top .btn:first-child{
+  min-width:104px!important;
+  min-height:64px!important;
+  border-radius:20px!important;
+  font-size:clamp(16px,4.5vw,25px)!important;
+  background:linear-gradient(180deg,#24a9ff,#0860c9)!important;
+  border:2px solid #72e6ff!important;
+  box-shadow:0 5px 0 #043579,inset 0 2px #ffffff88!important;
+}
+#ludo .top .btn:last-child{
+  min-width:88px!important;
+  min-height:58px!important;
+  border-radius:18px!important;
+  background:linear-gradient(180deg,#3fbaff,#0862c9)!important;
+  border:2px solid #b9f2ff!important;
+  box-shadow:0 5px 0 #043579,inset 0 2px #ffffff88!important;
+}
+
+/* Player panels: large DP + same-size dice, exactly beside each other. */
+#ludo .players{
+  grid-template-columns:1fr 1fr!important;
+  gap:12px!important;
+  margin:10px 0 14px!important;
+}
+#ludo .player{
+  min-height:112px!important;
+  padding:10px 9px!important;
+  gap:10px!important;
+  border:2px solid #70dfff!important;
+  border-radius:22px!important;
+  background:linear-gradient(145deg,#0865c9,#06448e 65%,#032f70)!important;
+  box-shadow:0 6px 0 #03285e,0 9px 18px #002e6d66,inset 0 2px #ffffff55!important;
+}
+#ludo .player.active{
+  outline:3px solid #ffe16d!important;
+  box-shadow:0 0 18px #ffe16d88,0 6px 0 #03285e!important;
+}
+#ludo .player .avatar{
+  width:68px!important;
+  height:68px!important;
+  flex:0 0 68px!important;
+  font-size:35px!important;
+  border:3px solid #f4fbff!important;
+  box-shadow:0 0 0 3px #ffffff25,0 4px 9px #002c6c!important;
+}
+#ludo .pinfo{
+  text-align:left!important;
+  padding-left:2px!important;
+}
+#ludo .pname{
+  font-size:clamp(14px,4.2vw,25px)!important;
+  color:#fff!important;
+  text-shadow:0 3px 3px #00275e!important;
+}
+#ludo .status{
+  font-size:clamp(10px,3vw,17px)!important;
+  color:#fff!important;
+  margin-top:5px!important;
+  text-shadow:0 2px 2px #00275e!important;
+}
+#ludo .mini-dice{
+  width:70px!important;
+  height:70px!important;
+  flex:0 0 70px!important;
+  border-radius:16px!important;
+  font-size:40px!important;
+  background:linear-gradient(145deg,#fff,#d8e4ef)!important;
+  color:#182b42!important;
+  border:2px solid #f9fdff!important;
+  box-shadow:0 5px 0 #7a91a9,0 7px 10px #001e4e88,inset 0 3px 6px #fff!important;
+}
+#ludo .mini-dice:disabled{
+  opacity:1!important;
+  filter:none!important;
+}
+#ludo .mini-dice.rolling{
+  animation:spin .35s linear infinite!important;
+}
+
+/* Board: 855 × 855 target, 15 × 15 classic Ludo grid, glossy white frame. */
+#ludo .board-shell{
+  width:min(100%,855px)!important;
+  max-width:855px!important;
+  margin:0 auto!important;
+  padding:9px!important;
+  border-radius:25px!important;
+  background:linear-gradient(145deg,#ffffff,#d8e0e8 46%,#8d99a8)!important;
+  border:3px solid #f7fbff!important;
+  box-shadow:0 9px 0 #637184,0 16px 28px #000b!important;
+}
+#ludo .board{
+  width:100%!important;
+  max-width:855px!important;
+  aspect-ratio:1/1!important;
+  grid-template-columns:repeat(15,minmax(0,1fr))!important;
+  grid-template-rows:repeat(15,minmax(0,1fr))!important;
+  gap:2px!important;
+  background:#263b57!important;
+  border:3px solid #263b57!important;
+  border-radius:4px!important;
+  overflow:hidden!important;
+}
+#ludo .cell{
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+#ludo .cell.path{
+  background:linear-gradient(145deg,#ffffff 0%,#e8edf2 100%)!important;
+}
+#ludo .cell.redhome{
+  background:linear-gradient(145deg,#3e62f0,#2748cb)!important;
+}
+#ludo .cell.greenhome{
+  background:linear-gradient(145deg,#32d51d,#13a90b)!important;
+}
+#ludo .cell.bluehome{
+  background:linear-gradient(145deg,#ffdf35,#e9b900)!important;
+}
+#ludo .cell.yellowhome{
+  background:linear-gradient(145deg,#ff575a,#e52f39)!important;
+}
+#ludo .cell.home-lane.bluelane{
+  background:linear-gradient(145deg,#7890ff,#4e67ec)!important;
+}
+#ludo .cell.home-lane.yellowlane{
+  background:linear-gradient(145deg,#36dc24,#13aa08)!important;
+}
+#ludo .cell.home-lane.greenlane{
+  background:linear-gradient(145deg,#ff6669,#ed333d)!important;
+}
+#ludo .cell.home-lane.redlane{
+  background:linear-gradient(145deg,#ffe04a,#f1bc00)!important;
+}
+#ludo .cell.safe:after{
+  font-size:clamp(10px,2.5vw,22px)!important;
+  color:#8b949e!important;
+  text-shadow:0 1px #fff!important;
+}
+
+/* Four 50% corner home areas like the reference image. */
+#ludo .yard{
+  width:40%!important;
+  height:40%!important;
+  padding:5.6%!important;
+  gap:8%!important;
+  border:3px solid #f8fbff!important;
+  box-shadow:inset 0 2px 9px #fff6!important;
+  grid-template-columns:1fr 1fr!important;
+  grid-template-rows:1fr 1fr!important;
+  overflow:visible!important;
+}
+#ludo .yard-name{display:none!important}
+#ludo .redyard{
+  top:0!important;left:0!important;right:auto!important;bottom:auto!important;
+  background:linear-gradient(145deg,#3e62f0,#2748cb)!important;
+  border-radius:0 48% 0 0!important;
+}
+#ludo .greenyard{
+  top:0!important;right:0!important;left:auto!important;bottom:auto!important;
+  background:linear-gradient(145deg,#32d51d,#13a90b)!important;
+  border-radius:48% 0 0 0!important;
+}
+#ludo .blueyard{
+  bottom:0!important;left:0!important;top:auto!important;right:auto!important;
+  background:linear-gradient(145deg,#ffdf35,#e9b900)!important;
+  border-radius:0 0 0 48%!important;
+}
+#ludo .yellowyard{
+  bottom:0!important;right:0!important;top:auto!important;left:auto!important;
+  background:linear-gradient(145deg,#ff575a,#e52f39)!important;
+  border-radius:0 0 48% 0!important;
+}
+#ludo .yard-slot{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+  min-height:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:radial-gradient(ellipse at 35% 25%,#ffffff2b,#07152c22 72%)!important;
+  box-shadow:inset 0 3px 9px #001b4533!important;
+  overflow:visible!important;
+}
+
+/* Glossy 3-D pawns. */
+#ludo .yard-slot .token{
+  position:absolute!important;
+  left:7%!important;top:3%!important;
+  width:86%!important;height:94%!important;
+  z-index:6!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  outline:0!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 4px 3px #00152b88)!important;
+}
+#ludo .token{
+  overflow:visible!important;
+  background:transparent!important;
+}
+#ludo .token .pawn-body{
+  position:absolute!important;
+  left:7%!important;bottom:1%!important;
+  width:86%!important;height:59%!important;
+  clip-path:polygon(33% 0,67% 0,100% 100%,0 100%)!important;
+  border-radius:0 0 24% 24%!important;
+  background:linear-gradient(90deg,var(--pd) 0%,var(--pm) 20%,var(--pl) 39%,#fff 49%,var(--pl) 56%,var(--pm) 76%,var(--pd) 100%)!important;
+  box-shadow:inset 0 -5px 8px #0007,inset 0 3px 5px #ffffffb0,0 3px 5px #00132d99!important;
+}
+#ludo .token .pawn-body:after{
+  content:""!important;
+  position:absolute!important;
+  left:14%!important;top:7%!important;
+  width:24%!important;height:75%!important;
+  border-radius:50%!important;
+  background:linear-gradient(90deg,#ffffff9c,transparent)!important;
+  transform:skew(-12deg)!important;
+}
+#ludo .token .pawn-neck{
+  position:absolute!important;
+  left:37%!important;top:32%!important;
+  width:26%!important;height:25%!important;
+  border-radius:45%!important;
+  background:linear-gradient(90deg,var(--pd),var(--pl) 34%,#fff 50%,var(--pm) 72%,var(--pd))!important;
+  box-shadow:0 1px 4px #0007!important;
+}
+#ludo .token .pawn-head{
+  position:absolute!important;
+  left:17%!important;top:0!important;
+  width:66%!important;height:58%!important;
+  border-radius:50%!important;
+  background:radial-gradient(ellipse at 29% 19%,#fff 0%,var(--pl) 18%,var(--pm) 52%,var(--pd) 86%,#00152d 100%)!important;
+  border:1px solid #ffffffed!important;
+  box-shadow:inset -4px -5px 8px #0008,inset 2px 2px 5px #ffffffd0,0 3px 6px #00132dcc!important;
+}
+#ludo .token.blue{--pd:#1240c5!important;--pm:#315ef4!important;--pl:#c4e4ff!important}
+#ludo .token.green{--pd:#087c14!important;--pm:#20c900!important;--pl:#caff9b!important}
+#ludo .token.yellow{--pd:#a76a00!important;--pm:#f4bd00!important;--pl:#fff2a0!important}
+#ludo .token.red{--pd:#a60d20!important;--pm:#f13b45!important;--pl:#ffc0b8!important}
+
+#ludo .centerpiece{
+  left:30%!important;top:30%!important;
+  width:40%!important;height:40%!important;
+  z-index:3!important;
+  background:conic-gradient(#20b915 0 25%,#f13d48 0 50%,#f4c400 0 75%,#536df5 0)!important;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)!important;
+  filter:drop-shadow(0 2px 2px #15213b)!important;
+}
+#ludo .centerpiece:after{content:none!important}
+
+/* Final reference-match corrections: exact corner color mapping, shield safe icons, start arrows, full player names and real pip dice. */
+#ludo .redyard{background:linear-gradient(145deg,#3e62f0,#2748cb)!important}
+#ludo .greenyard{background:linear-gradient(145deg,#32d51d,#13a90b)!important}
+#ludo .blueyard{background:linear-gradient(145deg,#ffdf35,#e9b900)!important}
+#ludo .yellowyard{background:linear-gradient(145deg,#ff575a,#e52f39)!important}
+#ludo .cell.safe:after{content:""!important;width:52%!important;height:62%!important;display:block!important;background:linear-gradient(145deg,#ffffff,#c5ccd4)!important;clip-path:polygon(50% 0,90% 14%,84% 60%,50% 100%,16% 60%,10% 14%)!important;border:1px solid #7d8791!important;box-shadow:inset 0 1px 2px #fff,0 1px 2px #596572!important}
+#ludo .cell.start-green:after,#ludo .cell.start-red:after,#ludo .cell.start-yellow:after,#ludo .cell.start-blue:after{font-size:clamp(15px,4vw,30px)!important;font-weight:1000!important;line-height:1!important;text-shadow:0 2px 2px #0005!important}
+#ludo .cell.start-green:after{content:"↓"!important;color:#20b915!important}
+#ludo .cell.start-red:after{content:"←"!important;color:#ef3b45!important}
+#ludo .cell.start-yellow:after{content:"↑"!important;color:#f4c400!important}
+#ludo .cell.start-blue:after{content:"→"!important;color:#267fe9!important}
+#ludo .player{min-height:96px!important}
+#ludo .pname{font-size:clamp(14px,4vw,20px)!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.05!important}
+#ludo .status{font-size:clamp(9px,2.8vw,14px)!important}
+#ludo .mini-dice{font-family:Arial,sans-serif!important;font-size:0!important;display:grid!important;place-items:center!important}
+#ludo .mini-dice .die-face{width:76%!important;height:76%!important;border-radius:18%!important;background:linear-gradient(145deg,#ffffff,#d9e3ec)!important;box-shadow:inset 0 2px 4px #fff,0 2px 3px #7b8fa6!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;grid-template-rows:repeat(3,1fr)!important;padding:12%!important;gap:5%!important}
+#ludo .mini-dice .pip{width:100%!important;height:100%!important;border-radius:50%!important;background:#111!important;box-shadow:inset 0 1px 1px #555!important}
+#ludo .mini-dice .pip.off{visibility:hidden!important}
+#ludo .turnline{
+  margin:12px 0 5px!important;
+  font-size:clamp(16px,4.2vw,25px)!important;
+  color:#ffe56b!important;
+  text-shadow:0 3px 3px #003d82!important;
+}
+#ludo .note{color:#e9f7ff!important}
+#ludo .chat{
+  border:2px solid #64dfff!important;
+  background:linear-gradient(145deg,#06468e,#052e67)!important;
+  box-shadow:0 6px 0 #03285e!important;
+}
+#ludo .chatrow input{background:#fff!important}
+
+@media(max-width:600px){
+  #ludo .top{min-height:74px!important;padding:7px 8px!important}
+  #ludo .top .btn:first-child{min-width:82px!important;min-height:55px!important}
+  #ludo .top .btn:last-child{min-width:72px!important;min-height:50px!important}
+  #ludo .players{gap:8px!important;margin:8px 0 11px!important}
+  #ludo .player{min-height:94px!important;padding:7px!important;gap:6px!important;border-radius:17px!important}
+  #ludo .player .avatar{width:54px!important;height:54px!important;flex-basis:54px!important;font-size:28px!important}
+  #ludo .mini-dice{width:56px!important;height:56px!important;flex-basis:56px!important;font-size:32px!important;border-radius:13px!important}
+  #ludo .pname{font-size:clamp(11px,3.7vw,18px)!important}
+  #ludo .status{font-size:clamp(8px,2.5vw,13px)!important}
+  #ludo .board-shell{padding:6px!important;border-radius:20px!important}
+}
+@media(max-width:390px){
+  #ludo{padding-left:5px!important;padding-right:5px!important}
+  #ludo .players{gap:6px!important}
+  #ludo .player{min-height:84px!important}
+  #ludo .player .avatar{width:47px!important;height:47px!important;flex-basis:47px!important}
+  #ludo .mini-dice{width:49px!important;height:49px!important;flex-basis:49px!important;font-size:28px!important}
+  #ludo .pinfo{padding-left:0!important}
+}
+</style>
+
+
+<style id="one-soul-ludo-exact-reference-fix">
+/* FINAL REFERENCE FIX: explicit player/color mapping + reference details. */
+#ludo .redyard{background:linear-gradient(145deg,#3f68f5,#2450d6)!important}
+#ludo .greenyard{background:linear-gradient(145deg,#2ddd18,#10aa08)!important}
+#ludo .blueyard{background:linear-gradient(145deg,#ffdc2e,#e7b400)!important}
+#ludo .yellowyard{background:linear-gradient(145deg,#ff4f54,#e52f38)!important}
+
+/* Never let cosmetic/shop state change the four Ludo pawn colors. */
+#ludo .token[data-p="0"]{--pd:#1240c5!important;--pm:#315ef4!important;--pl:#c4e4ff!important}
+#ludo .token[data-p="1"]{--pd:#087c14!important;--pm:#20c900!important;--pl:#caff9b!important}
+#ludo .token[data-p="2"]{--pd:#a76a00!important;--pm:#f4bd00!important;--pl:#fff2a0!important}
+#ludo .token[data-p="3"]{--pd:#a60d20!important;--pm:#f13b45!important;--pl:#ffc0b8!important}
+
+/* Reference board corner colors. */
+#ludo .cell.redhome{background:linear-gradient(145deg,#3e62f0,#2748cb)!important}
+#ludo .cell.greenhome{background:linear-gradient(145deg,#32d51d,#13a90b)!important}
+#ludo .cell.bluehome{background:linear-gradient(145deg,#ffdf35,#e9b900)!important}
+#ludo .cell.yellowhome{background:linear-gradient(145deg,#ff575a,#e52f39)!important}
+
+/* Reference safe markers: grey shield instead of star. */
+#ludo .cell.safe:after{
+  content:""!important;
+  width:clamp(12px,3.4vw,25px)!important;
+  height:clamp(14px,3.8vw,28px)!important;
+  display:block!important;
+  background:linear-gradient(145deg,#f8fbff 0%,#b6c0ca 55%,#737f8b 100%)!important;
+  border:1px solid #68737d!important;
+  clip-path:polygon(50% 0,92% 17%,86% 68%,50% 100%,14% 68%,8% 17%)!important;
+  box-shadow:0 1px 2px #26344499!important;
+  text-shadow:none!important;
+}
+
+/* Reference center: four colored triangles only; no white center circle. */
+#ludo .centerpiece:after{display:none!important;content:none!important}
+#ludo .centerpiece{
+  left:30%!important;top:30%!important;width:40%!important;height:40%!important;
+  background:conic-gradient(#20b915 0 25%,#f13d48 0 50%,#f4c400 0 75%,#536df5 0)!important;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)!important;
+  border:0!important;
+  filter:drop-shadow(0 2px 2px #15213b)!important;
+}
+
+/* Reference player cards: full names and dice beside the avatar/info. */
+#ludo .player{min-height:112px!important}
+#ludo .pinfo{min-width:0!important;overflow:visible!important}
+#ludo .pname{white-space:nowrap!important;overflow:visible!important;text-overflow:clip!important;font-size:clamp(14px,4vw,24px)!important}
+#ludo .mini-dice{width:70px!important;height:70px!important;flex-basis:70px!important}
+#ludo .mini-dice .die-face{width:78%!important;height:78%!important;padding:12%!important;gap:5%!important}
+
+/* Keep the Ludo screen wide like the reference instead of the generic app max width. */
+#ludo.screen{max-width:none!important;padding-left:10px!important;padding-right:10px!important}
+#ludo .players{max-width:855px!important;margin:10px auto 14px!important}
+#ludo .board-shell{width:min(100%,855px)!important;max-width:855px!important}
+#ludo .turnline{max-width:855px!important;margin-left:auto!important;margin-right:auto!important}
+</style>
+
+<style id="one-soul-final-chat-dice-fix">
+/* Final requested UI: small dice without an outer profile/card line, compact bottom chat controls. */
+#ludo .player{min-height:86px!important;padding:6px 8px!important;gap:7px!important}
+#ludo .player .avatar{width:52px!important;height:52px!important;flex-basis:52px!important}
+#ludo .mini-dice{width:48px!important;height:48px!important;flex-basis:48px!important;min-width:48px!important;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;padding:0!important}
+#ludo .mini-dice .die-face{width:100%!important;height:100%!important;padding:11%!important;border:0!important;box-shadow:inset 0 2px 4px #fff,0 2px 3px #7b8fa6!important}
+#ludo .compact-chat{display:block!important;margin:8px auto 4px!important;max-width:855px!important;padding:7px!important;border:2px solid #64dfff!important;border-radius:18px!important;background:linear-gradient(145deg,#06468e,#052e67)!important;box-shadow:0 5px 0 #03285e!important}
+#ludo .compact-chat .chatrow{display:flex!important;align-items:center!important;gap:7px!important;margin:0!important}
+#ludo .compact-chat #chatinput{flex:1!important;min-width:0!important;height:48px!important;border-radius:24px!important;padding:0 15px!important;background:#fff!important;color:#071747!important;border:0!important;font-size:15px!important}
+#ludo .chat-icon{width:48px!important;height:48px!important;min-width:48px!important;border:0!important;border-radius:50%!important;display:grid!important;place-items:center!important;font-size:25px!important;cursor:pointer!important;color:#fff!important;box-shadow:0 3px 0 #003a78!important}
+#ludo .emoji-btn{background:linear-gradient(145deg,#20a9ff,#0874d9)!important}
+#ludo .voice-btn{background:linear-gradient(145deg,#20a9ff,#0874d9)!important}
+#ludo .send-btn{background:linear-gradient(145deg,#27b8ff,#0874d9)!important;font-size:23px!important}
+#ludo .compact-chat + .note{margin-top:5px!important}
+@media(max-width:600px){
+  #ludo .players{gap:6px!important;margin:7px auto 9px!important}
+  #ludo .player{min-height:78px!important;padding:5px 6px!important}
+  #ludo .player .avatar{width:45px!important;height:45px!important;flex-basis:45px!important}
+  #ludo .mini-dice{width:42px!important;height:42px!important;flex-basis:42px!important;min-width:42px!important}
+  #ludo .pname{font-size:clamp(12px,3.6vw,18px)!important}
+  #ludo .status{font-size:clamp(8px,2.4vw,12px)!important}
+  #ludo .compact-chat{margin:6px auto 3px!important;padding:5px!important;border-radius:16px!important}
+  #ludo .compact-chat #chatinput{height:42px!important;font-size:13px!important;padding:0 11px!important}
+  #ludo .chat-icon{width:42px!important;height:42px!important;min-width:42px!important;font-size:21px!important}
+}
+</style>
+
 </head>
 <body>
 <section id="home" class="screen active home-screen">
@@ -407,8 +933,9 @@ body[data-theme="golden"]{background:radial-gradient(ellipse at 50% 25%,#b98a3a 
  <div class="top"><button class="btn" onclick="show('home')">← Games</button><div class="brand">👑 ONE SOUL LUDO</div><button class="btn" onclick="openProfile()">Profile</button></div>
  <div id="topPlayers" class="players"></div><div class="board-shell"><div id="board" class="board"></div></div><div id="bottomPlayers" class="players"></div>
  <div id="turnline" class="turnline">Red — roll your dice</div>
+  <div id="messages" class="messages" aria-live="polite" style="display:none"></div>
   <p id="ludoPrizeInfo" class="note">Entry bet and prize pool</p>
- <div class="chat"><b>💬 GAME CHAT</b><div id="messages" class="messages"><div class="msg">Welcome to ONE SOUL! 🎮</div></div><div class="emoji"><button onclick="sendEmoji('😀')">😀</button><button onclick="sendEmoji('😍')">😍</button><button onclick="sendEmoji('😎')">😎</button><button onclick="sendEmoji('😂')">😂</button><button onclick="sendEmoji('👍')">👍</button><button onclick="sendEmoji('❤️')">❤️</button></div><div class="chatrow"><input id="chatinput" maxlength="140" placeholder="Type a message..."><button class="btn" onclick="sendChat()">➤</button></div></div>
+ <div class="chat compact-chat"><div class="chatrow"><button class="chat-icon emoji-btn" onclick="sendEmoji('😀')" aria-label="Emoji">😀</button><input id="chatinput" maxlength="140" placeholder="Type a message..."><button class="chat-icon voice-btn" onclick="voiceChat()" aria-label="Voice message">🎙️</button><button class="chat-icon send-btn" onclick="sendChat()" aria-label="Send message">➤</button></div></div>
  <p class="note">Local game mode. Online play requires a configured Firebase project and secure multiplayer rules.</p>
 </section>
 <section id="wallet" class="screen"><div class="top"><button class="btn" onclick="show('home')">← Home</button><div class="brand">🪙 MY WALLET</div><span></span></div><div class="panel"><h2>ONE SOUL Wallet</h2><div class="wallet"><div>🪙 COINS<strong id="walletCoins">1,000</strong></div><div class="diamond">💎 DIAMONDS<strong id="walletDiamonds">0</strong></div></div><p class="note">Virtual demo points only. No cash value or withdrawals.</p><button class="wide" onclick="claimDailyBonus()">🎁 CLAIM DAILY BONUS (+100 COINS)</button><p id="bonusMessage" class="note">Once per day on this device.</p><button class="wide gold" style="margin-top:10px" onclick="show('gifts')">OPEN GIFT CENTER</button></div></section>
@@ -535,7 +1062,7 @@ function openProfile(){previousScreen=document.querySelector('.screen.active').i
 function loadPhoto(e){let f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>1500000){alert('Choose a photo smaller than 1.5 MB.');e.target.value='';return}let r=new FileReader();r.onload=()=>{profile.photo=r.result;$('preview').innerHTML='<img src="'+r.result+'">'};r.readAsDataURL(f)}
 function removePhoto(){profile.photo='';$('preview').textContent='👤';$('photo').value=''}
 function saveProfile(){profile.name=$('playerName').value.trim();localStorage.setItem('os_name',profile.name);if(profile.photo)localStorage.setItem('os_photo',profile.photo);else localStorage.removeItem('os_photo');renderPlayers();renderYardNames();show(previousScreen)}
-const names=['Player 1','Player 2','Player 3','Player 4'],css=['red','green','yellow','blue'],hex=['#ef405b','#18c987','#f5c844','#329bff'],starts=[0,13,26,39];
+const names=['Player 1','Player 2','Player 3','Player 4'],css=['blue','yellow','green','red'],hex=['#329bff','#f5c844','#18c987','#ef405b'],starts=[0,13,26,39];
 const route=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
 const homeSlots=[[[1,1],[1,4],[4,1],[4,4]],[[1,10],[1,13],[4,10],[4,13]],[[10,10],[10,13],[13,10],[13,13]],[[10,1],[10,4],[13,1],[13,4]]];
 const lanes=[[[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]],[[7,13],[7,12],[7,11],[7,10],[7,9],[7,8]],[[13,7],[12,7],[11,7],[10,7],[9,7],[8,7]]],safe=[0,8,13,21,26,34,39,47];
@@ -543,13 +1070,14 @@ let pawns=Array.from({length:4},()=>[-1,-1,-1,-1]),activeSeats=[0,1,2,3],turn=0,
 let selectedLudoPlayers=0,ludoBet=500,ludoPrizePool=0,ludoPrizePaid=false;
 function playerLabel(p){return p===0?(profile.name||'Player 1'):names[p]}
 function cellAt(r,c){return document.querySelector('.cell[data-pos="'+r+','+c+'"]')}
-function makeBoard(){let b=$('board');b.innerHTML='';for(let r=0;r<15;r++)for(let c=0;c<15;c++){let d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c>8)d.classList.add('yellowhome');if(r>8&&c<6)d.classList.add('bluehome');let idx=route.findIndex(p=>p[0]===r&&p[1]===c);if(idx>=0){d.className='cell path';if(safe.includes(idx))d.classList.add('safe')}for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');if(r>=6&&r<=8&&c>=6&&c<=8)d.className='cell';b.appendChild(d)}
-[['redyard',0],['greenyard',1],['yellowyard',2],['blueyard',3]].forEach(([cl,p])=>{let y=document.createElement('div');y.className='yard '+cl+(activeSeats.includes(p)?'':' inactive');y.dataset.player=p;let n=document.createElement('div');n.className='yard-name';n.textContent=playerLabel(p);y.appendChild(n);for(let t=0;t<4;t++){let s=document.createElement('div');s.className='yard-slot';s.dataset.home=p+','+t;y.appendChild(s)}b.appendChild(y)});let center=document.createElement('div');center.className='centerpiece';b.appendChild(center);drawPawns();renderPlayers();updateTurn()}
+function makeBoard(){let b=$('board');b.innerHTML='';for(let r=0;r<15;r++)for(let c=0;c<15;c++){let d=document.createElement('div');d.className='cell';d.dataset.pos=r+','+c;if(r<6&&c<6)d.classList.add('redhome');if(r<6&&c>8)d.classList.add('greenhome');if(r>8&&c>8)d.classList.add('yellowhome');if(r>8&&c<6)d.classList.add('bluehome');let idx=route.findIndex(p=>p[0]===r&&p[1]===c);if(idx>=0){d.className='cell path';if(safe.includes(idx))d.classList.add('safe');if(r===0&&c===7)d.classList.add('start-green');if(r===7&&c===14)d.classList.add('start-red');if(r===14&&c===7)d.classList.add('start-yellow');if(r===7&&c===0)d.classList.add('start-blue')}for(let p=0;p<4;p++)if(lanes[p].some(q=>q[0]===r&&q[1]===c))d.classList.add('home-lane',css[p]+'lane');if(r>=6&&r<=8&&c>=6&&c<=8)d.className='cell';b.appendChild(d)}
+[['redyard',0],['greenyard',1],['blueyard',2],['yellowyard',3]].forEach(([cl,p])=>{let y=document.createElement('div');y.className='yard '+cl+(activeSeats.includes(p)?'':' inactive');y.dataset.player=p;let n=document.createElement('div');n.className='yard-name';n.textContent=playerLabel(p);y.appendChild(n);for(let t=0;t<4;t++){let s=document.createElement('div');s.className='yard-slot';s.dataset.home=p+','+t;y.appendChild(s)}b.appendChild(y)});let center=document.createElement('div');center.className='centerpiece';b.appendChild(center);drawPawns();renderPlayers();updateTurn()}
 function renderYardNames(){document.querySelectorAll('.yard').forEach(y=>{let p=+y.dataset.player,n=y.querySelector('.yard-name');if(n)n.textContent=playerLabel(p)})}
 function coordFor(p,t,v){if(v<0)return homeSlots[p][t];if(v<=51)return route[(starts[p]+v)%52];return lanes[p][v-52]}
 function drawPawns(){document.querySelectorAll('.token').forEach(x=>x.remove());let stacks=new Map();for(let p=0;p<4;p++)for(let t=0;t<4;t++){let v=pawns[p][t],co=coordFor(p,t,v),token=document.createElement('button');token.type='button';token.className='token '+css[p];let pawnStyle=SHOP_CATALOG.pawns.find(x=>x.id===shopInventory.pawns)||SHOP_CATALOG.pawns[0];token.style.filter='drop-shadow(0 3px 3px #00132dcc) drop-shadow(0 0 3px '+pawnStyle.palette[0]+')';token.innerHTML='<span class="pawn-body"></span><span class="pawn-neck"></span><span class="pawn-head"></span>';token.dataset.p=p;token.dataset.t=t;token.setAttribute('aria-label',playerLabel(p)+' token '+(t+1));if(awaitMove&&p===turn&&isLegal(p,t,lastRoll))token.classList.add('selectable');if(v<0){let slot=document.querySelector('[data-home="'+p+','+t+'"]');if(slot)slot.appendChild(token)}else{let cell=cellAt(co[0],co[1]);if(!cell)continue;if(!stacks.has(cell))stacks.set(cell,[]);stacks.get(cell).push(token);cell.appendChild(token)}token.addEventListener('click',e=>{e.stopPropagation();choosePawn(p,t)})}for(let [cell,tokens] of stacks){let count=tokens.length,cols=Math.ceil(Math.sqrt(count)),rows=Math.ceil(count/cols),w=100/cols,h=100/rows,size=Math.min(w,h);tokens.forEach((token,i)=>{let col=i%cols,row=Math.floor(i/cols);token.style.width=(size*.94)+'%';token.style.height=(size*.94)+'%';token.style.left=(col*w+(w-size*.94)/2)+'%';token.style.top=(row*h+(h-size*.94)/2)+'%';token.style.transform='none';token.style.zIndex=String(10+i)})}}
 function isLegal(p,t,roll){let v=pawns[p][t];if(v===57)return false;if(v<0)return roll===6;return v+roll<=57}
-function playerCard(p){if(!activeSeats.includes(p))return '<div></div>';let active=p===turn&&!finished,pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':(p===0?'👤':'👤'),diceStyle=SHOP_CATALOG.dice.find(x=>x.id===shopInventory.dice)||SHOP_CATALOG.dice[0];return '<div class="player '+(active?'active':'')+'"><div class="avatar">'+pic+'</div><div class="pinfo"><div class="pname">'+escapeHTML(playerLabel(p))+'</div><div class="status">'+(active?'YOUR TURN':'READY')+'</div></div><button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" style="--dice-light:'+diceStyle.palette[0]+';--dice-dark:'+diceStyle.palette[1]+';--dice-ink:'+diceStyle.palette[2]+'" '+(active&&!awaitMove&&!rollingDice?'':'disabled')+' onclick="rollFor('+p+')">'+(active&&rollingDice?'🎲':(active&&lastRoll?lastRoll:'🎲'))+'</button></div>'}
+function diceFaceHTML(value){let n=Number(value)||1;let map={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};let active=new Set(map[n]||map[1]);return '<span class="die-face">'+Array.from({length:9},(_,i)=>'<i class="pip '+(active.has(i)?'':'off')+'"></i>').join('')+'</span>'}
+function playerCard(p){if(!activeSeats.includes(p))return '<div></div>';let active=p===turn&&!finished,pic=p===0&&profile.photo?'<img src="'+profile.photo+'">':(p===0?'👤':'👤'),diceStyle=SHOP_CATALOG.dice.find(x=>x.id===shopInventory.dice)||SHOP_CATALOG.dice[0];let face=active&&rollingDice?diceFaceHTML(1):diceFaceHTML(active&&lastRoll?lastRoll:5);return '<div class="player '+(active?'active':'')+'"><div class="avatar">'+pic+'</div><div class="pinfo"><div class="pname">'+escapeHTML(playerLabel(p))+'</div><div class="status">'+(active?'YOUR TURN':'READY')+'</div></div><button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" style="--dice-light:'+diceStyle.palette[0]+';--dice-dark:'+diceStyle.palette[1]+';--dice-ink:'+diceStyle.palette[2]+'" '+(active&&!awaitMove&&!rollingDice?'':'disabled')+' onclick="rollFor('+p+')">'+face+'</button></div>'}
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderPlayers(){$('topPlayers').innerHTML=playerCard(0)+playerCard(1);$('bottomPlayers').innerHTML=playerCard(3)+playerCard(2)}
 function updateTurn(){renderPlayers();$('turnline').textContent=finished?playerLabel(turn)+' WINS THE GAME! 🏆':playerLabel(turn)+' — '+(awaitMove?'CHOOSE A TOKEN':'ROLL YOUR DICE')}
@@ -561,9 +1089,10 @@ function startLudo(count){activeSeats=count===2?[0,2]:[0,1,2,3];pawns=Array.from
 function rollFor(p){if(p!==turn||awaitMove||finished||rollingDice)return;if(typeof playDiceSound==='function')playDiceSound();rollingDice=true;lastRoll=0;renderPlayers();let n=1+Math.floor(Math.random()*6);setTimeout(()=>{if(!rollingDice||turn!==p)return;rollingDice=false;lastRoll=n;if(n===6){sixes++;if(sixes>=3){lastRoll=0;sixes=0;addMsg(playerLabel(turn)+' rolled three 6s. Turn cancelled!',false);nextPlayer();return}}else sixes=0;let legal=[];for(let t=0;t<4;t++)if(isLegal(turn,t,n))legal.push(t);if(!legal.length){addMsg(playerLabel(turn)+' rolled '+n+' — no legal move.',false);setTimeout(()=>{if(turn===p&&!awaitMove&&!finished)nextPlayer()},650);return}awaitMove=true;drawPawns();updateTurn()},900)}
 function choosePawn(p,t){if(!awaitMove||p!==turn||!isLegal(p,t,lastRoll))return;if(typeof playMoveSound==='function')playMoveSound();let roll=lastRoll,old=pawns[p][t];if(old<0){if(roll!==6)return;pawns[p][t]=0}else pawns[p][t]=old+roll;let v=pawns[p][t],captured=false;if(v<=51){let global=(starts[p]+v)%52;if(!safe.includes(global))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){let ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===global){pawns[op][ot]=-1;captured=true;addMsg(playerLabel(p)+' captured '+playerLabel(op)+' token!',false)}}}awaitMove=false;if(pawns[p].every(x=>x===57)){finished=true;if(typeof playWinSound==='function')playWinSound();lastRoll=0;if(!ludoPrizePaid){coinBalance+=ludoPrizePool;ludoPrizePaid=true;saveWallet();addMsg(ludoPrizePool>0?playerLabel(p)+' wins '+fmt(ludoPrizePool)+' coins! 🏆 Prize credited to this device wallet.':playerLabel(p)+' wins the free game! 🏆',false)}else addMsg(playerLabel(p)+' wins! 🏆',false);drawPawns();updateTurn();return}let extra=roll===6||captured||v===57;lastRoll=0;drawPawns();if(!extra)nextPlayer();else{addMsg(playerLabel(p)+' gets another turn.',false);updateTurn()}}
 function nextPlayer(){sixes=0;turn=activeSeats[(activeSeats.indexOf(turn)+1)%activeSeats.length];lastRoll=0;awaitMove=false;rollingDice=false;updateTurn();drawPawns()}
-function addMsg(s,me){let d=document.createElement('div');d.className='msg'+(me?' me':'');d.textContent=s;$('messages').appendChild(d);$('messages').scrollTop=$('messages').scrollHeight}
+function addMsg(s,me){let box=$('messages');if(!box)return;let d=document.createElement('div');d.className='msg'+(me?' me':'');d.textContent=s;box.appendChild(d);box.scrollTop=box.scrollHeight}
 function sendChat(){let s=$('chatinput').value.trim();if(!s)return;addMsg((profile.name||'You')+': '+s,true);$('chatinput').value=''}
 function sendEmoji(e){addMsg((profile.name||'You')+': '+e,true)}
+function voiceChat(){if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance('Voice message');speechSynthesis.cancel();speechSynthesis.speak(u)}else{addMsg('Voice message is not supported on this browser.',false)}}
 function buyGift(emoji,cost){let recipient=+$('giftRecipient').value;if(coinBalance<cost){$('giftMessage').textContent='Not enough coins. Claim your daily bonus or choose a smaller gift.';return}coinBalance-=cost;saveWallet();$('giftMessage').textContent='Gift sent to '+(recipient===0?(profile.name||'Player 1'):names[recipient])+': '+emoji+' ('+cost+' coins). Local demo only.'}
 function drawCard(){let cards=[['🔴','RED'],['🟢','GREEN'],['🔵','BLUE'],['🟡','YELLOW'],['⭐','STAR'],['🌈','RAINBOW'],['❤️','HEART'],['👑','CROWN']],a=cards[Math.floor(Math.random()*cards.length)];$('card').textContent=a[0];$('cardtext').textContent='You picked: '+a[1]}
 let snakePlayerCount=2,snakeMode='offline',snakeEntry=0,snakePrizePool=0,snakePositions=[1,1],snakeTurn=0,snakeFinished=false,snakeRolling=false;
