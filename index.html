@@ -607,6 +607,10 @@ html,body{min-height:100%;margin:0}
 @media(min-width:761px){#fiFloatingBubble{right:max(12px,calc((100vw - 760px)/2 - 68px))}}
 </style>
 
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
@@ -1431,4 +1435,15 @@ function fiRefresh(){fiCleanupExpired();fiRender();fiSetStatus(fiAdapter()?'Refr
  if(window.ONE_SOUL_FIREBASE_READY)window.ONE_SOUL_FIREBASE_READY.then(()=>status('Firebase connected • choose Create Room or Join Room')).catch(e=>status('Firebase sign-in failed: '+(e.message||e)));
 })();
 </script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function (err) {
+      console.warn('App offline support could not be enabled:', err);
+    });
+  });
+}
+</script>
+
 </body></html>
