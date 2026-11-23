@@ -1447,4 +1447,105 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+
+<style id="one-soul-offline-computer-style">
+/* Offline computer-player additions only; existing board and screen styling stays intact. */
+.player.computer-player .avatar{border-color:#ffe39a;background:linear-gradient(145deg,#fff,#dcecff)}
+.player.computer-player .status{color:#ffe6a0}
+.player.computer-player .computer-tag{font-size:8px;color:#aee8ff;letter-spacing:.5px;font-weight:900;margin-top:2px}
+</style>
+<script id="one-soul-offline-computer-players">
+(function(){
+ 'use strict';
+ const botProfiles=[
+  {name:'Ayesha Khan',gender:'female',face:'👩🏻'},
+  {name:'Muhammad Ali',gender:'male',face:'👨🏻'},
+  {name:'Fatima Noor',gender:'female',face:'👩🏽'},
+  {name:'Ahmed Raza',gender:'male',face:'👨🏽'},
+  {name:'Maryam Zahra',gender:'female',face:'👩🏼'},
+  {name:'Usman Malik',gender:'male',face:'👨🏼'},
+  {name:'Hira Ahmed',gender:'female',face:'👩🏾'},
+  {name:'Hamza Sheikh',gender:'male',face:'👨🏾'}
+ ];
+ let computerSeats=new Set(),computerTimer=null;
+ const originalStart=window.startLudo, originalUpdate=window.updateTurn,
+       originalChoose=window.choosePawn, originalNext=window.nextPlayer;
+ function isBot(p){return !onlineLudoRoomId&&computerSeats.has(Number(p))}
+ function bot(p){return window.__oneSoulBotProfiles&&window.__oneSoulBotProfiles[p]}
+ function portrait(gender){
+   const bg=gender==='female'?'#f4c5d9':'#b9dcff',hair=gender==='female'?'#56364c':'#332b28';
+   const svg='<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><linearGradient id="b" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="'+bg+'"/></linearGradient></defs><rect width="100" height="100" rx="50" fill="url(#b)"/><path d="M17 100c2-25 17-36 33-36s31 11 33 36" fill="#24518a"/><path d="M25 49c-4-26 8-39 25-39 22 0 31 18 25 43l-7 12H33z" fill="'+hair+'"/><ellipse cx="50" cy="46" rx="23" ry="27" fill="#c98768"/><path d="M27 39c4-24 42-31 49 1-10-5-18-14-22-19-6 10-16 16-27 18" fill="'+hair+'"/><circle cx="42" cy="47" r="2.5" fill="#30252a"/><circle cx="59" cy="47" r="2.5" fill="#30252a"/><path d="M44 59q6 5 12 0" fill="none" stroke="#8e4c4a" stroke-width="2.5" stroke-linecap="round"/></svg>';
+   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+ }
+ function setupBots(){
+   if(computerTimer){clearTimeout(computerTimer);computerTimer=null}
+   const pool=botProfiles.slice();
+   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
+   window.__oneSoulBotProfiles={};
+   computerSeats=new Set(activeSeats.filter(p=>p!==0));
+   [...computerSeats].forEach((p,i)=>window.__oneSoulBotProfiles[p]=pool[i%pool.length]);
+ }
+ window.playerLabel=function(p){
+   if(isBot(p)){const b=bot(p);if(b)return b.name}
+   if(onlineLudoRoomId)return names[p]||('Player '+(p+1));
+   return p===0?(profile.name||'Player 1'):(names[p]||('Player '+(p+1)));
+ };
+ const oldCard=window.playerCard;
+ window.playerCard=function(p){
+   if(!isBot(p))return oldCard(p);
+   if(!activeSeats.includes(p))return '<div></div>';
+   const b=bot(p)||{name:'Computer',gender:'male'},active=p===turn&&!finished;
+   const ds=SHOP_CATALOG.dice.find(x=>x.id===shopInventory.dice)||SHOP_CATALOG.dice[0];
+   return '<div class="player computer-player '+(active?'active':'')+'"><div class="pinfo" style="order:1"><div class="avatar"><img alt="Computer player portrait" src="'+portrait(b.gender)+'"></div><div class="pname">'+escapeHTML(b.name)+'</div><div class="computer-tag">🤖 COMPUTER</div><div class="status">'+(active?'THINKING':'READY')+'</div></div><button class="mini-dice '+(active&&rollingDice?'rolling':'')+'" style="--dice-light:'+ds.palette[0]+';--dice-dark:'+ds.palette[1]+';--dice-ink:'+ds.palette[2]+'" disabled>'+(active&&rollingDice?'🎲':(active&&lastRoll?lastRoll:'🎲'))+'</button></div>';
+ };
+ function bestToken(p){
+   const legal=[];for(let t=0;t<4;t++)if(isLegal(p,t,lastRoll))legal.push(t);
+   if(!legal.length)return;
+   let best=legal[0],bestScore=-1e9;
+   for(const t of legal){
+     const old=pawns[p][t],next=old<0?0:old+lastRoll;
+     let score=next===57?10000:next;
+     if(old<0)score+=180;
+     if(next<=51){
+       const g=(starts[p]+next)%52;
+       if(!safe.includes(g))for(let op=0;op<4;op++)if(op!==p)for(let ot=0;ot<4;ot++){
+         const ov=pawns[op][ot];if(ov>=0&&ov<=51&&(starts[op]+ov)%52===g)score+=650;
+       }
+       if(safe.includes(g))score+=45;
+     }
+     if(next>=52&&next<57)score+=100+(next-52)*10;
+     score+=Math.random()*4;
+     if(score>bestScore){bestScore=score;best=t}
+   }
+   return best;
+ }
+ function scheduleBot(){
+   if(computerTimer){clearTimeout(computerTimer);computerTimer=null}
+   if(onlineLudoRoomId||finished||!computerSeats.has(Number(turn))||!$('ludo')?.classList.contains('active'))return;
+   const p=Number(turn);
+   computerTimer=setTimeout(function(){
+     computerTimer=null;
+     if(onlineLudoRoomId||finished||turn!==p||!computerSeats.has(p))return;
+     if(awaitMove){const t=bestToken(p);if(t!==undefined)window.choosePawn(p,t);return}
+     if(!rollingDice){
+       window.rollFor(p);
+       computerTimer=setTimeout(function(){
+         computerTimer=null;
+         if(!onlineLudoRoomId&&!finished&&turn===p&&awaitMove){
+           const t=bestToken(p);if(t!==undefined)window.choosePawn(p,t);
+         }
+       },1120);
+     }
+   },650);
+ }
+ window.startLudo=function(count){
+   if(typeof originalStart==='function')originalStart(count);
+   if(!onlineLudoRoomId){setupBots();renderPlayers();renderYardNames();window.updateTurn()}
+ };
+ window.updateTurn=function(){if(typeof originalUpdate==='function')originalUpdate();scheduleBot()};
+ window.nextPlayer=function(){if(typeof originalNext==='function')originalNext();scheduleBot()};
+ window.choosePawn=function(p,t){if(typeof originalChoose==='function')originalChoose(p,t);scheduleBot()};
+})();
+</script>
+
 </body></html>
